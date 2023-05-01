@@ -5,6 +5,9 @@
 #include <string>
 #include <framework.h>
 
+extern Player Players[2+5];
+extern Ingredient Ingredient[20 + 5];
+
 int main()
 {
     std::ios::sync_with_stdio(false);
@@ -31,7 +34,9 @@ int main()
         std::cout << "Frame " << i << "\n";
         std::string player0_Action = "Move L";
         std::string player1_Action = "Move U";
-
+        if(Players[0].x - Ingredient[0].x <= 1.3){
+            player0_Action ="PutOrPick L";
+        }
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
         std::cout << action;
