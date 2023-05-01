@@ -40,8 +40,8 @@ char Moveplan(double x, double y, int ptype)
                     // 上
                     if (row > y + 1)
                     { // 不能交互
-                        std::cerr << "map" << Map[row - 1][line] << std::endl;
-
+                        std::cerr << "map:" << Map[row - 1][line] << std::endl;
+                        std::cerr << "dis:" << dis<< std::endl;
                         if (Map[row - 1][line] == '.' && dis > 0.5)
                         {
                             // 可走
