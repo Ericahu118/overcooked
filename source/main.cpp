@@ -34,6 +34,7 @@ int main()
         std::cout << "Frame " << i << "\n";
         std::string player0_Action = "Move L";
         std::string player1_Action = "Move U";
+        std::cerr << "player x: " << Players[0].x << "x" <<Ingredient[0].x  << std::endl;//可以输出到log.txt文件中
         if(Players[0].x - Ingredient[0].x <= 1.3){
             player0_Action ="PutOrPick L";
         }
