@@ -24,7 +24,7 @@ char Moveplan(double x, double y, int ptype)
     double dis = (Players[(ptype + 1) % 2].y-Players[ptype].y)*(Players[(ptype + 1) % 2].y-Players[ptype].y)+(Players[(ptype + 1) % 2].x-Players[ptype].x)*(Players[(ptype + 1) % 2].x-Players[ptype].x);
     std::cerr << "player row: " << row << " line:" <<line << std::endl;
     std::cerr << "des row: " << x << " line:" <<y<< std::endl;
-    return 'U';
+
     if (x < Players[ptype].x)
     {
         // 左
@@ -34,34 +34,34 @@ char Moveplan(double x, double y, int ptype)
             { // 可走
                 return 'L';
             }
-            else
+        }
+        else
+        {
+            return 'U';
+            if (y < Players[ptype].y)
             {
-
-                if (y < Players[ptype].y)
-                {
-                    // 上
-                    if (row > y + 1)
-                    { // 不能交互
-                        /*std::cerr << "map:" << Map[row - 1][line] << std::endl;
-                        std::cerr << "dis:" << dis<< std::endl;
-                        if (Map[row - 1][line] == '.' && dis > 0.5)
-                        {
-                            // 可走
-                            return 'U';
-                        }*/
-
-                    }
-                }
-                else if (y > Players[ptype].y)
-                {
-                    if (row < y - 1)
+                // 上
+                if (row > y + 1)
+                { // 不能交互
+                    //std::cerr << "map:" << Map[row - 1][line] << std::endl;
+                    //std::cerr << "dis:" << dis<< std::endl;
+                    if (Map[row - 1][line] == '.' && dis > 0.5)
                     {
-                        // 不能交互
-                        if (Map[row + 1][line] == '.' && ((row + 1) != row1 || line != line1))
-                        {
-                            // 可走
-                            return 'D';
-                        }
+                        // 可走
+                        return 'U';
+                    }
+
+                }
+            }
+            else if (y > Players[ptype].y)
+            {
+                if (row < y - 1)
+                {
+                    // 不能交互
+                    if (Map[row + 1][line] == '.' && ((row + 1) != row1 || line != line1))
+                    {
+                        // 可走
+                        return 'D';
                     }
                 }
             }
