@@ -30,7 +30,7 @@ char Moveplan(double x, double y, int ptype)
         // 左
         if (line > x + 1)
         { // 不能交互
-            if (Map[row][line - 1] == '.' && (row != row1 || (line - 1) != line1) && (Players[ptype].x -x) > 2)
+            if (Map[row][line - 1] == '.' && (row != row1 || (line - 1) != line1))
             { // 可走
                 return 'L';
             }
