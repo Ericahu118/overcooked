@@ -147,7 +147,7 @@ int main()
         case 'L':
             player0_Action = "Move L";break;
         default:
-            player0_Action = "Move";break;
+            player0_Action = "Move"; Players[0].X_Velocity = 0,Players[0].Y_Velocity = 0; break;
         }
         switch(move1){
         case 'U':
@@ -159,7 +159,7 @@ int main()
         case 'L':
             player1_Action = "Move L";break;
         default:
-            player1_Action = "Move";break;
+            player1_Action = "Move";Players[1].X_Velocity = 0,Players[1].Y_Velocity = 0;break;
         }
 
         /* test
