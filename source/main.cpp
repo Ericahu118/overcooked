@@ -21,6 +21,7 @@ char Moveplan(double x, double y, int ptype)
     int row = ceil(Players[ptype].y + center) - 1;
     int line1 = ceil(Players[(ptype + 1) % 2].x + center) - 1;
     int row1 = ceil(Players[(ptype + 1) % 2].y + center) - 1;
+    double dis = (Players[(ptype + 1) % 2].y-Players[ptype].y)*(Players[(ptype + 1) % 2].y-Players[ptype].y)+(Players[(ptype + 1) % 2].x-Players[ptype].x)*(Players[(ptype + 1) % 2].x-Players[ptype].x);
     std::cerr << "player row: " << row << " line:" <<line << std::endl;
     std::cerr << "des row: " << x << " line:" <<y<< std::endl;
     if (x < Players[ptype].x)
@@ -39,7 +40,9 @@ char Moveplan(double x, double y, int ptype)
                     // 上
                     if (row > y + 1)
                     { // 不能交互
-                        if (Map[row - 1][line] == '.' && ((row - 1) != row1 || line != line1))
+                        std::cerr << "map" << Map[row - 1][line] << std::endl;
+
+                        if (Map[row - 1][line] == '.' && dis > 0.5)
                         {
                             // 可走
                             return 'U';
