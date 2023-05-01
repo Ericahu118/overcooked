@@ -32,10 +32,10 @@ int main()
 
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
-        std::string player0_Action = "Move L";
-        std::string player1_Action = "Move U";
+        std::string player0_Action = "Move";
+        std::string player1_Action = "Move";
 
-        // test
+        /* test
         std::cerr << "player x: " << Players[0].x << "x" <<Ingredient[0].x  << std::endl;//可以输出到log.txt文件中
         if(Players[0].x - Ingredient[0].x <= 2.3 && Players[0].entity.empty()){
             player0_Action ="PutOrPick L";
@@ -43,7 +43,7 @@ int main()
         if(!Players[0].entity.empty()){
             player0_Action ="Move R";
         }
-        //test
+        test*/
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
