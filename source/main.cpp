@@ -21,7 +21,8 @@ char Moveplan(double x, double y, int ptype)
     int row = ceil(Players[ptype].y + center) - 1;
     int line1 = ceil(Players[(ptype + 1) % 2].x + center) - 1;
     int row1 = ceil(Players[(ptype + 1) % 2].y + center) - 1;
-
+    std::cerr << "player row: " << row << " line:" <<line << std::endl;
+    std::cerr << "des row: " << x << " line:" <<y<< std::endl;
     if (x < Players[ptype].x)
     {
         // 左
