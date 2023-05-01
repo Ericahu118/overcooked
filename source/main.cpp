@@ -35,6 +35,7 @@ char Moveplan(double x, double y, int ptype)
             }
             else
             {
+                return 'U';
                 if (y < Players[ptype].y)
                 {
                     // 上
@@ -47,7 +48,7 @@ char Moveplan(double x, double y, int ptype)
                             // 可走
                             return 'U';
                         }*/
-                        return 'U';
+
                     }
                 }
                 else if (y > Players[ptype].y)
