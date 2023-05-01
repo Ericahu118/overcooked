@@ -3,10 +3,28 @@
 #include <string>
 #include <vector>
 #include <string>
+#include <math.h>
 #include <framework.h>
+
+
+const double radius = 0.35;
+const double interdis = 1.3;
+const double center = 0.5;
 
 extern Player Players[2+5];
 extern Ingredient Ingredient[20 + 5];
+extern char Map[20 + 5][20 + 5];
+int worktype[2+5];//0 for dish 1 for wash
+int Moveplan(double x, double y,int ptype){
+    //遵循先左右后上下
+    if(x < Players[ptype].x){
+        int loca_x = floor(Players[ptype].x - center)
+        if( > x+1){
+            if()
+        }
+    }
+}
+
 
 int main()
 {
