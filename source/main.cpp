@@ -134,7 +134,7 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
         char move0 = 'N';
-        char move1 = Moveplan(4,0,1);
+        char move1 = Moveplan(6,0,1);
         std::string player0_Action;
         std::string player1_Action;
         switch(move0){
