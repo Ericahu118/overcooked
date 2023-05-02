@@ -21,9 +21,9 @@ char Moveplan(double x, double y, int ptype)
     int row = ceil(Players[ptype].y + center) - 1;
     int line1 = ceil(Players[(ptype + 1) % 2].x + center) - 1;
     int row1 = ceil(Players[(ptype + 1) % 2].y + center) - 1;
-    double dis = (Players[(ptype + 1) % 2].y-Players[ptype].y)*(Players[(ptype + 1) % 2].y-Players[ptype].y)+(Players[(ptype + 1) % 2].x-Players[ptype].x)*(Players[(ptype + 1) % 2].x-Players[ptype].x);
-    std::cerr << "player row: " << row << " line:" <<line << std::endl;
-    std::cerr << "des row: " << x << " line:" <<y<< std::endl;
+    double dis = (Players[(ptype + 1) % 2].y - Players[ptype].y) * (Players[(ptype + 1) % 2].y - Players[ptype].y) + (Players[(ptype + 1) % 2].x - Players[ptype].x) * (Players[(ptype + 1) % 2].x - Players[ptype].x);
+    std::cerr << "player row: " << row << " line:" << line << std::endl;
+    std::cerr << "des row: " << x << " line:" << y << std::endl;
 
     if (x < Players[ptype].x)
     {
@@ -43,14 +43,13 @@ char Moveplan(double x, double y, int ptype)
                 // 上
                 if (row > y + 1)
                 { // 不能交互
-                    //std::cerr << "map:" << Map[row - 1][line] << std::endl;
-                    //std::cerr << "dis:" << dis<< std::endl;
+                    // std::cerr << "map:" << Map[row - 1][line] << std::endl;
+                    // std::cerr << "dis:" << dis<< std::endl;
                     if (Map[row - 1][line] == '.' && dis > 0.5)
                     {
                         // 可走
                         return 'U';
                     }
-
                 }
             }
             else if (y > Players[ptype].y)
@@ -133,33 +132,47 @@ int main()
 
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
-        char move0 = 'N';
-        char move1 = Moveplan(6,0,1);
+        char move0 = 'L';
+        char move1 = 'N';
         std::string player0_Action;
         std::string player1_Action;
-        switch(move0){
+        switch (move0)
+        {
         case 'U':
-            player0_Action = "Move U";break;
+            player0_Action = "Move U";
+            break;
         case 'R':
-            player0_Action = "Move R";break;
+            player0_Action = "Move R";
+            break;
         case 'D':
-            player0_Action = "Move D";break;
+            player0_Action = "Move D";
+            break;
         case 'L':
-            player0_Action = "Move L";break;
+            player0_Action = "Move L";
+            break;
         default:
-            player0_Action = "Move"; Players[0].X_Velocity = 0,Players[0].Y_Velocity = 0; break;
+            player0_Action = "Move";
+            Players[0].X_Velocity = 0, Players[0].Y_Velocity = 0;
+            break;
         }
-        switch(move1){
+        switch (move1)
+        {
         case 'U':
-            player1_Action = "Move U";break;
+            player1_Action = "Move U";
+            break;
         case 'R':
-            player1_Action = "Move R";break;
+            player1_Action = "Move R";
+            break;
         case 'D':
-            player1_Action = "Move D";break;
+            player1_Action = "Move D";
+            break;
         case 'L':
-            player1_Action = "Move L";break;
+            player1_Action = "Move L";
+            break;
         default:
-            player1_Action = "Move";Players[1].X_Velocity = 0,Players[1].Y_Velocity = 0;break;
+            player1_Action = "Move";
+            Players[1].X_Velocity = 0, Players[1].Y_Velocity = 0;
+            break;
         }
 
         /* test
