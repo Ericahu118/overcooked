@@ -175,9 +175,9 @@ int main()
             Players[1].X_Velocity = 0, Players[1].Y_Velocity = 0;
             break;
         }
-        if (Players[1].x <= 2.3 && flag == 0)
+        std::cerr << "player x: " << Players[0].x << std::endl;
+        if (Players[0].x <= 2.3 && flag == 0)
         {
-            std::cerr << "player x: " << Players[0].x << std::endl;
             flag = 1;
             player1_Action = "Interact";
         }
