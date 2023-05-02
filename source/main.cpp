@@ -177,6 +177,7 @@ int main()
         }
         if (Players[1].x <= 2.3 && flag == 0)
         {
+            std::cerr << "player x: " << Players[0].x << std::endl;
             flag = 1;
             player1_Action = "Interact";
         }
