@@ -176,13 +176,13 @@ int main()
             break;
         }
         std::cerr << "player x: " << Players[0].x << std::endl;
-        if (Players[0].x <= 2.3 && Players[0].entity.empty())
+        if (Players[0].x <= 2 && flag == 0)
         {
             flag = 1;
             player0_Action = "Interact L";
         }
         if (!Players[0].entity.empty())
-            player0_Action = "Move";
+            std::cerr << "player x: " << Players[0].entity.begin() << std::endl;
         /* test
         std::cerr << "player x: " << Players[0].x << "x" <<Ingredient[0].x  << std::endl;//可以输出到log.txt文件中
         if(Players[0].x - Ingredient[0].x <= 2.3 && Players[0].entity.empty()){
