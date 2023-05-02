@@ -181,8 +181,6 @@ int main()
             flag = 1;
             player0_Action = "Interact L";
         }
-        if (!Players[0].entity.empty())
-            std::cerr << "player x: " << Players[0].entity.begin()[0] << std::endl;
         /* test
         std::cerr << "player x: " << Players[0].x << "x" <<Ingredient[0].x  << std::endl;//可以输出到log.txt文件中
         if(Players[0].x - Ingredient[0].x <= 2.3 && Players[0].entity.empty()){
