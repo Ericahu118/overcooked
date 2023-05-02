@@ -179,7 +179,7 @@ int main()
         if (Players[0].x <= 2.3 && flag == 0)
         {
             flag = 1;
-            player0_Action = "Interact";
+            player0_Action = "Interact L";
         }
         else if (flag == 1)
             player0_Action = "Move";
