@@ -11,9 +11,10 @@ const double interdis = 1.3;
 const double center = 0.5;
 
 extern Player Players[2 + 5];
-extern Ingredient Ingredient[20 + 5];
+extern struct Ingredient Ingredient[20 + 5];
 extern char Map[20 + 5][20 + 5];
 int worktype[2 + 5]; // 0 for dish 1 for wash
+int flag = 0;
 char Moveplan(double x, double y, int ptype)
 {
     // 遵循先左右后上下 不能交互就要移动的策略
@@ -173,6 +174,11 @@ int main()
             player1_Action = "Move";
             Players[1].X_Velocity = 0, Players[1].Y_Velocity = 0;
             break;
+        }
+        if (Players[1].x <= 2.3 && flag == 0)
+        {
+            flag = 1;
+            player1_Action = "Interact";
         }
 
         /* test
