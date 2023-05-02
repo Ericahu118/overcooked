@@ -179,10 +179,10 @@ int main()
         if (Players[0].x <= 2.3 && flag == 0)
         {
             flag = 1;
-            player1_Action = "Interact";
+            player0_Action = "Interact";
         }
         else if (flag == 1)
-            player1_Action = "Move";
+            player0_Action = "Move";
 
         /* test
         std::cerr << "player x: " << Players[0].x << "x" <<Ingredient[0].x  << std::endl;//可以输出到log.txt文件中
