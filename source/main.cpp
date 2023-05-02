@@ -176,9 +176,9 @@ int main()
             break;
         }
         std::cerr << "player x: " << Players[0].x << std::endl;
-        if (Players[0].x <= 2 && flag == 0)
+        if (Players[0].x <= 2)
         {
-            flag = 1;
+            // flag = 1;
             player0_Action = "Interact L";
         }
         /* test
