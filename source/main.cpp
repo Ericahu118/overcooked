@@ -14,10 +14,9 @@ extern Player Players[2 + 5];
 extern struct Ingredient Ingredient[20 + 5];
 extern char Map[20 + 5][20 + 5];
 int worktype[2 + 5]; // 0 for dish 1 for wash
-int flag = 0;
+
 char Moveplan(double x, double y, int ptype)
 {
-    return 'N';
 }
 
 int main()
@@ -44,19 +43,21 @@ int main()
             continue;
 
         /* 输出当前帧的操作，此处仅作示例 */
+        std::cout << "Frame " << i << "\n";
 
         std::string player0_Action = "Move L";
         std::string player1_Action = "Move";
 
         if (Players[0].x <= 2 && Players[0].entity.empty())
         {
-            // flag = 1;
             player0_Action = "PutOrPick L";
         }
         if (!Players[0].entity.empty())
         {
             player0_Action = "Move";
         }
+        if (Players[0].X_Velocity == 0)
+            Players[0].x = 1.5;
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
