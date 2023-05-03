@@ -129,12 +129,23 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
 
-        std::string player0_Action = Moveplan(0, 4, 0);
+        std::string player0_Action = Moveplan(9, 7, 0);
         std::string player1_Action = "Move";
         double x = 0, y = 4;
         if (!Players[0].entity.empty())
         {
-            player0_Action = "Move";
+            switch (Players[0].entity.size())
+            {
+            case 1:
+                player0_Action = "Move";
+                break;
+            case 2:
+                player0_Action = "Move";
+                break;
+            default:
+                player0_Action = "Move";
+                break;
+            }
         }
 
         /*if (Players[0].x <= 2 && Players[0].entity.empty())
