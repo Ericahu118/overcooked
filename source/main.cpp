@@ -152,6 +152,45 @@ std::string Moveplan(double x, double y, int ptype)
         else
             return "Move D";
     }
+    else if (y == 0)
+    { // up
+        if (v0x == 0 && v0y == 0)
+        { // step3 has stop
+            if (crash)
+            {
+                // todo remain unsolve
+                return "Move";
+            }
+            if (pickobj_y1)
+                if (x0 > x && pickobj_yx2)
+                    return "PutOrPick U";
+        }
+        if (v0y == 0)
+        { // step2 stop
+            if (pickobj_y1)
+            { // because of dis
+                if (x > x0)
+                { // left
+                    if (crash)
+                        return "Move";
+                    return "Move R";
+                }
+                else
+                { // right
+                    if (x0 - x <= center + 0.3 || crash)
+                    {
+                        return "Move";
+                    }
+                    else
+                        return "Move L";
+                }
+            }
+        }
+        if (crash || pickobj_y1)
+            return "Move";
+        else
+            return "Move U";
+    }
     return "Move";
 }
 
@@ -181,7 +220,7 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
 
-        std::string player0_Action = Moveplan(9, 7, 0);
+        std::string player0_Action = Moveplan(4, 0, 0);
         std::string player1_Action = Moveplan(3, 9, 1);
 
         if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
