@@ -22,7 +22,7 @@ std::string Moveplan(double x, double y, int ptype)
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
     bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3);
     bool pickobj_x1 = (x0 - x <= radius + interdis + 0.3);
-    bool pickobj_x2 = (x - x0 <= radius + interdis + 0.3);
+    bool pickobj_x2 = (x - x0 <= radius + 0.3);
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
