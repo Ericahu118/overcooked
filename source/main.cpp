@@ -184,7 +184,7 @@ int main()
         std::string player0_Action = Moveplan(9, 7, 0);
         std::string player1_Action = Moveplan(3, 9, 1);
 
-        if (!Players[0].entity.empty())
+        if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
         {
             switch (Players[0].entity.size())
             {
@@ -199,7 +199,7 @@ int main()
                 break;
             }
         }
-        if (!Players[1].entity.empty())
+        if (!Players[1].entity.empty() || Players[1].containerKind != ContainerKind::None)
         {
             switch (Players[1].entity.size())
             {
