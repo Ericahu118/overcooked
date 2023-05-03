@@ -72,7 +72,6 @@ std::string Moveplan(double x, double y, int ptype)
         else
             return "Move L";
     }
-
     else if (x == 9)
     { // left line
         if (v0x == 0 && v0y == 0)
@@ -112,6 +111,8 @@ std::string Moveplan(double x, double y, int ptype)
         else
             return "Move R";
     }
+    // 6.5 8.58714 0 0 0
+    // 7.10355 4.5 5.25984 0 0
     else if (y == 9)
     {
         if (v0x == 0 && v0y == 0)
@@ -119,7 +120,7 @@ std::string Moveplan(double x, double y, int ptype)
             if (crash)
             {
                 // todo remain unsolve
-                return "Move";
+                return "Move L";
             }
             if (pickobj_y2)
                 if (x0 > x && pickobj_yx2)
