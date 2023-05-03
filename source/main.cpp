@@ -15,9 +15,19 @@ extern struct Ingredient Ingredient[20 + 5];
 extern char Map[20 + 5][20 + 5];
 int worktype[2 + 5]; // 0 for dish 1 for wash
 
-char Moveplan(double x, double y, int ptype)
+std::string Moveplan(double x, double y, int ptype)
 {
-    return 'N';
+    double x0, x1, y0, y1; // p0 and p1 location
+    x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
+    bool stopcondition = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3) || (x0 - x <= radius + interdis + 0.3);
+    if (x == 0)
+    { // right line
+        if (stopcondition)
+            return "Move";
+        else
+            return "Move L";
+    }
+    return "Move";
 }
 
 int main()
@@ -45,21 +55,18 @@ int main()
 
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
-        std::cerr << "x:" << Players[0].x << std::endl;
-        std::string player0_Action = "Move L";
+
+        std::string player0_Action = Moveplan(0, 4, 0);
         std::string player1_Action = "Move";
 
-        if (Players[0].x <= 2 && Players[0].entity.empty())
+        /*if (Players[0].x <= 2 && Players[0].entity.empty())
         {
             player0_Action = "PutOrPick L";
         }
         if (!Players[0].entity.empty())
         {
             player0_Action = "Move";
-        }
-        if (Players[0].X_Velocity == 0)
-            Players[0].x = 1.5;
-        std::cerr << "x2:" << Players[0].x << std::endl;
+        }*/
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
