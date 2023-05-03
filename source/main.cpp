@@ -21,7 +21,7 @@ std::string Moveplan(double x, double y, int ptype)
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
-    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3);
+    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * radius + 0.3;
     bool pickobj_x1 = (x0 - x <= block + center + 0.3); // left
     bool pickobj_x2 = (x - x0 <= center + 0.3);         // right
     bool pickobj_xy1 = (y0 - y <= center + 0.3);        // x+up
