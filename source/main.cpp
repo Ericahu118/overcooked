@@ -9,22 +9,27 @@
 const double radius = 0.35;
 const double interdis = 1.3;
 const double center = 0.5;
+const double block = 1;
 
 extern Player Players[2 + 5];
 extern struct Ingredient Ingredient[20 + 5];
 extern char Map[20 + 5][20 + 5];
 int worktype[2 + 5]; // 0 for dish 1 for wash
-
+// My move plan remain to solve crash
 std::string Moveplan(double x, double y, int ptype)
 {
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
     bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3);
-    bool pickobj_x1 = (x0 - x <= radius + interdis + 0.3); // left
-    bool pickobj_x2 = (x - x0 <= radius + 0.3);            // right
-    bool pickobj_xy1 = (y0 - y <= center + 0.3);           // x+up
-    bool pickobj_xy2 = (y - y0 <= center + 0.3);
+    bool pickobj_x1 = (x0 - x <= block + center + 0.3); // left
+    bool pickobj_x2 = (x - x0 <= center + 0.3);         // right
+    bool pickobj_xy1 = (y0 - y <= center + 0.3);        // x+up
+    bool pickobj_xy2 = (y - y0 <= center + 0.3);        // x + down
+    bool pickobj_y1 = (y0 - y <= block + center + 0.3);
+    bool pickobj_y2 = (y - y0 <= center + 0.3);
+    bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
+    bool pickobj_yx2 = (y - y0 <= center + 0.3); // y+right
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
@@ -36,7 +41,7 @@ std::string Moveplan(double x, double y, int ptype)
             }
             if (pickobj_x1)
             {
-                if ((y >= y0 && pickobj_xy2) || (y < y0 && pickobj_xy1))
+                if (y < y0 && pickobj_xy1)
                     return "PutOrPick L";
             }
         }
@@ -78,7 +83,7 @@ std::string Moveplan(double x, double y, int ptype)
                 return "Move";
             }
             if (pickobj_x2)
-                if ((y >= y0 && pickobj_xy2) || (y < y0 && pickobj_xy1))
+                if (y < y0 && pickobj_xy1)
                     return "PutOrPick R";
         }
         if (v0x == 0)
@@ -106,6 +111,45 @@ std::string Moveplan(double x, double y, int ptype)
             return "Move";
         else
             return "Move R";
+    }
+    else if (y == 9)
+    {
+        if (v0x == 0 && v0y == 0)
+        { // step3 has stop
+            if (crash)
+            {
+                // todo remain unsolve
+                return "Move";
+            }
+            if (pickobj_y2)
+                if ((y >= y0 && pickobj_xy2) || (y < y0 && pickobj_xy1))
+                    return "PutOrPick R";
+        }
+        if (v0y == 0)
+        { // step2 stop
+            if (pickobj_y2)
+            { // because of dis
+                if (x > x0)
+                { // left
+                    if (crash)
+                        return "Move";
+                    return "Move R";
+                }
+                else
+                { // right
+                    if (x - x0 <= center + 0.3 || crash)
+                    {
+                        return "Move";
+                    }
+                    else
+                        return "Move L";
+                }
+            }
+        }
+        if (crash || pickobj_y2)
+            return "Move";
+        else
+            return "Move D";
     }
     return "Move";
 }
