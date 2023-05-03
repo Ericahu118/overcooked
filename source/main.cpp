@@ -90,6 +90,11 @@ int main()
 
         std::string player0_Action = Moveplan(0, 4, 0);
         std::string player1_Action = "Move";
+        double x = 0, y = 4;
+        if (!Players[0].entity.empty())
+        {
+            player0_Action = "Move";
+        }
 
         /*if (Players[0].x <= 2 && Players[0].entity.empty())
         {
