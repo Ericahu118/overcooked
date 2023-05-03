@@ -17,12 +17,44 @@ int worktype[2 + 5]; // 0 for dish 1 for wash
 
 std::string Moveplan(double x, double y, int ptype)
 {
-    double x0, x1, y0, y1; // p0 and p1 location
+    double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
-    bool stopcondition = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3) || (x0 - x <= radius + interdis + 0.3);
+    v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
+    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3);
+    bool pickobj_x1 = (x0 - x <= radius + interdis + 0.3);
     if (x == 0)
     { // right line
-        if (stopcondition)
+        if (v0x == 0 && v0y == 0)
+        {
+            if (crash)
+            {
+                return "Move";
+            }
+            if (pickobj_x1 && y0 - y <= center + 0.3)
+                return "PutOrPick L";
+        }
+        if (v0x == 0)
+        {
+            if (pickobj_x1)
+            {
+                if (y > y0)
+                {
+                    if (crash)
+                        return "Move";
+                    return "Move D";
+                }
+                else
+                {
+                    if (y0 - y <= center + 0.3 || crash)
+                    {
+                        return "Move";
+                    }
+                    else
+                        return "Move U";
+                }
+            }
+        }
+        if (crash || pickobj_x1)
             return "Move";
         else
             return "Move L";
