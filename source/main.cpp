@@ -22,21 +22,23 @@ std::string Moveplan(double x, double y, int ptype)
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
     bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3);
     bool pickobj_x1 = (x0 - x <= radius + interdis + 0.3);
+    bool pickobj_x2 = (x - x0 <= radius + interdis + 0.3);
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
-        {
+        { // step3 has stop
             if (crash)
             {
+                // todo remain unsolve
                 return "Move";
             }
             if (pickobj_x1 && y0 - y <= center + 0.3)
                 return "PutOrPick L";
         }
         if (v0x == 0)
-        {
+        { // step2 stop
             if (pickobj_x1)
-            {
+            { // because of dis
                 if (y > y0)
                 {
                     if (crash)
@@ -54,10 +56,49 @@ std::string Moveplan(double x, double y, int ptype)
                 }
             }
         }
+        // step1 left first
         if (crash || pickobj_x1)
             return "Move";
         else
             return "Move L";
+    }
+    else if (x == 9)
+    { // left line
+        if (v0x == 0 && v0y == 0)
+        { // step3 has stop
+            if (crash)
+            {
+                // todo remain unsolve
+                return "Move";
+            }
+            if (pickobj_x2 && y0 - y <= center + 0.3)
+                return "PutOrPick R";
+        }
+        if (v0x == 0)
+        { // step2 stop
+            if (pickobj_x2)
+            { // because of dis
+                if (y > y0)
+                {
+                    if (crash)
+                        return "Move";
+                    return "Move D";
+                }
+                else
+                {
+                    if (y0 - y <= center + 0.3 || crash)
+                    {
+                        return "Move";
+                    }
+                    else
+                        return "Move U";
+                }
+            }
+        }
+        if (crash || pickobj_x2)
+            return "Move";
+        else
+            return "Move R";
     }
     return "Move";
 }
