@@ -120,7 +120,7 @@ std::string Moveplan(double x, double y, int ptype)
             if (crash)
             {
                 // todo remain unsolve
-                return "Move L";
+                return "Move";
             }
             if (pickobj_y2)
                 if (x0 > x && pickobj_yx2)
@@ -138,7 +138,7 @@ std::string Moveplan(double x, double y, int ptype)
                 }
                 else
                 { // right
-                    if (x - x0 <= center + 0.3 || crash)
+                    if (x0 - x <= center + 0.3 || crash)
                     {
                         return "Move";
                     }
