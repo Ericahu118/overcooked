@@ -67,7 +67,7 @@ std::string Moveplan(double x, double y, int ptype)
         else
             return "Move L";
     }
-    // 8.64516 4.5 0 0 0
+
     else if (x == 9)
     { // left line
         if (v0x == 0 && v0y == 0)
@@ -137,8 +137,8 @@ int main()
         std::cout << "Frame " << i << "\n";
 
         std::string player0_Action = Moveplan(9, 7, 0);
-        std::string player1_Action = "Move";
-        double x = 0, y = 4;
+        std::string player1_Action = Moveplan(0, 4, 1);
+
         if (!Players[0].entity.empty())
         {
             switch (Players[0].entity.size())
@@ -151,6 +151,21 @@ int main()
                 break;
             default:
                 player0_Action = "Move";
+                break;
+            }
+        }
+        if (!Players[1].entity.empty())
+        {
+            switch (Players[1].entity.size())
+            {
+            case 1:
+                player1_Action = "Move";
+                break;
+            case 2:
+                player1_Action = "Move";
+                break;
+            default:
+                player1_Action = "Move";
                 break;
             }
         }
