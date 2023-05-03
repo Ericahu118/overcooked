@@ -29,7 +29,7 @@ std::string Moveplan(double x, double y, int ptype)
     bool pickobj_y1 = (y0 - y <= block + center + 0.3);
     bool pickobj_y2 = (y - y0 <= center + 0.3);
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
-    bool pickobj_yx2 = (y - y0 <= center + 0.3); // y+right
+    bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
@@ -122,8 +122,8 @@ std::string Moveplan(double x, double y, int ptype)
                 return "Move";
             }
             if (pickobj_y2)
-                if ((y >= y0 && pickobj_xy2) || (y < y0 && pickobj_xy1))
-                    return "PutOrPick R";
+                if (x0 > x && pickobj_yx2)
+                    return "PutOrPick D";
         }
         if (v0y == 0)
         { // step2 stop
@@ -181,7 +181,7 @@ int main()
         std::cout << "Frame " << i << "\n";
 
         std::string player0_Action = Moveplan(9, 7, 0);
-        std::string player1_Action = Moveplan(0, 4, 1);
+        std::string player1_Action = Moveplan(3, 9, 1);
 
         if (!Players[0].entity.empty())
         {
