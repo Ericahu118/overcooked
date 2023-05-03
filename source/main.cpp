@@ -45,7 +45,7 @@ int main()
 
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
-        std::cerr << "x:" << Players[0].x << std::endl;
+
         std::string player0_Action = "Move L";
         std::string player1_Action = "Move";
 
