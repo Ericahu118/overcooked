@@ -59,7 +59,7 @@ int main()
         }
         if (Players[0].X_Velocity == 0)
             Players[0].x = 1.5;
-        std::cerr << "x2:" << Players[0].x << std::endl;
+        // std::cerr << "x2:" << Players[0].x << std::endl;
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
