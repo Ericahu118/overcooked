@@ -17,6 +17,7 @@ int worktype[2 + 5]; // 0 for dish 1 for wash
 int flag = 0;
 char Moveplan(double x, double y, int ptype)
 {
+    return 'N';
 }
 
 int main()
