@@ -45,7 +45,7 @@ int main()
 
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
-
+        std::cerr << "x:" << Players[0].x << std::endl;
         std::string player0_Action = "Move L";
         std::string player1_Action = "Move";
 
@@ -59,7 +59,7 @@ int main()
         }
         if (Players[0].X_Velocity == 0)
             Players[0].x = 1.5;
-        // std::cerr << "x2:" << Players[0].x << std::endl;
+        std::cerr << "x2:" << Players[0].x << std::endl;
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
