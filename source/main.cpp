@@ -21,8 +21,10 @@ std::string Moveplan(double x, double y, int ptype)
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
     bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * (radius + 0.3);
-    bool pickobj_x1 = (x0 - x <= radius + interdis + 0.3);
-    bool pickobj_x2 = (x - x0 <= radius + 0.3);
+    bool pickobj_x1 = (x0 - x <= radius + interdis + 0.3); // left
+    bool pickobj_x2 = (x - x0 <= radius + 0.3);            // right
+    bool pickobj_xy1 = (y0 - y <= center + 0.3);           // x+up
+    bool pickobj_xy2 = (y - y0 <= center + 0.3);
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
@@ -32,8 +34,11 @@ std::string Moveplan(double x, double y, int ptype)
                 // todo remain unsolve
                 return "Move";
             }
-            if (pickobj_x1 && y0 - y <= center + 0.3)
-                return "PutOrPick L";
+            if (pickobj_x1)
+            {
+                if ((y >= y0 && pickobj_xy2) || (y < y0 && pickobj_xy1))
+                    return "PutOrPick L";
+            }
         }
         if (v0x == 0)
         { // step2 stop
@@ -62,6 +67,7 @@ std::string Moveplan(double x, double y, int ptype)
         else
             return "Move L";
     }
+    // 8.64516 4.5 0 0 0
     else if (x == 9)
     { // left line
         if (v0x == 0 && v0y == 0)
@@ -71,8 +77,9 @@ std::string Moveplan(double x, double y, int ptype)
                 // todo remain unsolve
                 return "Move";
             }
-            if (pickobj_x2 && y0 - y <= center + 0.3)
-                return "PutOrPick R";
+            if (pickobj_x2)
+                if ((y >= y0 && pickobj_xy2) || (y < y0 && pickobj_xy1))
+                    return "PutOrPick R";
         }
         if (v0x == 0)
         { // step2 stop
