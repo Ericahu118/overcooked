@@ -314,12 +314,12 @@ int main()
                     }
                 }
             }
-            /*else if (Players[0].containerKind == ContainerKind::Plate)
+            else
             {
                 std::cerr << "step4" << std::endl;
                 player0_Action = "Move";
                 break;
-            }*/
+            }
         }
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
