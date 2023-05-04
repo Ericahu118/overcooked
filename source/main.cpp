@@ -15,7 +15,9 @@ extern Player Players[2 + 5];
 extern struct Ingredient Ingredient[20 + 5];
 extern char Map[20 + 5][20 + 5];
 int worktype[2 + 5]; // 0 for dish 1 for wash
-// My move plan remain to solve crash
+                     // My move plan remain to solve crash
+bool crash = ((Players[0].x - Players[1].x) * (Players[0].x - Players[1].x) + (Players[0].y - Players[1].y) * (Players[0].y - Players[1].y)) <= 4 * radius + 0.1;
+
 std::string Solvecrash()
 {
     return "Move";
@@ -25,7 +27,6 @@ std::string Moveplan(double x, double y, int ptype)
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
-    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * radius + 0.1;
     bool pickobj_x1 = (x0 - x <= block + center + 0.3); // left
     bool pickobj_x2 = (x - x0 <= center + 0.3);         // right
     bool pickobj_xy1 = (y0 - y <= center + 0.3);        // x+up
@@ -34,6 +35,8 @@ std::string Moveplan(double x, double y, int ptype)
     bool pickobj_y2 = (y - y0 <= center + 0.3);
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
+    bool hascrash = false;
+    char staydir = 'N';
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
@@ -56,13 +59,18 @@ std::string Moveplan(double x, double y, int ptype)
                 if (y > y0)
                 {
                     if (crash)
+                    {
+                        hascrash = true;
                         return "Move";
+                    }
                     return "Move D";
                 }
                 else
                 {
                     if (y0 - y <= center + 0.3 || crash)
                     {
+                        if (crash)
+                            hascrash = true;
                         return "Move";
                     }
                     else
@@ -72,7 +80,10 @@ std::string Moveplan(double x, double y, int ptype)
         }
         // step1 left first
         if (crash || pickobj_x1)
+        {
+            hascrash = true;
             return "Move";
+        }
         else
             return "Move L";
     }
@@ -225,7 +236,7 @@ int main()
         std::cout << "Frame " << i << "\n";
 
         std::string player0_Action = Moveplan(4, 9, 0);
-        std::string player1_Action = Moveplan(3, 9, 1);
+        std::string player1_Action = "Move";
 
         if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
         {
