@@ -317,22 +317,7 @@ int main()
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
                 std::cerr << "step4" << std::endl;
-                player0_Action = Moveplan(9, 4, 0, 0);
-                break;
-            }
-        }
-        if (!Players[1].entity.empty() || Players[1].containerKind != ContainerKind::None)
-        {
-            switch (Players[1].entity.size())
-            {
-            case 1:
-                player1_Action = "Move";
-                break;
-            case 2:
-                player1_Action = "Move";
-                break;
-            default:
-                player1_Action = "Move";
+                player0_Action = "Move";
                 break;
             }
         }
