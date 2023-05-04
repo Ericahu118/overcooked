@@ -59,6 +59,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
     bool gettrap = (((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center))) || (((8 - y0) <= center + 0.3) && ((x0 > 8 && (x0 - 8 <= block + center)) || (x0 <= 8 && 8 - x0 <= center)));
+
     if (x == 0)
     { // right line
         if (crash || pickobj_x1)
@@ -161,7 +162,10 @@ std::string Moveplan(double x, double y, int ptype, int op)
             {
                 // todo remain unsolve
                 if (ptype == 0)
+                {
+                    std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
                     return Solvecrash(change[1]);
+                }
                 return "Move";
             }
             if (pickobj_x2)
@@ -275,7 +279,10 @@ std::string Moveplan(double x, double y, int ptype, int op)
             {
                 // todo remain unsolve
                 if (ptype == 0)
+                {
+                    std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
                     return Solvecrash(change[1]);
+                }
                 return "Move";
             }
             if (pickobj_y1)
