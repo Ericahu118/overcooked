@@ -97,7 +97,34 @@ std::string Moveplan(double x, double y, int ptype, int op)
     }
     else if (x == 9)
     { // left line
-
+        // 先向右
+        if (crash || pickobj_x2 || gettrap)
+        {
+            if (v0x != 0)
+            {
+                return "Move";
+            }
+        }
+        else
+        {
+            return "Move R";
+        }
+        // 向上或向下
+        if (y > y0)
+        {
+            if (crash)
+                return "Move";
+            return "Move D";
+        }
+        else
+        {
+            if (y0 - y <= center + 0.3 || crash)
+            {
+                return "Move";
+            }
+            else
+                return "Move U";
+        }
         if (v0x == 0 && v0y == 0)
         { // step3 has stop
             if (crash)
@@ -119,35 +146,6 @@ std::string Moveplan(double x, double y, int ptype, int op)
                         break;
                     }
                 }
-        }
-        if (v0x == 0)
-        { // step2 stop
-            if (pickobj_x2 || 8 - x0 <= center + 0.3)
-            { // because of dis
-                if (y > y0)
-                {
-                    if (crash)
-                        return "Move";
-                    return "Move D";
-                }
-                else
-                {
-                    if (y0 - y <= center + 0.3 || crash)
-                    {
-                        return "Move";
-                    }
-                    else
-                        return "Move U";
-                }
-            }
-        }
-        if (crash || pickobj_x2 || gettrap)
-        {
-            return "Move";
-        }
-        else
-        {
-            return "Move R";
         }
     }
     // 6.5 8.58714 0 0 0
