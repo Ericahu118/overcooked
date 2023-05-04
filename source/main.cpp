@@ -36,7 +36,6 @@ std::string Moveplan(double x, double y, int ptype)
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
     bool hascrash = false;
-    char staydir = 'N';
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
@@ -77,7 +76,7 @@ std::string Moveplan(double x, double y, int ptype)
                         return "Move U";
                 }
             }
-        }
+                }
         // step1 left first
         if (crash || pickobj_x1)
         {
