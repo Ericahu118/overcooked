@@ -236,7 +236,7 @@ int main()
         std::cout << "Frame " << i << "\n";
 
         std::string player0_Action = Moveplan(4, 9, 0);
-        std::string player1_Action = "Move";
+        std::string player1_Action = Moveplan(3, 9, 1);
 
         if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
         {
