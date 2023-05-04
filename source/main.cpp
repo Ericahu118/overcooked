@@ -96,6 +96,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     }
     else if (x == 9)
     { // left line
+        std::cerr << "here " << std::endl;
         if (v0x == 0 && v0y == 0)
         { // step3 has stop
             if (crash)
