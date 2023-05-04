@@ -26,9 +26,23 @@ int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 char change[2 + 5];
 double delta = 1;
 
-std::string Solvecrash()
+std::string Solvecrash(char dir)
 {
-    return "Move";
+    if (dir == 'U' || dir == 'D')
+    {
+        if (Players[0].x >= 2 * block + center)
+            return "Move L";
+        else
+            return "Move R";
+    }
+    if (dir == 'R' || dir == 'L')
+    {
+        if (Players[0].y >= 2 * block + center)
+            return "Move U";
+        else
+            return "Move D";
+    }
+    return "Interact U";
 }
 std::string Moveplan(double x, double y, int ptype, int op)
 {
@@ -103,6 +117,8 @@ std::string Moveplan(double x, double y, int ptype, int op)
         // 先向右
         if (crash || pickobj_x2 || gettrap)
         {
+            if (crash)
+                change[ptype] = 'R';
             if (v0x != 0)
             {
                 return "Move";
@@ -116,13 +132,21 @@ std::string Moveplan(double x, double y, int ptype, int op)
         if (y > y0)
         {
             if (crash)
-                return "Move";
+            {
+                change[ptype] = 'D';
+                if (v0y != 0)
+                {
+                    return "Move";
+                }
+            }
             return "Move D";
         }
         else
         {
             if (y0 - y <= center + 0.3 || crash)
             {
+                if (crash)
+                    change[ptype] = 'U';
                 if (v0y != 0)
                 {
                     return "Move";
@@ -136,6 +160,8 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (crash)
             {
                 // todo remain unsolve
+                if (ptype == 0)
+                    return Solvecrash(change[1]);
                 return "Move";
             }
             if (pickobj_x2)
@@ -186,6 +212,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (crash)
             {
                 // todo remain unsolve
+
                 return "Move";
             }
             if (pickobj_y2)
@@ -203,58 +230,13 @@ std::string Moveplan(double x, double y, int ptype, int op)
                     }
                 }
         }
-        /*if (v0x == 0 && v0y == 0)
-        { // step3 has stop
-            if (crash)
-            {
-                // todo remain unsolve
-                return "Move";
-            }
-            if (pickobj_y2)
-                if (x0 > x && pickobj_yx2)
-                {
-                    switch (op)
-                    {
-                    case 0:
-                        return "PutOrPick D";
-                    case 1:
-                        return "Interact D";
-                    default:
-                        assert(op == 0 || op == 1);
-                        break;
-                    }
-                }
-        }
-        if (v0y == 0)
-        { // step2 stop
-            if (pickobj_y2)
-            { // because of dis
-                if (x > x0)
-                { // left
-                    if (crash)
-                        return "Move";
-                    return "Move R";
-                }
-                else
-                { // right
-                    if (x0 - x <= center + 0.3 || crash)
-                    {
-                        return "Move";
-                    }
-                    else
-                        return "Move L";
-                }
-            }
-        }
-        if (crash || pickobj_y2)
-            return "Move";
-        else
-            return "Move D";*/
     }
     else if (y == 0)
     { // up
         if (crash || pickobj_y1)
         {
+            if (crash)
+                change[ptype] = 'U';
             if (v0y != 0)
                 return "Move";
         }
@@ -263,15 +245,26 @@ std::string Moveplan(double x, double y, int ptype, int op)
         if (x > x0)
         { // left
             if (crash)
-                return "Move";
+            {
+                change[ptype] = 'R';
+                if (v0x != 0)
+                {
+                    return "Move";
+                }
+            }
             return "Move R";
         }
         else
         { // right
             if (x0 - x <= center + 0.3 || crash)
             {
+
                 if (v0x != 0)
+                {
+                    if (crash)
+                        change[ptype] = 'L';
                     return "Move";
+                }
             }
             else
                 return "Move L";
@@ -281,6 +274,8 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (crash)
             {
                 // todo remain unsolve
+                if (ptype == 0)
+                    return Solvecrash(change[1]);
                 return "Move";
             }
             if (pickobj_y1)
