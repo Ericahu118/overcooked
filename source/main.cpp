@@ -18,6 +18,7 @@ int worktype[2 + 5]; // 0 for dish 1 for wash
 // My move plan remain to solve crash
 std::string Solvecrash()
 {
+    return "Move";
 }
 std::string Moveplan(double x, double y, int ptype)
 {
