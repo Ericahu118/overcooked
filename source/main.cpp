@@ -26,14 +26,14 @@ int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 char change[2 + 5];
 bool solvecrash = false;
 double deltax = 0, deltay = 0;
-
+bool crash = ((Players[0].x - Players[1].x) * (Players[0].x - Players[1].x) + (Players[0].y - Players[1].y) * (Players[0].y - Players[1].y)) <= 4 * radius * radius;
 std::string Solvecrash(char dir)
 {
     if (dir == 'U' || dir == 'D')
     {
         if (Players[0].x >= 2 * block + center)
         {
-            if (deltax - Players[0].x <= block)
+            if (deltax - Players[0].x <= block ||)
                 return "Move L";
             else
             {
@@ -87,7 +87,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
-    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * radius * radius;
+    // bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * radius * radius;
     bool pickobj_x1 = (x0 - x <= block + center + 0.3); // left
     bool pickobj_x2 = (x - x0 <= center + 0.3);         // right
     bool pickobj_xy1 = (y0 - y <= center + 0.3);        // x+up
