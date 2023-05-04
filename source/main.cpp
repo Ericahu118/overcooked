@@ -23,7 +23,8 @@ extern struct Order Order[20 + 5];      // 订单
 
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 // My move plan remain to solve crash
-int change = 0;
+char change[2 + 5];
+double delta = 1;
 
 std::string Solvecrash()
 {
@@ -46,7 +47,58 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool gettrap = ((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center));
     if (x == 0)
     { // right line
+        if (crash || pickobj_x1)
+        {
+            if (v0x != 0)
+            {
+                return "Move";
+            }
+        }
+        else
+            return "Move L";
+        // because of dis
+        if (y > y0)
+        {
+            if (crash)
+                return "Move";
+            return "Move D";
+        }
+        else
+        {
+            if (y0 - y <= center + 0.3 || crash)
+            {
+                if (v0y != 0)
+                    return "Move";
+            }
+            else
+                return "Move U";
+        }
         if (v0x == 0 && v0y == 0)
+        { // step3 has stop
+            if (crash)
+            {
+                // todo remain unsolve
+                return "Move";
+            }
+            if (pickobj_x1)
+            {
+                if (y < y0 && pickobj_xy1)
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick L";
+                    case 1:
+                        return "Interact L";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        /*if (v0x == 0 && v0y == 0)
         { // step3 has stop
             if (crash)
             {
@@ -91,11 +143,11 @@ std::string Moveplan(double x, double y, int ptype, int op)
                 }
             }
         }
-        // step1 left first
+        //step1 left first
         if (crash || pickobj_x1)
             return "Move";
         else
-            return "Move L";
+            return "Move L";*/
     }
     else if (x == 9)
     { // left line
