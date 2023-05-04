@@ -118,10 +118,10 @@ std::string Moveplan(double x, double y, int ptype, int op)
         // 先向右
         if (crash || pickobj_x2 || gettrap)
         {
-            if (crash)
-                change[ptype] = 'R';
             if (v0x != 0)
             {
+                if (crash)
+                    change[ptype] = 'R';
                 return "Move";
             }
         }
@@ -134,9 +134,9 @@ std::string Moveplan(double x, double y, int ptype, int op)
         {
             if (crash)
             {
-                change[ptype] = 'D';
                 if (v0y != 0)
                 {
+                    change[ptype] = 'D';
                     return "Move";
                 }
             }
@@ -146,10 +146,11 @@ std::string Moveplan(double x, double y, int ptype, int op)
         {
             if (y0 - y <= center + 0.3 || crash)
             {
-                if (crash)
-                    change[ptype] = 'U';
+
                 if (v0y != 0)
                 {
+                    if (crash)
+                        change[ptype] = 'U';
                     return "Move";
                 }
             }
