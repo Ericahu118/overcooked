@@ -34,7 +34,7 @@ std::string Solvecrash(char dir)
     {
         if (Players[0].x >= 2 * block + center)
         {
-            if (deltax - Players[0].x <= block || crash)
+            if (deltax - Players[0].x <= block)
                 return "Move L";
             else
             {
@@ -45,7 +45,7 @@ std::string Solvecrash(char dir)
         }
         else
         {
-            if (Players[0].x - deltax <= block || crash)
+            if (Players[0].x - deltax <= block)
                 return "Move R";
             else
             {
@@ -59,7 +59,7 @@ std::string Solvecrash(char dir)
     {
         if (Players[0].y >= 2 * block + center)
         {
-            if (deltay - Players[0].y <= block || crash)
+            if (deltay - Players[0].y <= block)
                 return "Move U";
             else
             {
@@ -70,7 +70,7 @@ std::string Solvecrash(char dir)
         }
         else
         {
-            if (Players[0].y - deltay <= block || crash)
+            if (Players[0].y - deltay <= block)
                 return "Move D";
             else
             {
