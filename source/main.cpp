@@ -13,7 +13,11 @@ const double block = 1;
 
 extern Player Players[2 + 5];
 extern struct Ingredient Ingredient[20 + 5];
+extern int IngredientCount;
 extern char Map[20 + 5][20 + 5];
+extern int entityCount; // 实体
+extern struct Entity Entity[20 + 5];
+
 int worktype[2 + 5]; // 0 for dish 1 for wash
 // My move plan remain to solve crash
 std::string Solvecrash()
@@ -269,21 +273,35 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
 
-        std::string player0_Action = Moveplan(4, 9, 0, 0);
+        std::string player0_Action = "Move";
         std::string player1_Action = "Move";
-
-        if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
+        if (Players[0].entity.empty())
         {
-            switch (Players[0].entity.size())
+            for (int i = 0; i < IngredientCount; i++)
             {
-            case 1:
-                player0_Action = "Move";
-                break;
-            case 2:
-                player0_Action = "Move";
-                break;
-            default:
-                player0_Action = "Move";
+                if (Ingredient[i].name.compare("fish") == 0)
+                {
+                    player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            if (Players[0].containerKind == ContainerKind::None)
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if (Entity[i].containerKind == ContainerKind::Plate)
+                    {
+                        player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
+                        break;
+                    }
+                }
+            }
+            else if (Players[0].containerKind == ContainerKind::Plate)
+            {
+                player0_Action = Moveplan(9, 4, 0, 0);
                 break;
             }
         }
