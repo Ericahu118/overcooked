@@ -333,10 +333,6 @@ int main()
             {
                 haveplate == true;
             }
-            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 3)
-            {
-                player1_Action = Moveplan(9, 3, 1, 1);
-            }
         }
         if (!haveplate)
         {
@@ -351,6 +347,13 @@ int main()
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
             player1_Action = Moveplan(9, 3, 1, 0);
+        }
+        for (int i = 0; i < entityCount; i++)
+        {
+            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 3)
+            {
+                player1_Action = Moveplan(9, 3, 1, 1);
+            }
         }
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
