@@ -87,7 +87,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
-    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * radius + 0.2;
+    bool crash = ((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1)) <= 4 * radius;
     bool pickobj_x1 = (x0 - x <= block + center + 0.3); // left
     bool pickobj_x2 = (x - x0 <= center + 0.3);         // right
     bool pickobj_xy1 = (y0 - y <= center + 0.3);        // x+up
@@ -488,13 +488,13 @@ int main()
         }
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
-            player1_Action = Moveplan(9, 5, 1, 0);
+            player1_Action = Moveplan(1, 9, 1, 0);
         }
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 5)
+            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 1 && Entity[i].y == 9)
             {
-                player1_Action = Moveplan(9, 5, 1, 1);
+                player1_Action = Moveplan(1, 9, 1, 1);
             }
         }
 
