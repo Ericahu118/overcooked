@@ -333,6 +333,10 @@ int main()
             {
                 haveplate == true;
             }
+            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 3)
+            {
+                player1_Action = Moveplan(9, 3, 1, 1);
+            }
         }
         if (!haveplate)
         {
