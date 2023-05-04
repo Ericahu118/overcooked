@@ -140,7 +140,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
                 }
             }
         }
-        if (crash || pickobj_x2 || 8 - x0 <= center + 0.3)
+        if (crash || pickobj_x2 || ((8 - x0 <= center + 0.3) && (8 - y0) * (8 - y0) <= 0.26))
             return "Move";
         else
             return "Move R";
