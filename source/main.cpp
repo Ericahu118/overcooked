@@ -24,25 +24,63 @@ extern struct Order Order[20 + 5];      // 订单
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 // My move plan remain to solve crash
 char change[2 + 5];
-double delta = 1;
+bool solvecrash = false;
+double deltax = 0, deltay = 0;
 
 std::string Solvecrash(char dir)
 {
     if (dir == 'U' || dir == 'D')
     {
         if (Players[0].x >= 2 * block + center)
-            return "Move L";
+        {
+            if (deltax - Players[0].x <= block)
+                return "Move L";
+            else
+            {
+                if (Players[0].X_Velocity == 0)
+                    solvecrash = false;
+                return "Move";
+            }
+        }
         else
-            return "Move R";
+        {
+            if (Players[0].x - deltax <= block)
+                return "Move R";
+            else
+            {
+                if (Players[0].X_Velocity == 0)
+                    solvecrash = false;
+                return "Move";
+            }
+        }
     }
     if (dir == 'R' || dir == 'L')
     {
         if (Players[0].y >= 2 * block + center)
-            return "Move U";
+        {
+            if (deltay - Players[0].y <= block)
+                return "Move U";
+            else
+            {
+                if (Players[0].Y_Velocity == 0)
+                    solvecrash = false;
+                return "Move";
+            }
+        }
         else
-            return "Move D";
+        {
+            if (Players[0].y - deltay <= block)
+                return "Move D";
+            else
+            {
+                if (Players[0].Y_Velocity == 0)
+                    solvecrash = false;
+                return "Move";
+            }
+        }
     }
-    return "Interact U";
+    assert(dir == 'R' || dir == 'L' || dir == 'U' || dir == 'D');
+    return "Move";
 }
 std::string Moveplan(double x, double y, int ptype, int op)
 {
@@ -59,7 +97,10 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
     bool gettrap = (((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center))) || (((8 - y0) <= center + 0.3) && ((x0 > 8 && (x0 - 8 <= block + center)) || (x0 <= 8 && 8 - x0 <= center)));
-
+    if (solvecrash && ptype == 0)
+    {
+        return Solvecrash(change[1]);
+    }
     if (x == 0)
     { // right line
         if (crash || pickobj_x1)
@@ -161,11 +202,12 @@ std::string Moveplan(double x, double y, int ptype, int op)
         { // step3 has stop
             if (crash)
             {
+                deltax = Players[0].x, deltay = Players[0].y;
                 // todo remain unsolve
+                solvecrash = true;
                 if (ptype == 0)
                 {
                     std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
-                    return Solvecrash(change[1]);
                 }
                 return "Move";
             }
@@ -278,11 +320,12 @@ std::string Moveplan(double x, double y, int ptype, int op)
         { // step3 has stop
             if (crash)
             {
+                deltax = Players[0].x, deltay = Players[0].y;
+                solvecrash = true;
                 // todo remain unsolve
                 if (ptype == 0)
                 {
                     std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
-                    return Solvecrash(change[1]);
                 }
                 return "Move";
             }
