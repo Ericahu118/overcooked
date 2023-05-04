@@ -280,7 +280,7 @@ int main()
         {
             for (int i = 0; i < entityCount; i++)
             {
-                if (!Entity[i].entity.empty())
+                if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
                 {
                     player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
 
