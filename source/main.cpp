@@ -20,8 +20,7 @@ extern struct Entity Entity[20 + 5];
 
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 // My move plan remain to solve crash
-bool topick = false;
-int crashdir[2 + 5] = {0};
+int change = 0;
 
 std::string Solvecrash()
 {
@@ -288,18 +287,30 @@ int main()
         {
             for (int i = 0; i < IngredientCount; i++)
             {
-                if (Ingredient[i].name.compare("kelp") == 0)
+                if (change % 2 == 0)
                 {
-                    std::cerr << "step1 " << std::endl;
-                    player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
-                    break;
+                    if (Ingredient[i].name.compare("fish") == 0)
+                    {
+                        player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
+                        change++;
+                        break;
+                    }
+                }
+                if (change % 2 == 1)
+                {
+                    if (Ingredient[i].name.compare("rice") == 0)
+                    {
+                        player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
+                        change++;
+                        break;
+                    }
                 }
             }
             for (int i = 0; i < entityCount; i++)
             {
                 if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
                 {
-                    std::cerr << "step2 " << std::endl;
+
                     player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
                     break;
                 }
@@ -313,7 +324,7 @@ int main()
                 {
                     if (Entity[i].containerKind == ContainerKind::Plate)
                     {
-                        std::cerr << "step3 " << std::endl;
+
                         player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
 
                         break;
@@ -322,10 +333,11 @@ int main()
             }
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
-                std::cerr << "step4" << std::endl;
+
                 player0_Action = Moveplan(4, 0, 0, 0);
             }
         }
+
         bool haveplate = false;
         for (int i = 0; i < entityCount; i++)
         {
@@ -346,13 +358,13 @@ int main()
         }
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
-            player1_Action = Moveplan(9, 3, 1, 0);
+            player1_Action = Moveplan(9, 5, 1, 0);
         }
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 3)
+            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 5)
             {
-                player1_Action = Moveplan(9, 3, 1, 1);
+                player1_Action = Moveplan(9, 5, 1, 1);
             }
         }
 
