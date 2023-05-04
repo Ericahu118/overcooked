@@ -288,7 +288,7 @@ int main()
         {
             for (int i = 0; i < IngredientCount; i++)
             {
-                if (Ingredient[i].name.compare("rice") == 0)
+                if (Ingredient[i].name.compare("kelp") == 0)
                 {
                     std::cerr << "step1 " << std::endl;
                     player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
@@ -323,8 +323,30 @@ int main()
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
                 std::cerr << "step4" << std::endl;
-                player0_Action = Moveplan(0, 4, 0, 0);
+                player0_Action = Moveplan(4, 0, 0, 0);
             }
+        }
+        bool haveplate = false;
+        for (int i = 0; i < entityCount; i++)
+        {
+            if (Entity[i].containerKind == ContainerKind::Plate)
+            {
+                haveplate == true;
+            }
+        }
+        if (!haveplate)
+        {
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                {
+                    player1_Action = Moveplan(Entity[i].x, Entity[i].y, 1, 0);
+                }
+            }
+        }
+        if (Players[1].containerKind == ContainerKind::DirtyPlates)
+        {
+            player1_Action = Moveplan(9, 3, 1, 0);
         }
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
