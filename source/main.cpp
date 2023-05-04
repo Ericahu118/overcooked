@@ -26,7 +26,7 @@ int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 char change[2 + 5];
 bool solvecrash = false;
 double deltax = 0, deltay = 0;
-bool crash = ((Players[0].x - Players[1].x) * (Players[0].x - Players[1].x) + (Players[0].y - Players[1].y) * (Players[0].y - Players[1].y)) <= 4 * radius * radius;
+bool crash = (((Players[0].x - Players[1].x) * (Players[0].x - Players[1].x) + (Players[0].y - Players[1].y) * (Players[0].y - Players[1].y)) <= 4 * radius * radius);
 std::string Solvecrash(char dir)
 {
     if (dir == 'U' || dir == 'D')
