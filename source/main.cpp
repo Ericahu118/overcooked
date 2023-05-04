@@ -20,7 +20,7 @@ std::string Solvecrash()
 {
     return "Move";
 }
-std::string Moveplan(double x, double y, int ptype)
+std::string Moveplan(double x, double y, int ptype, int op)
 {
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
@@ -47,7 +47,18 @@ std::string Moveplan(double x, double y, int ptype)
             if (pickobj_x1)
             {
                 if (y < y0 && pickobj_xy1)
-                    return "PutOrPick L";
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick L";
+                    case 1:
+                        return "Interact L";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
             }
         }
         if (v0x == 0)
@@ -88,7 +99,18 @@ std::string Moveplan(double x, double y, int ptype)
             }
             if (pickobj_x2)
                 if (y < y0 && pickobj_xy1)
-                    return "PutOrPick R";
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick R";
+                    case 1:
+                        return "Interact R";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
         }
         if (v0x == 0)
         { // step2 stop
@@ -129,7 +151,18 @@ std::string Moveplan(double x, double y, int ptype)
             }
             if (pickobj_y2)
                 if (x0 > x && pickobj_yx2)
-                    return "PutOrPick D";
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick D";
+                    case 1:
+                        return "Interact D";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
         }
         if (v0y == 0)
         { // step2 stop
@@ -168,7 +201,18 @@ std::string Moveplan(double x, double y, int ptype)
             }
             if (pickobj_y1)
                 if (x0 > x && pickobj_yx2)
-                    return "PutOrPick U";
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick U";
+                    case 1:
+                        return "Interact U";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
         }
         if (v0y == 0)
         { // step2 stop
@@ -225,7 +269,7 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
 
-        std::string player0_Action = Moveplan(4, 9, 0);
+        std::string player0_Action = Moveplan(4, 9, 0, 0);
         std::string player1_Action = "Move";
 
         if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
