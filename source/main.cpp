@@ -18,9 +18,10 @@ extern char Map[20 + 5][20 + 5];
 extern int entityCount; // 实体
 extern struct Entity Entity[20 + 5];
 
-int worktype[2 + 5]; // 0 for dish 1 for wash
+int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 // My move plan remain to solve crash
 bool topick = false;
+int crashdir[2 + 5] = {0};
 
 std::string Solvecrash()
 {
@@ -40,7 +41,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool pickobj_y2 = (y - y0 <= center + 0.3);
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
-    int crushdir = 0;
+    bool gettrap = ((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center));
     if (x == 0)
     { // right line
         if (v0x == 0 && v0y == 0)
@@ -96,7 +97,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     }
     else if (x == 9)
     { // left line
-        std::cerr << "here " << std::endl;
+
         if (v0x == 0 && v0y == 0)
         { // step3 has stop
             if (crash)
@@ -140,7 +141,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
                 }
             }
         }
-        if (crash || pickobj_x2 || ((8 - x0 <= center + 0.3) && (8 - y0) * (8 - y0) <= 0.26))
+        if (crash || pickobj_x2 || gettrap)
             return "Move";
         else
             return "Move R";
