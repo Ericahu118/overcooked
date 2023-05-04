@@ -464,7 +464,7 @@ int main()
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
 
-                player0_Action = Moveplan(4, 0, 0, 0);
+                player0_Action = Moveplan(9, 4, 0, 0);
             }
         }
 
