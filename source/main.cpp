@@ -314,11 +314,10 @@ int main()
                     }
                 }
             }
-            else
+            else if (Players[0].containerKind == ContainerKind::Plate)
             {
                 std::cerr << "step4" << std::endl;
-                player0_Action = "Move";
-                break;
+                player0_Action = Moveplan(9, 4, 0, 0);
             }
         }
 
