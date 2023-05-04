@@ -44,7 +44,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool pickobj_y2 = (y - y0 <= center + 0.3);
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
-    bool gettrap = ((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center));
+    bool gettrap = (((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center))) || (((8 - y0) <= center + 0.3) && ((x0 > 8 && (x0 - 8 <= block + center)) || (x0 <= 8 && 8 - x0 <= center)));
     if (x == 0)
     { // right line
         if (crash || pickobj_x1)
@@ -97,57 +97,6 @@ std::string Moveplan(double x, double y, int ptype, int op)
                 }
             }
         }
-
-        /*if (v0x == 0 && v0y == 0)
-        { // step3 has stop
-            if (crash)
-            {
-                // todo remain unsolve
-                return "Move";
-            }
-            if (pickobj_x1)
-            {
-                if (y < y0 && pickobj_xy1)
-                {
-                    switch (op)
-                    {
-                    case 0:
-                        return "PutOrPick L";
-                    case 1:
-                        return "Interact L";
-                    default:
-                        assert(op == 0 || op == 1);
-                        break;
-                    }
-                }
-            }
-        }
-        if (v0x == 0)
-        { // step2 stop
-            if (pickobj_x1)
-            { // because of dis
-                if (y > y0)
-                {
-                    if (crash)
-                        return "Move";
-                    return "Move D";
-                }
-                else
-                {
-                    if (y0 - y <= center + 0.3 || crash)
-                    {
-                        return "Move";
-                    }
-                    else
-                        return "Move U";
-                }
-            }
-        }
-        //step1 left first
-        if (crash || pickobj_x1)
-            return "Move";
-        else
-            return "Move L";*/
     }
     else if (x == 9)
     { // left line
@@ -209,7 +158,52 @@ std::string Moveplan(double x, double y, int ptype, int op)
     // 7.10355 4.5 5.25984 0 0
     else if (y == 9)
     {
+        if (crash || pickobj_y2 || gettrap)
+        {
+            if (v0y != 0)
+                return "Move";
+        }
+        else
+            return "Move D";
+        if (x > x0)
+        { // left
+            if (crash)
+                return "Move";
+            return "Move R";
+        }
+        else
+        { // right
+            if (x0 - x <= center + 0.3 || crash)
+            {
+                if (v0x != 0)
+                    return "Move";
+            }
+            else
+                return "Move L";
+        }
         if (v0x == 0 && v0y == 0)
+        { // step3 has stop
+            if (crash)
+            {
+                // todo remain unsolve
+                return "Move";
+            }
+            if (pickobj_y2)
+                if (x0 > x && pickobj_yx2)
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick D";
+                    case 1:
+                        return "Interact D";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
+        }
+        /*if (v0x == 0 && v0y == 0)
         { // step3 has stop
             if (crash)
             {
@@ -255,7 +249,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
         if (crash || pickobj_y2)
             return "Move";
         else
-            return "Move D";
+            return "Move D";*/
     }
     else if (y == 0)
     { // up
