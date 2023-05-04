@@ -142,9 +142,13 @@ std::string Moveplan(double x, double y, int ptype, int op)
             }
         }
         if (crash || pickobj_x2 || gettrap)
+        {
             return "Move";
+        }
         else
+        {
             return "Move R";
+        }
     }
     // 6.5 8.58714 0 0 0
     // 7.10355 4.5 5.25984 0 0
