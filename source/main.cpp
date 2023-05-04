@@ -253,7 +253,52 @@ std::string Moveplan(double x, double y, int ptype, int op)
     }
     else if (y == 0)
     { // up
+        if (crash || pickobj_y1)
+        {
+            if (v0y != 0)
+                return "Move";
+        }
+        else
+            return "Move U";
+        if (x > x0)
+        { // left
+            if (crash)
+                return "Move";
+            return "Move R";
+        }
+        else
+        { // right
+            if (x0 - x <= center + 0.3 || crash)
+            {
+                if (v0x != 0)
+                    return "Move";
+            }
+            else
+                return "Move L";
+        }
         if (v0x == 0 && v0y == 0)
+        { // step3 has stop
+            if (crash)
+            {
+                // todo remain unsolve
+                return "Move";
+            }
+            if (pickobj_y1)
+                if (x0 > x && pickobj_yx2)
+                {
+                    switch (op)
+                    {
+                    case 0:
+                        return "PutOrPick U";
+                    case 1:
+                        return "Interact U";
+                    default:
+                        assert(op == 0 || op == 1);
+                        break;
+                    }
+                }
+        }
+        /*if (v0x == 0 && v0y == 0)
         { // step3 has stop
             if (crash)
             {
@@ -299,7 +344,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
         if (crash || pickobj_y1)
             return "Move";
         else
-            return "Move U";
+            return "Move U";*/
     }
     return "Move";
 }
