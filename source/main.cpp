@@ -99,7 +99,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool gettrap = (((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center))) || (((8 - y0) <= center + 0.3) && ((x0 > 8 && (x0 - 8 <= block + center)) || (x0 <= 8 && 8 - x0 <= center)));
 
     if (crash)
-        std::cerr << "here" << std::endl;
+        std::cerr << "here" << ((Players[0].x - Players[1].x) * (Players[0].x - Players[1].x) + (Players[0].y - Players[1].y) * (Players[0].y - Players[1].y)) << std::endl;
     if (solvecrash && ptype == 0)
     {
         return Solvecrash(change[1]);
