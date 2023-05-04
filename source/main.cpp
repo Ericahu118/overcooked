@@ -33,7 +33,7 @@ std::string Solvecrash(char dir)
     {
         if (Players[0].x >= 2 * block + center)
         {
-            if (deltax - Players[0].x <= block ||)
+            if (deltax - Players[0].x <= block || crash)
                 return "Move L";
             else
             {
@@ -44,7 +44,7 @@ std::string Solvecrash(char dir)
         }
         else
         {
-            if (Players[0].x - deltax <= block)
+            if (Players[0].x - deltax <= block || crash)
                 return "Move R";
             else
             {
@@ -58,7 +58,7 @@ std::string Solvecrash(char dir)
     {
         if (Players[0].y >= 2 * block + center)
         {
-            if (deltay - Players[0].y <= block)
+            if (deltay - Players[0].y <= block || crash)
                 return "Move U";
             else
             {
@@ -69,7 +69,7 @@ std::string Solvecrash(char dir)
         }
         else
         {
-            if (Players[0].y - deltay <= block)
+            if (Players[0].y - deltay <= block || crash)
                 return "Move D";
             else
             {
@@ -107,6 +107,8 @@ std::string Moveplan(double x, double y, int ptype, int op)
         {
             if (v0x != 0)
             {
+                if (crash)
+                    change[ptype] = 'L';
                 return "Move";
             }
         }
@@ -116,7 +118,13 @@ std::string Moveplan(double x, double y, int ptype, int op)
         if (y > y0)
         {
             if (crash)
-                return "Move";
+            {
+                if (v0y != 0)
+                {
+                    change[ptype] = 'D';
+                    return "Move";
+                }
+            }
             return "Move D";
         }
         else
@@ -124,7 +132,11 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (y0 - y <= center + 0.3 || crash)
             {
                 if (v0y != 0)
+                {
+                    if (crash)
+                        change[ptype] = 'U';
                     return "Move";
+                }
             }
             else
                 return "Move U";
@@ -134,6 +146,9 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (crash)
             {
                 // todo remain unsolve
+                deltax = Players[0].x, deltay = Players[0].y;
+                // todo remain unsolve
+                solvecrash = true;
                 return "Move";
             }
             if (pickobj_x1)
@@ -234,14 +249,26 @@ std::string Moveplan(double x, double y, int ptype, int op)
         if (crash || pickobj_y2 || gettrap)
         {
             if (v0y != 0)
+            {
+                if (crash)
+                    change[ptype] = 'D';
                 return "Move";
+            }
         }
         else
             return "Move D";
         if (x > x0)
         { // left
             if (crash)
-                return "Move";
+            {
+                if (v0x != 0)
+                {
+                    if (crash)
+                        change[ptype] = 'R';
+                    return "Move";
+                }
+            }
+
             return "Move R";
         }
         else
@@ -249,7 +276,11 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (x0 - x <= center + 0.3 || crash)
             {
                 if (v0x != 0)
+                {
+                    if (crash)
+                        change[ptype] = 'L';
                     return "Move";
+                }
             }
             else
                 return "Move L";
@@ -259,7 +290,8 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (crash)
             {
                 // todo remain unsolve
-
+                deltax = Players[0].x, deltay = Players[0].y;
+                solvecrash = true;
                 return "Move";
             }
             if (pickobj_y2)
