@@ -17,6 +17,9 @@ extern int IngredientCount;
 extern char Map[20 + 5][20 + 5];
 extern int entityCount; // 实体
 extern struct Entity Entity[20 + 5];
+extern struct Order totalOrder[20 + 5]; // 总订单数组，
+extern int orderCount;                  // 订单数
+extern struct Order Order[20 + 5];      // 订单
 
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 // My move plan remain to solve crash
@@ -285,25 +288,15 @@ int main()
         std::string player1_Action = "Move";
         if (Players[0].entity.empty())
         {
+
             for (int i = 0; i < IngredientCount; i++)
             {
-                if (change % 2 == 0)
+                std::string need = Order[0].recipe[0];
+                if (Ingredient[i].name.compare(need) == 0)
                 {
-                    if (Ingredient[i].name.compare("fish") == 0)
-                    {
-                        player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
-                        change++;
-                        break;
-                    }
-                }
-                if (change % 2 == 1)
-                {
-                    if (Ingredient[i].name.compare("rice") == 0)
-                    {
-                        player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
-                        change++;
-                        break;
-                    }
+                    player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
+
+                    break;
                 }
             }
             for (int i = 0; i < entityCount; i++)
