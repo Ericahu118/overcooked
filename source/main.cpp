@@ -20,7 +20,7 @@ extern struct Entity Entity[20 + 5];
 
 int worktype[2 + 5]; // 0 for dish 1 for wash
 // My move plan remain to solve crash
-bool topick[2 + 5] = false;
+
 std::string Solvecrash()
 {
     return "Move";
