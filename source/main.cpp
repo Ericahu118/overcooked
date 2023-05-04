@@ -92,7 +92,7 @@ std::string Moveplan(double x, double y, int ptype)
         }
         if (v0x == 0)
         { // step2 stop
-            if (pickobj_x2)
+            if (pickobj_x2 || 8 - x0 <= center + 0.3)
             { // because of dis
                 if (y > y0)
                 {
@@ -111,7 +111,7 @@ std::string Moveplan(double x, double y, int ptype)
                 }
             }
         }
-        if (crash || pickobj_x2)
+        if (crash || pickobj_x2 || 8 - x0 <= center + 0.3)
             return "Move";
         else
             return "Move R";
@@ -226,7 +226,7 @@ int main()
         std::cout << "Frame " << i << "\n";
 
         std::string player0_Action = Moveplan(4, 9, 0);
-        std::string player1_Action = Moveplan(3, 9, 1);
+        std::string player1_Action = "Move";
 
         if (!Players[0].entity.empty() || Players[0].containerKind != ContainerKind::None)
         {
