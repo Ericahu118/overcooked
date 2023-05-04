@@ -283,6 +283,7 @@ int main()
             {
                 if (Ingredient[i].name.compare("fish") == 0)
                 {
+                    std::cerr << "step1 " << std::endl;
                     player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
                     break;
                 }
@@ -291,6 +292,7 @@ int main()
             {
                 if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
                 {
+                    std::cerr << "step2 " << std::endl;
                     player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
                     break;
                 }
@@ -304,6 +306,7 @@ int main()
                 {
                     if (Entity[i].containerKind == ContainerKind::Plate)
                     {
+                        std::cerr << "step3 " << std::endl;
                         player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
 
                         break;
@@ -312,6 +315,7 @@ int main()
             }
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
+                std::cerr << "step4" << std::endl;
                 player0_Action = Moveplan(9, 4, 0, 0);
                 break;
             }
@@ -331,15 +335,6 @@ int main()
                 break;
             }
         }
-
-        /*if (Players[0].x <= 2 && Players[0].entity.empty())
-        {
-            player0_Action = "PutOrPick L";
-        }
-        if (!Players[0].entity.empty())
-        {
-            player0_Action = "Move";
-        }*/
 
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
