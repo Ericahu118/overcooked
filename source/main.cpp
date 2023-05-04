@@ -120,7 +120,10 @@ std::string Moveplan(double x, double y, int ptype, int op)
         {
             if (y0 - y <= center + 0.3 || crash)
             {
-                return "Move";
+                if (v0y != 0)
+                {
+                    return "Move";
+                }
             }
             else
                 return "Move U";
