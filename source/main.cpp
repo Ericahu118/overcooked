@@ -79,7 +79,7 @@ std::string Solvecrash(char dir)
             }
         }
     }
-    assert(dir == 'R' || dir == 'L' || dir == 'U' || dir == 'D');
+    // assert(dir == 'R' || dir == 'L' || dir == 'U' || dir == 'D');
     return "Move";
 }
 std::string Moveplan(double x, double y, int ptype, int op)
@@ -97,6 +97,9 @@ std::string Moveplan(double x, double y, int ptype, int op)
     bool pickobj_yx1 = (y0 - y <= center + 0.2); // y+left
     bool pickobj_yx2 = (x0 - x <= center + 0.2); // y+right
     bool gettrap = (((8 - x0) <= center + 0.3) && ((y0 > 8 && (y0 - 8 <= block + center)) || (y0 <= 8 && 8 - y0 <= center))) || (((8 - y0) <= center + 0.3) && ((x0 > 8 && (x0 - 8 <= block + center)) || (x0 <= 8 && 8 - x0 <= center)));
+
+    if (crash)
+        std::cerr << "here" << std::endl;
     if (solvecrash && ptype == 0)
     {
         return Solvecrash(change[1]);
@@ -146,6 +149,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
             if (crash)
             {
                 // todo remain unsolve
+                std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
                 deltax = Players[0].x, deltay = Players[0].y;
                 // todo remain unsolve
                 solvecrash = true;
@@ -220,6 +224,7 @@ std::string Moveplan(double x, double y, int ptype, int op)
                 deltax = Players[0].x, deltay = Players[0].y;
                 // todo remain unsolve
                 solvecrash = true;
+                std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
                 if (ptype == 0)
                 {
                     std::cerr << "x:" << x << "y" << y << change[1] << std::endl;
