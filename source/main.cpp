@@ -20,6 +20,7 @@ extern struct Entity Entity[20 + 5];
 
 int worktype[2 + 5]; // 0 for dish 1 for wash
 // My move plan remain to solve crash
+bool topick = false;
 
 std::string Solvecrash()
 {
@@ -278,20 +279,19 @@ int main()
         std::string player1_Action = "Move";
         if (Players[0].entity.empty())
         {
-            for (int i = 0; i < entityCount; i++)
-            {
-                if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
-                {
-                    player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
-
-                    break;
-                }
-            }
             for (int i = 0; i < IngredientCount; i++)
             {
                 if (Ingredient[i].name.compare("fish") == 0)
                 {
                     player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
+                    break;
+                }
+            }
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
+                {
+                    player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
                     break;
                 }
             }
