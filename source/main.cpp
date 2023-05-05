@@ -290,7 +290,9 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             if (crashloc[ptype].second - y0 >= block - 0.3)
             {
                 if (v0y == 0)
+                {
                     solvecrash[ptype] = 0;
+                }
                 return "Move";
             }
             else
