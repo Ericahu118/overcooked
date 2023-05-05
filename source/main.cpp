@@ -68,13 +68,17 @@ int changedir(double des_x, double des_y, int ptype)
             {
                 // giveway
                 crashloc.first = x0, crashloc.second = y0;
-                solvecrash = 1;
+                solvecrash = 3;
                 if (x0 >= 3 * block)
                 {
-                    return 3;
+                    solvecrash = 3;
+                    return dir[ptype];
                 }
                 else
-                    return 4;
+                {
+                    solvecrash = 4;
+                    return dir[ptype];
+                }
             }
             else
             {
@@ -110,13 +114,17 @@ int changedir(double des_x, double des_y, int ptype)
             {
                 // giveway
                 crashloc.first = x0, crashloc.second = y0;
-                solvecrash = 1;
+                solvecrash = 3;
                 if (x0 >= 3 * block)
                 {
-                    return 3;
+                    solvecrash = 3;
+                    return dir[ptype];
                 }
                 else
-                    return 4;
+                {
+                    solvecrash = 4;
+                    return dir[ptype];
+                }
             }
             else
             {
@@ -156,10 +164,14 @@ int changedir(double des_x, double des_y, int ptype)
                 solvecrash = 1;
                 if (y0 >= 3 * block)
                 {
-                    return 1;
+                    solvecrash = 1;
+                    return dir[ptype];
                 }
                 else
-                    return 2;
+                {
+                    solvecrash = 2;
+                    return dir[ptype];
+                }
             }
             else
             {
@@ -198,10 +210,14 @@ int changedir(double des_x, double des_y, int ptype)
                 solvecrash = 1;
                 if (y0 >= 3 * block)
                 {
-                    return 1;
+                    solvecrash = 1;
+                    return dir[ptype];
                 }
                 else
-                    return 2;
+                {
+                    solvecrash = 2;
+                    return dir[ptype];
+                }
             }
             else
             {
@@ -232,7 +248,7 @@ int changedir(double des_x, double des_y, int ptype)
     std::cerr << ptype << "changedir: " << des_x << " " << des_y << dir[ptype] << endl;
     std::cerr << "Not reach changedir end" << std::endl;
     assert(0);
-    return 0;
+    return dir[ptype];
 }
 
 string frame_move(double des_x, double des_y, int ptype, int op)
@@ -265,9 +281,9 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         if (dir[ptype] == 1)
             return "Move R";
     }
-    if (solvecrash && ptype == 0)
+    if (solvecrash != 0 && ptype == 0)
     {
-        if (dir[ptype] == 1)
+        if (solvecrash == 1)
         {
             if (crashloc.second - y0 >= block - 0.3)
             {
@@ -278,7 +294,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             else
                 return "Move U";
         }
-        else if (dir[ptype] == 2)
+        else if (solvecrash == 2)
         {
             if (y0 - crashloc.second >= block - 0.3)
             {
@@ -289,7 +305,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             else
                 return "Move D";
         }
-        else if (dir[ptype] == 3)
+        else if (solvecrash == 3)
         {
             if (crashloc.first - x0 >= block - 0.3)
             {
@@ -300,7 +316,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             else
                 return "Move L";
         }
-        else if (dir[ptype] == 4)
+        else if (solvecrash == 4)
         {
             if (x0 - crashloc.first >= block - 0.3)
             {
