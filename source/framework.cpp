@@ -25,7 +25,6 @@ int entityCount; // 实体
 struct Entity Entity[20 + 5];
 int remainFrame, Fund;
 
-extern pair<double, double> trap[100];
 void init_read()
 {
     std::string s;
