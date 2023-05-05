@@ -505,6 +505,8 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             }
         }
     }
+    std::cerr << "NOt reach frameend" << std::endl;
+    return "Move";
 }
 
 // My move plan remain to solve crash
