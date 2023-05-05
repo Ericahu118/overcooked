@@ -26,6 +26,7 @@ int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 
 int dir[2 + 5];
 int solvecrash = 0;
+int hascrash = 0;
 pair<double, double> crashloc;
 int solvetrap[2 + 5] = {0};
 pair<double, double> traploc[2 + 5];
@@ -76,7 +77,10 @@ int changedir(double des_x, double des_y, int ptype)
                     return 4;
             }
             else
+            {
+                hascrash = 1;
                 return dir[ptype];
+            }
         }
         if (trapy)
         {
@@ -115,7 +119,10 @@ int changedir(double des_x, double des_y, int ptype)
                     return 4;
             }
             else
+            {
+                hascrash = 1;
                 return dir[ptype];
+            }
         }
         if (trapy)
         {
@@ -155,7 +162,10 @@ int changedir(double des_x, double des_y, int ptype)
                     return 2;
             }
             else
+            {
+                hascrash = 1;
                 return dir[ptype];
+            }
         }
         if (trapx)
         {
@@ -194,7 +204,10 @@ int changedir(double des_x, double des_y, int ptype)
                     return 2;
             }
             else
+            {
+                hascrash = 1;
                 return dir[ptype];
+            }
         }
         if (trapx)
         {
@@ -238,7 +251,19 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     bool getright = (des_x - x0) <= center + 0.3;
     bool pickLR = ((y0 > des_y) && (y0 - des_y <= center + 0.3)) || (y0 <= des_y);
     bool pickUD = ((x0 > des_x) && (x0 - des_x <= center + 0.3));
-
+    if (hascrash && ptype == 1)
+    {
+        if (v0x != 0 || v0y != 0)
+            hascrash = 0;
+        if (dir[ptype] == 1)
+            return "Move U";
+        if (dir[ptype] == 2)
+            return "Move D";
+        if (dir[ptype] == 3)
+            return "Move L";
+        if (dir[ptype] == 1)
+            return "Move R";
+    }
     if (solvecrash && ptype == 0)
     {
         if (dir[ptype] == 1)
