@@ -433,8 +433,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     }
     else if (dir[ptype] == 2)
     { // DOWN 8.58714 7.82534 0 5.25984 0
-        if (ptype == 1)
-            std::cerr << "trap: " << trapy << std::endl;
+        std::cerr << "trap: " << trapy << std::endl;
         if (des_y == 9)
         {
             if (getdown || crashy2 || trapy)
