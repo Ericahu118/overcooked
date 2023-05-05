@@ -271,20 +271,16 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     bool pickUD = ((x0 > des_x) && (x0 - des_x <= center + 0.3));
     if (hascrash && ptype == 1)
     {
-        if (solvecrash[ptype] != 0)
-            return "Move";
-        else
-        {
+        if (v0x != 0 || v0y != 0)
             hascrash = 0;
-            if (dir[ptype] == 1)
-                return "Move U";
-            if (dir[ptype] == 2)
-                return "Move D";
-            if (dir[ptype] == 3)
-                return "Move L";
-            if (dir[ptype] == 1)
-                return "Move R";
-        }
+        if (dir[ptype] == 1)
+            return "Move U";
+        if (dir[ptype] == 2)
+            return "Move D";
+        if (dir[ptype] == 3)
+            return "Move L";
+        if (dir[ptype] == 1)
+            return "Move R";
     }
     if (ptype == 0 && solvecrash[ptype] != 0)
     {
