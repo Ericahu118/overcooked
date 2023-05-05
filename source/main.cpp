@@ -302,6 +302,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
         else if (dir[ptype] == 2)
         {
+            std::cerr << "here 1" << std::endl;
             if (y0 - traploc[ptype].second >= block - 0.3)
             {
                 if (v0y == 0)
@@ -473,13 +474,13 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
         else
         {
-            if (pickUD || crashy2)
+            if (pickUD || crashx1)
             {
                 return "Move";
             }
             else
             {
-                return "Move D";
+                return "Move L";
             }
         }
     }
