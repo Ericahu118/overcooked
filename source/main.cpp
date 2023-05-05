@@ -1018,6 +1018,7 @@ int main()
                 std::string need = Order[0].recipe[0];
                 if (Ingredient[i].name.compare(need) == 0)
                 {
+                    cerr << "1: step1" << endl;
                     player0_Action = frame_move(Ingredient[i].x, Ingredient[i].y, 0, 0);
 
                     break;
@@ -1027,7 +1028,7 @@ int main()
             {
                 if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
                 {
-
+                    cerr << "1: step2" << endl;
                     player0_Action = frame_move(Entity[i].x, Entity[i].y, 0, 0);
                     break;
                 }
@@ -1041,7 +1042,7 @@ int main()
                 {
                     if (Entity[i].containerKind == ContainerKind::Plate)
                     {
-
+                        cerr << "1: step3" << endl;
                         player0_Action = frame_move(Entity[i].x, Entity[i].y, 0, 0);
 
                         break;
@@ -1050,7 +1051,7 @@ int main()
             }
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
-
+                cerr << "1: step4" << endl;
                 player0_Action = frame_move(9, 4, 0, 0);
             }
         }
@@ -1060,7 +1061,7 @@ int main()
         {
             if (Entity[i].containerKind == ContainerKind::Plate)
             {
-                haveplate == true;
+                haveplate = true;
             }
         }
         if (!haveplate)
@@ -1069,18 +1070,21 @@ int main()
             {
                 if (Entity[i].containerKind == ContainerKind::DirtyPlates)
                 {
+                    cerr << "2: step1" << endl;
                     player1_Action = frame_move(Entity[i].x, Entity[i].y, 1, 0);
                 }
             }
         }
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
+            cerr << "2: step2" << endl;
             player1_Action = frame_move(1, 9, 1, 0);
         }
         for (int i = 0; i < entityCount; i++)
         {
             if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 1 && Entity[i].y == 9)
             {
+                cerr << "2: step3" << endl;
                 player1_Action = frame_move(1, 9, 1, 1);
             }
         }
