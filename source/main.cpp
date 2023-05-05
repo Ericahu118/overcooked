@@ -651,14 +651,14 @@ int main()
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
             cerr << "2: step1" << endl;
-            player1_Action = frame_move(0, 5, 1, 0);
+            player1_Action = frame_move(5, 0, 1, 0);
         }
         else
         {
             bool flag = 0;
             for (int i = 0; i < entityCount; i++)
             {
-                if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 0 && Entity[i].y == 5)
+                if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 5 && Entity[i].y == 0)
                 {
                     cerr << "2: step2" << endl;
                     flag = 1;
@@ -666,7 +666,7 @@ int main()
                 }
             }
             if (flag)
-                player1_Action = frame_move(0, 5, 1, 1);
+                player1_Action = frame_move(5, 0, 1, 1);
             else
             {
                 bool haveplate = false;
