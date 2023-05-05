@@ -25,9 +25,9 @@ extern struct Order Order[20 + 5];      // 订单
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 
 int dir[2 + 5];
-int solvecrash = 0;
+int solvecrash[2 + 5] = 0;
 int hascrash = 0;
-pair<double, double> crashloc;
+pair<double, double> crashloc[2 + 5];
 int solvetrap[2 + 5] = {0};
 pair<double, double> traploc[2 + 5];
 
@@ -64,27 +64,22 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashy1)
         {
-            if (ptype == 0)
+            crashloc[ptype].first = x0, crashloc[ptype].second = y0;
+            if (x0 >= 3 * block)
             {
-                // giveway
-                crashloc.first = x0, crashloc.second = y0;
-                solvecrash = 3;
-                if (x0 >= 3 * block)
-                {
-                    solvecrash = 3;
-                    return dir[ptype];
-                }
-                else
-                {
-                    solvecrash = 4;
-                    return dir[ptype];
-                }
+                solvecrash[ptype] = 3;
+                // return dir[ptype];
             }
             else
             {
-                hascrash = 1;
-                return dir[ptype];
+                solvecrash[ptype] = 4;
+                // return dir[ptype];
             }
+            if (ptype == 1)
+            {
+                hascrash = 1;
+            }
+            return dir[ptype];
         }
         if (trapy)
         {
@@ -115,27 +110,21 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashy2)
         {
-            if (ptype == 0)
+            crashloc[ptype].first = x0, crashloc[ptype].second = y0;
+            if (x0 >= 3 * block)
             {
-                // giveway
-                crashloc.first = x0, crashloc.second = y0;
-                solvecrash = 3;
-                if (x0 >= 3 * block)
-                {
-                    solvecrash = 3;
-                    return dir[ptype];
-                }
-                else
-                {
-                    solvecrash = 4;
-                    return dir[ptype];
-                }
+                solvecrash[ptype] = 3;
+                // return dir[ptype];
             }
             else
             {
-                hascrash = 1;
-                return dir[ptype];
+                solvecrash[ptype] = 4;
             }
+            if (ptype == 1)
+            {
+                hascrash = 1;
+            }
+            return dir[ptype];
         }
         if (trapy)
         {
@@ -167,27 +156,23 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashx1)
         {
-            if (ptype == 0)
+            crashloc[ptype].first = x0, crashloc[ptype].second = y0;
+
+            // giveway
+            if (y0 >= 3 * block)
             {
-                // giveway
-                crashloc.first = x0, crashloc.second = y0;
-                solvecrash = 1;
-                if (y0 >= 3 * block)
-                {
-                    solvecrash = 1;
-                    return dir[ptype];
-                }
-                else
-                {
-                    solvecrash = 2;
-                    return dir[ptype];
-                }
+                solvecrash[ptype] = 1;
             }
             else
             {
-                hascrash = 1;
-                return dir[ptype];
+                solvecrash[ptype] = 2;
             }
+
+            if (ptype == 1)
+            {
+                hascrash = 1;
+            }
+            return dir[ptype];
         }
         if (trapx)
         {
@@ -218,27 +203,22 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashx2)
         {
-            if (ptype == 0)
+            crashloc[ptype].first = x0, crashloc[ptype].second = y0;
+            // giveway
+            if (y0 >= 3 * block)
             {
-                // giveway
-                crashloc.first = x0, crashloc.second = y0;
-                solvecrash = 1;
-                if (y0 >= 3 * block)
-                {
-                    solvecrash = 1;
-                    return dir[ptype];
-                }
-                else
-                {
-                    solvecrash = 2;
-                    return dir[ptype];
-                }
+                solvecrash[ptype] = 1;
             }
             else
             {
-                hascrash = 1;
-                return dir[ptype];
+                solvecrash[ptype] = 2;
             }
+
+            if (ptype == 1)
+            {
+                hascrash = 1;
+            }
+            return dir[ptype];
         }
         if (trapx)
         {
@@ -270,7 +250,9 @@ int changedir(double des_x, double des_y, int ptype)
     assert(0);
     return dir[ptype];
 }
-
+string tosolve(int flag, int ptype, double xx, double yy)
+{
+}
 string frame_move(double des_x, double des_y, int ptype, int op)
 {
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
@@ -278,10 +260,10 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
     bool trapy = (y0 <= 8 && (8 - y0 <= center + 0.4)) && ((x0 < 8 && 8 - x0 <= center) || (x0 >= 8) && (x0 - 8 <= block + center));
     bool trapx = (x0 <= 8 && (8 - x0 <= center + 0.3) && ((y0 >= 8 && y0 - 8 <= block + center) || (y0 < 8 && 8 - y0 <= center)));
-    bool crashy1 = (y0 >= y1 && (y0 - y1 <= 2 * radius + 0.4)) && ((x0 < x1 && (x1 - x0) <= 2 * radius) || (x0 > x1) && (x0 - x1 <= 2 * radius));
-    bool crashy2 = (y0 <= y1 && (y1 - y0 <= 2 * radius + 0.4)) && ((x0 < x1 && (x1 - x0) <= 2 * radius) || (x0 > x1) && (x0 - x1 <= 2 * radius));
-    bool crashx1 = (x0 >= x1 && (x0 - x1 <= 2 * radius + 0.4)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
-    bool crashx2 = (x0 < x1 && (x1 - x0 <= 2 * radius + 0.4)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
+    bool crashy1 = (y0 >= y1 && (y0 - y1 <= 2 * radius + 0.3)) && ((x0 < x1 && (x1 - x0) <= 2 * radius) || (x0 > x1) && (x0 - x1 <= 2 * radius));
+    bool crashy2 = (y0 <= y1 && (y1 - y0 <= 2 * radius + 0.3)) && ((x0 < x1 && (x1 - x0) <= 2 * radius) || (x0 > x1) && (x0 - x1 <= 2 * radius));
+    bool crashx1 = (x0 >= x1 && (x0 - x1 <= 2 * radius + 0.3)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
+    bool crashx2 = (x0 < x1 && (x1 - x0 <= 2 * radius + 0.3)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
     bool getup = (y0 - des_y) <= block + center + 0.3;
     bool getdown = (des_y - y0) <= center + 0.3;
     bool getleft = (x0 - des_x) <= center + block + 0.3;
@@ -290,58 +272,63 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     bool pickUD = ((x0 > des_x) && (x0 - des_x <= center + 0.3));
     if (hascrash && ptype == 1)
     {
-        if (v0x != 0 || v0y != 0)
-            hascrash = 0;
-        if (dir[ptype] == 1)
-            return "Move U";
-        if (dir[ptype] == 2)
-            return "Move D";
-        if (dir[ptype] == 3)
-            return "Move L";
-        if (dir[ptype] == 1)
-            return "Move R";
-    }
-    if (solvecrash != 0 && ptype == 0)
-    {
-        if (solvecrash == 1)
+        if (solvecrash[ptype] != 0)
+            return "Move";
+        else
         {
-            if (crashloc.second - y0 >= block - 0.3)
+            hascrash = 0;
+            if (dir[ptype] == 1)
+                return "Move U";
+            if (dir[ptype] == 2)
+                return "Move D";
+            if (dir[ptype] == 3)
+                return "Move L";
+            if (dir[ptype] == 1)
+                return "Move R";
+        }
+    }
+    if (ptype == 0 && solvecrash[ptype] != 0)
+    {
+
+        if (solvecrash[ptype] == 1)
+        {
+            if (crashloc[ptype].second - y0 >= block - 0.3)
             {
                 if (v0y == 0)
-                    solvecrash = 0;
+                    solvecrash[ptype] = 0;
                 return "Move";
             }
             else
                 return "Move U";
         }
-        else if (solvecrash == 2)
+        else if (solvecrash[ptype] == 2)
         {
-            if (y0 - crashloc.second >= block - 0.3)
+            if (y0 - crashloc[ptype].second >= block - 0.3)
             {
                 if (v0y == 0)
-                    solvecrash = 0;
+                    solvecrash[ptype] = 0;
                 return "Move";
             }
             else
                 return "Move D";
         }
-        else if (solvecrash == 3)
+        else if (solvecrash[ptype] == 3)
         {
-            if (crashloc.first - x0 >= block - 0.3)
+            if (crashloc[ptype].first - x0 >= block - 0.3)
             {
                 if (v0x == 0)
-                    solvecrash = 0;
+                    solvecrash[ptype] = 0;
                 return "Move";
             }
             else
                 return "Move L";
         }
-        else if (solvecrash == 4)
+        else if (solvecrash[ptype] == 4)
         {
-            if (x0 - crashloc.first >= block - 0.3)
+            if (x0 - crashloc[ptype].first >= block - 0.3)
             {
                 if (v0x == 0)
-                    solvecrash = 0;
+                    solvecrash[ptype] = 0;
                 return "Move";
             }
             else
@@ -466,6 +453,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
                 }
             }
         }
+        // add to solve stay and wait
         dir[ptype] = changedir(des_x, des_y, ptype);
     }
     if (dir[ptype] == 1)
@@ -691,7 +679,6 @@ int main()
                 }
             }
         }
-
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = player0_Action + "\n" + player1_Action + "\n";
         std::cout << action;
