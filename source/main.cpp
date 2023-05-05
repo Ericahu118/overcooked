@@ -229,6 +229,7 @@ int changedir(double des_x, double des_y, int ptype)
             return 2;
         }
     }
+    std::cerr << ptype << "changedir: " << des_x << " " << des_y << dir[ptype] << endl;
     std::cerr << "Not reach changedir end" << std::endl;
     assert(0);
     return 0;
