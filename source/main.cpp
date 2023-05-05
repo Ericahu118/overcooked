@@ -48,7 +48,7 @@ int changedir(double des_x, double des_y, int ptype)
     bool getright = (des_x - x0) <= center + 0.3;
     bool pickLR = ((y0 > des_y) && (y0 - des_y <= center + 0.3)) || (y0 <= des_y);
     bool pickUD = ((x0 > des_x) && (x0 - des_x <= center + 0.3));
-
+    std::cerr << ptype << "changedir: " << des_x << " " << des_y << dir[ptype] << endl;
     if (dir[ptype] == 0)
     {
         if (des_x == 0)
@@ -265,7 +265,7 @@ int changedir(double des_x, double des_y, int ptype)
         }
         std::cerr << ptype << ": dir " << dir[ptype] << endl;
     }
-    std::cerr << ptype << "changedir: " << des_x << " " << des_y << dir[ptype] << endl;
+
     std::cerr << "Not reach changedir end" << std::endl;
     assert(0);
     return dir[ptype];
