@@ -119,6 +119,7 @@ int changedir(double des_x, double des_y, int ptype)
         }
         if (trapy)
         {
+            std::cerr << "solvetrap" << endl;
             traploc[ptype].first = x0, traploc[ptype].second = y0;
             solvetrap[ptype] = 1;
             if (x0 >= 3 * block)
@@ -431,7 +432,9 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
     }
     else if (dir[ptype] == 2)
-    { // DOWN
+    { // DOWN 8.58714 7.82534 0 5.25984 0
+        if (trapy)
+            std::cerr << "trap" << std::endl;
         if (des_y == 9)
         {
             if (getdown || crashy2 || trapy)
