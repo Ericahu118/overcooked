@@ -250,9 +250,7 @@ int changedir(double des_x, double des_y, int ptype)
     assert(0);
     return dir[ptype];
 }
-string tosolve(int flag, int ptype, double xx, double yy)
-{
-}
+
 string frame_move(double des_x, double des_y, int ptype, int op)
 {
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
