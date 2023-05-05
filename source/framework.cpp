@@ -49,11 +49,11 @@ void init_read()
             ss >> Map[i][j];
             if (Map[i][j] == '$')
             {
-                window.first = j, window.second;
+                window.first = j, window.second = i;
             }
             if (Map[i][j] == 'k')
             {
-                sink.first = j, sink.second;
+                sink.first = j, sink.second = i;
             }
         }
 
