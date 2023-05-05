@@ -25,7 +25,7 @@ extern struct Order Order[20 + 5];      // 订单
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 
 int dir[2 + 5];
-int solvecrash[2 + 5] = 0;
+int solvecrash[2 + 5];
 int hascrash = 0;
 pair<double, double> crashloc[2 + 5];
 int solvetrap[2 + 5] = {0};
