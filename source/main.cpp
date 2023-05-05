@@ -89,13 +89,17 @@ int changedir(double des_x, double des_y, int ptype)
         if (trapy)
         {
             traploc[ptype].first = x0, traploc[ptype].second = y0;
-            solvetrap[ptype] = 1;
+            solvetrap[ptype] = 3;
             if (x0 >= 3 * block)
             {
-                return 3;
+                solvetrap[ptype] = 3;
+                return dir[type];
             }
             else
-                return 4;
+            {
+                solvetrap[ptype] = 4;
+                return dir[type];
+            }
         }
         if (des_x < x0)
         {
@@ -105,6 +109,7 @@ int changedir(double des_x, double des_y, int ptype)
         {
             return 4;
         }
+        std::cerr << ptype << ": dir " << dir[ptype] << endl;
     }
     else if (dir[ptype] == 2)
     {
@@ -136,13 +141,17 @@ int changedir(double des_x, double des_y, int ptype)
         {
             std::cerr << "solvetrap" << endl;
             traploc[ptype].first = x0, traploc[ptype].second = y0;
-            solvetrap[ptype] = 1;
+
             if (x0 >= 3 * block)
             {
-                return 3;
+                solvetrap[ptype] = 3;
+                return dir[ptype];
             }
             else
-                return 4;
+            {
+                solvetrap[ptype] = 4;
+                return dir[ptype];
+            }
         }
         if (des_x < x0)
         {
@@ -152,6 +161,7 @@ int changedir(double des_x, double des_y, int ptype)
         {
             return 4;
         }
+        std::cerr << ptype << ": dir " << dir[ptype] << endl;
     }
     else if (dir[ptype] == 3)
     {
@@ -185,19 +195,24 @@ int changedir(double des_x, double des_y, int ptype)
             solvetrap[ptype] = 1;
             if (y0 >= 3 * block)
             {
-                return 1;
+                solvetrap[ptype] = 1;
+                return dir[ptype];
             }
             else
-                return 2;
+            {
+                solvetrap[ptype] = 2;
+                return dir[ptype];
+            }
         }
         if (des_y < y0)
         {
             return 1;
         }
-        if (des_x >= y0)
+        if (des_y >= y0)
         {
             return 2;
         }
+        std::cerr << ptype << ": dir " << dir[ptype] << endl;
     }
     else if (dir[ptype] == 4)
     {
@@ -231,23 +246,28 @@ int changedir(double des_x, double des_y, int ptype)
             solvetrap[ptype] = 1;
             if (y0 >= 3 * block)
             {
-                return 1;
+                solvetrap[ptype] = 1;
+                return dir[ptype];
             }
             else
-                return 2;
+            {
+                solvetrap[ptype] = 2;
+                return dir[ptype];
+            }
         }
         if (des_y < y0)
         {
             return 1;
         }
-        if (des_x >= y0)
+        if (des_y >= y0)
         {
             return 2;
         }
+        std::cerr << ptype << ": dir " << dir[ptype] << endl;
     }
     std::cerr << ptype << "changedir: " << des_x << " " << des_y << dir[ptype] << endl;
     std::cerr << "Not reach changedir end" << std::endl;
-    // assert(0);
+    assert(0);
     return dir[ptype];
 }
 
@@ -329,9 +349,9 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
     }
 
-    if (solvetrap[ptype])
+    if (solvetrap[ptype] != 0)
     {
-        if (dir[ptype] == 1)
+        if (solvetrap[ptype] == 1)
         {
             if (traploc[ptype].second - y0 >= block - 0.3)
             {
@@ -342,9 +362,8 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             else
                 return "Move U";
         }
-        else if (dir[ptype] == 2)
+        else if (solvetrap[ptype] == 2)
         {
-            std::cerr << "here 1" << std::endl;
             if (y0 - traploc[ptype].second >= block - 0.3)
             {
                 if (v0y == 0)
@@ -354,7 +373,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             else
                 return "Move D";
         }
-        else if (dir[ptype] == 3)
+        else if (solvetrap[ptype] == 3)
         {
             if (traploc[ptype].first - x0 >= block - 0.3)
             {
@@ -365,7 +384,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             else
                 return "Move L";
         }
-        else if (dir[ptype] == 4)
+        else if (solvetrap[ptype] == 4)
         {
             if (x0 - traploc[ptype].first >= block - 0.3)
             {
@@ -476,8 +495,6 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     }
     else if (dir[ptype] == 2)
     { // DOWN 8.58714 7.82534 0 5.25984 0
-        if (ptype == 1)
-            std::cerr << "trap: " << trapy << std::endl;
         if (des_y == 9)
         {
             if (getdown || crashy2 || trapy)
