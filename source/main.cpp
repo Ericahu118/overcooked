@@ -510,7 +510,8 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         {
             if (pickLR || crashy2 || trapy)
             {
-                cerr << ptype << ": here1" << endl;
+                if (pickLR)
+                    cerr << ptype << ": here1" << endl;
                 return "Move";
             }
             else
