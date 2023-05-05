@@ -253,6 +253,7 @@ int changedir(double des_x, double des_y, int ptype)
 
 string frame_move(double des_x, double des_y, int ptype, int op)
 {
+    std::cerr << ptype << ": framemove: " << des_x << " " << des_y << dir[ptype] << endl;
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
     v0x = Players[ptype].X_Velocity, v0y = Players[ptype].Y_Velocity;
