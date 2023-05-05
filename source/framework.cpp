@@ -7,6 +7,7 @@
 #include <cassert>
 #include <vector>
 #include <string>
+using namespace std;
 
 /* 按照读入顺序定义 */
 int width, height;
@@ -25,6 +26,10 @@ int entityCount; // 实体
 struct Entity Entity[20 + 5];
 int remainFrame, Fund;
 
+// hjx add
+pair<double, double> window;
+pair<double, double> sink;
+
 void init_read()
 {
     std::string s;
@@ -40,7 +45,17 @@ void init_read()
     std::cerr << "Map size: " << width << "x" << height << std::endl; // 可以输出到log.txt文件中
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
+        {
             ss >> Map[i][j];
+            if (Map[i][j] == '$')
+            {
+                window.first = j, window.second;
+            }
+            if (Map[i][j] == 'k')
+            {
+                sink.first = j, sink.second;
+            }
+        }
 
     /* 读入原料箱：位置、名字、以及采购单价 */
     ss >> IngredientCount;

@@ -21,6 +21,8 @@ extern struct Entity Entity[20 + 5];
 extern struct Order totalOrder[20 + 5]; // 总订单数组，
 extern int orderCount;                  // 订单数
 extern struct Order Order[20 + 5];      // 订单
+extern pair<double, double> window;
+extern pair<double, double> sink;
 
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 
@@ -629,21 +631,21 @@ int main()
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
                 cerr << "1: step4" << endl;
-                player0_Action = frame_move(9, 4, 0, 0);
+                player0_Action = frame_move(window.first, window.second, 0, 0);
             }
         }
 
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
             cerr << "2: step1" << endl;
-            player1_Action = frame_move(1, 9, 1, 0);
+            player1_Action = frame_move(sink.first, sink.second, 1, 0);
         }
         else
         {
             bool flag = 0;
             for (int i = 0; i < entityCount; i++)
             {
-                if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 1 && Entity[i].y == 9)
+                if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == sink.first && Entity[i].y == sink.second)
                 {
                     cerr << "2: step2" << endl;
                     flag = 1;
@@ -651,7 +653,7 @@ int main()
                 }
             }
             if (flag)
-                player1_Action = frame_move(1, 9, 1, 1);
+                player1_Action = frame_move(sink.first, sink.second, 1, 1);
             else
             {
                 bool haveplate = false;
