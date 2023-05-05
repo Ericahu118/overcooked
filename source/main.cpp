@@ -93,12 +93,12 @@ int changedir(double des_x, double des_y, int ptype)
             if (x0 >= 3 * block)
             {
                 solvetrap[ptype] = 3;
-                return dir[type];
+                return dir[ptype];
             }
             else
             {
                 solvetrap[ptype] = 4;
-                return dir[type];
+                return dir[ptype];
             }
         }
         if (des_x < x0)
