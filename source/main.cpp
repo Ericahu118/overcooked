@@ -437,7 +437,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             std::cerr << "trap" << std::endl;
         if (des_y == 9)
         {
-            if (getdown || crashy2 || trapy)
+            if (getdown || crashy2 || 8 - y0 <= center + 0.3)
             {
                 return "Move";
             }
