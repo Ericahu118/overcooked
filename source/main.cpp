@@ -384,7 +384,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     {
         if (des_x == 0)
         {
-            if (getleft && ((y0 > des_y) && (y0 - des_y <= center + 0.2)))
+            if (getleft && ((y0 > des_y) && (y0 - des_y <= center + radius)))
             {
                 dir[ptype] = 0;
                 switch (op)
@@ -401,7 +401,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
         else if (des_x == 9)
         {
-            if (getright && ((y0 > des_y) && (y0 - des_y <= center + 0.2)))
+            if (getright && ((y0 > des_y) && (y0 - des_y <= center + radius)))
             {
                 dir[ptype] = 0;
                 switch (op)
@@ -418,7 +418,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
         else if (des_y == 0)
         {
-            if (getup && ((x0 > des_x) && (x0 - des_x <= center + 0.2)))
+            if (getup && ((x0 > des_x) && (x0 - des_x <= center + radius)))
             {
                 dir[ptype] = 0;
                 switch (op)
@@ -435,7 +435,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         }
         else if (des_y == 9)
         {
-            if (getdown && ((x0 > des_x) && (x0 - des_x <= center + 0.2)))
+            if (getdown && ((x0 > des_x) && (x0 - des_x <= center + radius)))
             {
                 dir[ptype] = 0;
                 switch (op)
