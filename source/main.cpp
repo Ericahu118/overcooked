@@ -644,7 +644,7 @@ int main()
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
                 cerr << "1: step4" << endl;
-                player0_Action = frame_move(4, 0, 0, 0);
+                player0_Action = frame_move(0, 4, 0, 0);
             }
         }
 
