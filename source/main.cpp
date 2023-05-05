@@ -579,6 +579,8 @@ int main()
     */
 
     int totalFrame = 14400;
+    cerr << "window: " << window.first << window.second << endl;
+    cerr << "sink: " << sink.first << sink.second << endl;
     for (int i = 0; i < totalFrame; i++)
     {
         bool skip = frame_read(i);
