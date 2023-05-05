@@ -47,13 +47,55 @@ int changedir(double des_x, double des_y, int ptype)
     if (dir[ptype] == 0)
     {
         if (des_x == 0)
-            return 3;
+        {
+            if (getleft)
+            {
+                if (des_y < y0)
+                    return 1;
+                else
+                    return 2;
+            }
+            else
+                return 3;
+        }
         if (des_x == 9)
-            return 4;
+        {
+            if (getright)
+            {
+                if (des_y < y0)
+                    return 1;
+                else
+                    return 2;
+            }
+            else
+                return 4;
+        }
+
         if (des_y == 0)
-            return 1;
+        {
+            if (getup)
+            {
+                if (des_x < x0)
+                    return 3;
+                else
+                    return 4;
+            }
+            else
+                return 1;
+        }
+        return 1;
         if (des_y == 9)
-            return 2;
+        {
+            if (getdown)
+            {
+                if (des_x < x0)
+                    return 3;
+                else
+                    return 4;
+            }
+            else
+                return 2;
+        }
     }
     else if (dir[ptype] == 1)
     {
