@@ -5,11 +5,13 @@
 #include <string>
 #include <math.h>
 #include <framework.h>
+#include <movement.h>
 
-const double radius = 0.35;
+using namespace std;
+/*const double radius = 0.35;
 const double interdis = 1.3;
 const double center = 0.5;
-const double block = 1;
+const double block = 1;*/
 
 extern Player Players[2 + 5];
 extern struct Ingredient Ingredient[20 + 5];
@@ -23,11 +25,11 @@ extern struct Order Order[20 + 5];      // 订单
 
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 // My move plan remain to solve crash
-char change[2 + 5];
+/*char change[2 + 5];
 bool solvecrash = false;
-double deltax = 0, deltay = 0;
+double deltax = 0, deltay = 0;*/
 
-std::string Solvecrash(char dir)
+/*std::string Solvecrash(char dir)
 {
     bool crash = (((Players[0].x - Players[1].x) * (Players[0].x - Players[1].x) + (Players[0].y - Players[1].y) * (Players[0].y - Players[1].y)) <= 4 * radius * radius);
     if (dir == 'U' || dir == 'D')
@@ -428,9 +430,9 @@ std::string Moveplan(double x, double y, int ptype, int op)
             return "Move";
         else
             return "Move U";*/
-    }
-    return "Move";
-}
+//}
+// return "Move";
+//}
 
 int main()
 {
@@ -468,7 +470,7 @@ int main()
                 std::string need = Order[0].recipe[0];
                 if (Ingredient[i].name.compare(need) == 0)
                 {
-                    player0_Action = Moveplan(Ingredient[i].x, Ingredient[i].y, 0, 0);
+                    player0_Action = frame_move(Ingredient[i].x, Ingredient[i].y, 0, 0);
 
                     break;
                 }
@@ -478,7 +480,7 @@ int main()
                 if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
                 {
 
-                    player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
+                    player0_Action = frame_move(Entity[i].x, Entity[i].y, 0, 0);
                     break;
                 }
             }
@@ -492,7 +494,7 @@ int main()
                     if (Entity[i].containerKind == ContainerKind::Plate)
                     {
 
-                        player0_Action = Moveplan(Entity[i].x, Entity[i].y, 0, 0);
+                        player0_Action = frame_move(Entity[i].x, Entity[i].y, 0, 0);
 
                         break;
                     }
@@ -501,7 +503,7 @@ int main()
             else if (Players[0].containerKind == ContainerKind::Plate)
             {
 
-                player0_Action = Moveplan(9, 4, 0, 0);
+                player0_Action = frame_move(9, 4, 0, 0);
             }
         }
 
@@ -519,19 +521,19 @@ int main()
             {
                 if (Entity[i].containerKind == ContainerKind::DirtyPlates)
                 {
-                    player1_Action = Moveplan(Entity[i].x, Entity[i].y, 1, 0);
+                    player1_Action = frame_move(Entity[i].x, Entity[i].y, 1, 0);
                 }
             }
         }
         if (Players[1].containerKind == ContainerKind::DirtyPlates)
         {
-            player1_Action = Moveplan(1, 9, 1, 0);
+            player1_Action = frame_move(1, 9, 1, 0);
         }
         for (int i = 0; i < entityCount; i++)
         {
             if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 1 && Entity[i].y == 9)
             {
-                player1_Action = Moveplan(1, 9, 1, 1);
+                player1_Action = frame_move(1, 9, 1, 1);
             }
         }
 

@@ -10,21 +10,22 @@
 
 /* 按照读入顺序定义 */
 int width, height;
-char Map[20 + 5][20 + 5];//地图，y
-int IngredientCount;//原料箱数量，y
-struct Ingredient Ingredient[20 + 5];//原料箱数组，y
-int recipeCount;//菜谱种类,y
-struct Recipe Recipe[20 + 5];//菜谱数组,y
-int totalTime, randomizeSeed, totalOrderCount;// ？totalorder,y
-struct Order totalOrder[20 + 5];//总订单数组，
-int orderCount;//订单数
-struct Order Order[20 + 5];//订单
+char Map[20 + 5][20 + 5];                      // 地图，y
+int IngredientCount;                           // 原料箱数量，y
+struct Ingredient Ingredient[20 + 5];          // 原料箱数组，y
+int recipeCount;                               // 菜谱种类,y
+struct Recipe Recipe[20 + 5];                  // 菜谱数组,y
+int totalTime, randomizeSeed, totalOrderCount; // ？totalorder,y
+struct Order totalOrder[20 + 5];               // 总订单数组，
+int orderCount;                                // 订单数
+struct Order Order[20 + 5];                    // 订单
 int k;
 struct Player Players[2 + 5];
-int entityCount;//实体
+int entityCount; // 实体
 struct Entity Entity[20 + 5];
 int remainFrame, Fund;
 
+extern pair<double, double> trap[100];
 void init_read()
 {
     std::string s;
@@ -36,8 +37,8 @@ void init_read()
     ss << s;
 
     /* 若按照该读入，访问坐标(x, y)等价于访问Map[y][x],你可按照自己的习惯进行修改 */
-    ss >> width >> height; //首先，宽和长
-    std::cerr << "Map size: " << width << "x" << height << std::endl;//可以输出到log.txt文件中
+    ss >> width >> height;                                            // 首先，宽和长
+    std::cerr << "Map size: " << width << "x" << height << std::endl; // 可以输出到log.txt文件中
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
             ss >> Map[i][j];
@@ -88,6 +89,8 @@ void init_read()
         ss >> Entity[i].x >> Entity[i].y >> s;
         Entity[i].entity.push_back(s);
     }
+
+    // add
 }
 
 bool frame_read(int nowFrame)
@@ -104,7 +107,7 @@ bool frame_read(int nowFrame)
     if (std::cin.rdbuf()->in_avail() > 0)
     {
         std::cerr << "Warning: skipping frame " << nowFrame
-             << " to catch up with the game" << std::endl;
+                  << " to catch up with the game" << std::endl;
         return true;
     }
     ss >> s;
@@ -112,7 +115,7 @@ bool frame_read(int nowFrame)
     int currentFrame;
     ss >> currentFrame;
     assert(currentFrame == nowFrame);
-    ss >> remainFrame >> Fund;//？
+    ss >> remainFrame >> Fund; // ？
     /* 读入当前的订单剩余帧数、价格、以及配方 */
     ss >> orderCount;
     for (int i = 0; i < orderCount; i++)
@@ -153,7 +156,7 @@ bool frame_read(int nowFrame)
             if (s == ";" || s == ":" || s == "@" || s == "*")
                 continue;
 
-            /* 
+            /*
                 Todo: 其他容器
             */
             if (s == "Plate")
@@ -195,8 +198,8 @@ bool frame_read(int nowFrame)
                 assert(s == "/");
                 break;
             }
-            
-            /* 
+
+            /*
                 Todo: 其他容器
             */
             if (s == "Plate")
