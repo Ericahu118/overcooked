@@ -1066,31 +1066,38 @@ int main()
         }
         else
         {
+            bool flag = 0;
             for (int i = 0; i < entityCount; i++)
             {
                 if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == 9 && Entity[i].y == 5)
                 {
                     cerr << "2: step2" << endl;
-                    player1_Action = frame_move(9, 5, 1, 1);
+                    flag = 1;
+                    break;
                 }
             }
-            bool haveplate = false;
-            for (int i = 0; i < entityCount; i++)
+            if (flag)
+                player1_Action = frame_move(9, 5, 1, 1);
+            else
             {
-                if (Entity[i].containerKind == ContainerKind::Plate)
-                {
-                    haveplate = true;
-                }
-            }
-            if (!haveplate)
-            {
-
+                bool haveplate = false;
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                    if (Entity[i].containerKind == ContainerKind::Plate)
                     {
-                        cerr << "2: step3" << endl;
-                        player1_Action = frame_move(Entity[i].x, Entity[i].y, 1, 0);
+                        haveplate = true;
+                    }
+                }
+                if (!haveplate)
+                {
+
+                    for (int i = 0; i < entityCount; i++)
+                    {
+                        if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                        {
+                            cerr << "2: step3" << endl;
+                            player1_Action = frame_move(Entity[i].x, Entity[i].y, 1, 0);
+                        }
                     }
                 }
             }
