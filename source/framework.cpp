@@ -51,7 +51,7 @@ void init_read()
             {
                 window.first = j, window.second = i;
             }
-            if (Map[i][j] == 'k')
+            else if (Map[i][j] == 'k')
             {
                 sink.first = j, sink.second = i;
             }
