@@ -4,6 +4,7 @@ project(Overcooked)
 find_package(Git)
 
 
+
 set(CMAKE_CXX_STANDARD 20)
 include_directories("include")
 file(GLOB sources "source/*.cpp")

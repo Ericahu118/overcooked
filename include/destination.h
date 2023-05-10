@@ -10,4 +10,6 @@
 #include <framework.h>
 #include <movement.h>
 
+int arrangetask(int ptype);
+
 #endif
