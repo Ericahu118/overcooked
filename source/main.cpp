@@ -5,12 +5,14 @@
 #include <string>
 #include <math.h>
 #include <framework.h>
+#include <movement.h>
+#include <destination.h>
 
 using namespace std;
-const double radius = 0.35;
+/*const double radius = 0.35;
 const double interdis = 1.3;
 const double center = 0.5;
-const double block = 1;
+const double block = 1;*/
 
 extern Player Players[2 + 5];
 extern struct Ingredient Ingredient[20 + 5];
@@ -26,14 +28,14 @@ extern pair<double, double> sink;
 
 int worktype[2 + 5] = {0}; // 0 for dish 1 for wash
 
-int dir[2 + 5];
+/*int dir[2 + 5];
 int solvecrash[2 + 5];
 int hascrash = 0;
 pair<double, double> crashloc[2 + 5];
 int solvetrap[2 + 5] = {0};
-pair<double, double> traploc[2 + 5];
+pair<double, double> traploc[2 + 5];*/
 
-int changedir(double des_x, double des_y, int ptype)
+/*int changedir(double des_x, double des_y, int ptype)
 {
     double x0, x1, y0, y1, v0x, v0y; // p0 and p1 location
     x0 = Players[ptype].x, x1 = Players[(ptype + 1) % 2].x, y0 = Players[ptype].y, y1 = Players[(ptype + 1) % 2].y;
@@ -560,7 +562,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     }
     std::cerr << "NOt reach frameend" << std::endl;
     return "Move";
-}
+}*/
 
 int main()
 {

@@ -5,6 +5,11 @@
 #include <vector>
 #include <enum.h>
 
+const double radius = 0.35;
+const double interdis = 1.3;
+const double center = 0.5;
+const double block = 1;
+
 struct Ingredient
 {
     int x, y, price;  // 原料箱位置，原料价格
