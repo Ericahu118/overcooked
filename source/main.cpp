@@ -101,6 +101,7 @@ int main()
                 playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
                 if (playerAction[ptype][0] == 'P' || playerAction[ptype][0] == 'I')
                 {
+                    int flag = 0;
                     switch (taketask[ptype].op)
                     {
                     case 0:
@@ -113,7 +114,6 @@ int main()
                             changephase[ptype] = 1;
                         break;
                     case 1:
-                        int flag = 0;
                         if (taketask[ptype].id == 0)
                         {
                             for (int i = 0; i < entityCount; i++)
@@ -138,11 +138,11 @@ int main()
                                     changephase[ptype] = 1;
                             }
                         }
-
                         break;
                     default:
                         cerr << "main:case op wrong" << endl;
                         assert(0);
+                        break;
                     }
                 }
             }
