@@ -48,7 +48,7 @@ void init()
     for (int i = 0; i < entityCount; i++)
     {
         cerr << "Why1" << endl;
-        if (Entity[i].containerKind == ContainerKind::Plate)
+        if (*Entity[i].entity.begin() == "Plate")
         {
             // cerr << "Why1" << endl;
             curplates++;
