@@ -134,6 +134,7 @@ int main()
                                 {
                                     if (Entity[i].currentFrame == Entity[i].currentFrame - 2)
                                     {
+                                        cerr << "plus" << endl;
                                         curplates++;
                                     }
                                     flag = 1;
