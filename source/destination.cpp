@@ -151,7 +151,7 @@ Task arrangetask(int ptype)
                 }
             }
         }
-        taketask[ptype].id = -1 // 洗完了
+        taketask[ptype].id = -1; // 洗完了
     }
 
     //////////
