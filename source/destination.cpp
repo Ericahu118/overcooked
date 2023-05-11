@@ -38,9 +38,25 @@ Task arrangetask(int ptype)
     {
         if (ptype == 0)
         {
+            int takenow = 0;
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+                {
+                    if (Order[0].recipe[0] != Order[1].recipe[0])
+                    {
+                        takenow = 1;
+                    }
+                }
+            }
+            if ((!Players[1].entity.empty() && Players[1].containerKind == ContainerKind::Plate) && (Order[0].recipe[0] != Order[1].recipe[0]))
+            {
+                takenow = 1;
+            }
+
             for (int i = 0; i < IngredientCount; i++)
             {
-                string need = Order[0].recipe[0];
+                string need = Order[takenow].recipe[0];
                 if (Ingredient[i].name.compare(need) == 0)
                 {
                     task.id = 1;
@@ -77,7 +93,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 1)
     {
-        for (int i = 0; i < IngredientCount; i++)
+        /*for (int i = 0; i < IngredientCount; i++)
         {
             string need = Order[0].recipe[0];
             if (Ingredient[i].name.compare(need) == 0)
@@ -86,7 +102,8 @@ Task arrangetask(int ptype)
                 task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
                 return task;
             }
-        }
+        }*/
+        return taketask[ptype];
     }
     else if (taketask[ptype].id == 2)
     {
