@@ -124,6 +124,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 0)
     {
+
         if (Players[ptype].containerKind == ContainerKind::DirtyPlates)
         {
             task.id = 0;
@@ -138,6 +139,15 @@ Task arrangetask(int ptype)
                 {
                     task.id = 0;
                     task.op = 1, task.x = sink.first, task.y = sink.second, task.flag = 0;
+                    return task;
+                }
+            }
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                {
+                    task.id = 0;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
                     return task;
                 }
             }
