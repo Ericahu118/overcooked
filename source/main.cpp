@@ -99,7 +99,7 @@ int main()
         curplates = 0;
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].containerKind == ContainerKind::Plate)
+            if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
             {
                 curplates++;
             }
