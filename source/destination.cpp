@@ -32,8 +32,132 @@ Task arrangetask(int ptype)
     Task task;
     task.id = -1;
     task.op = 0, task.x = 0, task.y = 0, task.flag = 0;
+    cerr << "player[" << ptype << "]"
+         << " take task:" << taketask[ptype].id << endl;
+    if (taketask[ptype].id == -1)
+    {
+        if (ptype == 0)
+        {
+            curplates = 0;
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                {
+                    curplates++;
+                }
+            }
+            if (curplates > 0)
+            {
+                for (int i = 0; i < IngredientCount; i++)
+                {
+                    string need = Order[0].recipe[0];
+                    if (Ingredient[i].name.compare(need) == 0)
+                    {
+                        task.id = 1;
+                        task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
+                        return task;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (taketask[(ptype + 1) % 2].id != 3)
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+                    {
+                        task.id = 3;
+                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                        return task;
+                    }
+                }
+            }
+            // 是否需要洗盘子
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                {
+                    task.id = 0;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                    return task;
+                }
+            }
+        }
+    }
+    else if (taketask[ptype].id == 1)
+    {
+        for (int i = 0; i < IngredientCount; i++)
+        {
+            string need = Order[0].recipe[0];
+            if (Ingredient[i].name.compare(need) == 0)
+            {
+                task.id = 1;
+                task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
+                return task;
+            }
+        }
+    }
+    else if (taketask[ptype].id == 2)
+    {
+        for (int i = 0; i < entityCount; i++)
+        {
+            if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+            {
+                task.id = 2;
+                task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                return task;
+            }
+        }
+    }
+    else if (taketask[ptype].id == 3)
+    {
+        for (int i = 0; i < entityCount; i++)
+        {
+            if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+            {
+                task.id = 3;
+                task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                return task;
+            }
+        }
+    }
+    else if (taketask[ptype].id == 4)
+    {
+        // tofix
+        assert(Players[ptype].containerKind == ContainerKind::Plate && *Players[ptype].entity.begin() == *Order[0].recipe.begin());
+        task.id = 4;
+        task.op = 0, task.x = window.first, task.y = window.second, task.flag = 0;
+        return task;
+    }
+    else if (taketask[ptype].id == 0)
+    {
+        if (Players[ptype].containerKind == ContainerKind::DirtyPlates)
+        {
+            task.id = 0;
+            task.op = 0, task.x = sink.first, task.y = sink.second, task.flag = 0;
+            return task;
+        }
+        else
+        {
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == sink.first && Entity[i].y == sink.second)
+                {
+                    task.id = 0;
+                    task.op = 1, task.x = sink.first, task.y = sink.second, task.flag = 0;
+                    return task;
+                }
+            }
+        }
+        taketask[ptype].id = -1 // 洗完了
+    }
+
+    //////////
+
     // 正在洗碗中
-    if (taketask[ptype].id == 0)
+    /*if (taketask[ptype].id == 0)
     {
         if (Players[ptype].containerKind == ContainerKind::DirtyPlates)
         { // 送碗
@@ -133,7 +257,7 @@ Task arrangetask(int ptype)
                 }
             }
         }
-    }
+    }*/
     cerr << "player[" << ptype << "]"
          << " takes no task" << endl;
     assert(task.id == -1);

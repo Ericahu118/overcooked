@@ -98,7 +98,37 @@ int main()
         playerAction[1] = "Move";
         for (int ptype = 0; ptype <= 1; ptype++)
         {
-            if (taketask[ptype].id == -1 || changephase[ptype] == 1)
+            taketask[ptype] = arrangetask(ptype);
+            if (taketask[ptype].id != -1)
+            {
+                playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
+                if (playerAction[ptype][0] == 'P')
+                {
+                    switch (taketask[ptype].id)
+                    {
+                    case 1:
+                        taketask[ptype].id = 2;
+                        break;
+                    case 2:
+                        if (taketask[(ptype + 1) % 2].id == 0)
+                        {
+                            taketask[ptype].id = 3;
+                        }
+                        else
+                        {
+                            taketask[ptype].id = -1;
+                        }
+                        break;
+                    case 3:
+                        taketask[ptype].id = 4;
+                        break;
+                    case 4:
+                        taketask[ptype].id = -1;
+                        break;
+                    }
+                }
+            }
+            /*if (taketask[ptype].id == -1 || changephase[ptype] == 1)
             {
                 if (changephase[ptype] == 1)
                 {
@@ -107,8 +137,8 @@ int main()
                 }
                 taketask[ptype] = arrangetask(ptype);
                 cerr << "[" << ptype << "]:" << taketask[ptype].id << endl;
-            }
-            if (taketask[ptype].id != -1)
+            }*/
+            /*if (taketask[ptype].id != -1)
             {
                 playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
                 if (playerAction[ptype][0] == 'P' || playerAction[ptype][0] == 'I')
@@ -159,7 +189,7 @@ int main()
                         break;
                     }
                 }
-            }
+            }*/
         }
         /*if (Players[0].entity.empty())
          {
