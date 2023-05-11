@@ -100,6 +100,11 @@ int main()
         {
             if (taketask[ptype].id == -1 || changephase[ptype] == 1)
             {
+                if (changephase[ptype] == 1)
+                {
+                    cerr << "[" << ptype << "]:"
+                         << "changephase: " << taketask[ptype].id << endl;
+                }
                 taketask[ptype] = arrangetask(ptype);
                 cerr << "[" << ptype << "]:" << taketask[ptype].id << endl;
             }
@@ -113,7 +118,7 @@ int main()
                     {
                     case 0:
 
-                        if (taketask[ptype].flag = 1)
+                        if (taketask[ptype].flag == 1)
                         {
                             taketask[ptype].id = -1;
                         }
@@ -137,7 +142,7 @@ int main()
                             }
                             if (flag == 0)
                             {
-                                if (taketask[ptype].flag = 1)
+                                if (taketask[ptype].flag == 1)
                                 {
                                     taketask[ptype].id = -1;
                                 }
