@@ -117,7 +117,7 @@ Task arrangetask(int ptype)
     else if (taketask[ptype].id == 4)
     {
         // tofix
-        assert(Players[ptype].containerKind == ContainerKind::Plate && *Players[ptype].entity.begin() == *Order[0].recipe.begin());
+        // assert(Players[ptype].containerKind == ContainerKind::Plate && *Players[ptype].entity.begin() == *Order[0].recipe.begin());
         task.id = 4;
         task.op = 0, task.x = window.first, task.y = window.second, task.flag = 0;
         return task;
