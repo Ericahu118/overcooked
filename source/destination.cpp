@@ -38,6 +38,18 @@ Task arrangetask(int ptype)
     {
         if (ptype == 0)
         {
+            if (taketask[1].id == 0)
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+                    {
+                        task.id = 3;
+                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                        return task;
+                    }
+                }
+            }
             for (int i = 0; i < IngredientCount; i++)
             {
                 string need = Order[0].recipe[0];
