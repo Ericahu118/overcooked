@@ -38,25 +38,14 @@ Task arrangetask(int ptype)
     {
         if (ptype == 0)
         {
-            curplates = 0;
-            for (int i = 0; i < entityCount; i++)
+            for (int i = 0; i < IngredientCount; i++)
             {
-                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                string need = Order[0].recipe[0];
+                if (Ingredient[i].name.compare(need) == 0)
                 {
-                    curplates++;
-                }
-            }
-            if (curplates > 0)
-            {
-                for (int i = 0; i < IngredientCount; i++)
-                {
-                    string need = Order[0].recipe[0];
-                    if (Ingredient[i].name.compare(need) == 0)
-                    {
-                        task.id = 1;
-                        task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
-                        return task;
-                    }
+                    task.id = 1;
+                    task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
+                    return task;
                 }
             }
         }
@@ -110,6 +99,8 @@ Task arrangetask(int ptype)
                 return task;
             }
         }
+        cerr << "always have plates" << endl;
+        assert(0);
     }
     else if (taketask[ptype].id == 3)
     {

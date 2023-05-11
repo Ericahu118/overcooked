@@ -96,35 +96,46 @@ int main()
         string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
+        curplates = 0;
+        for (int i = 0; i < entityCount; i++)
+        {
+            if (Entity[i].containerKind == ContainerKind::Plate)
+            {
+                curplates++;
+            }
+        }
         for (int ptype = 0; ptype <= 1; ptype++)
         {
-            taketask[ptype] = arrangetask(ptype);
-            if (taketask[ptype].id != -1)
+            if (!(taketask[ptype] == 2 && curplates == 0))
             {
-                playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
-                if (playerAction[ptype][0] == 'P')
+                taketask[ptype] = arrangetask(ptype);
+                if (taketask[ptype].id != -1)
                 {
-                    switch (taketask[ptype].id)
+                    playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
+                    if (playerAction[ptype][0] == 'P')
                     {
-                    case 1:
-                        taketask[ptype].id = 2;
-                        break;
-                    case 2:
-                        if (taketask[(ptype + 1) % 2].id == 0)
+                        switch (taketask[ptype].id)
                         {
-                            taketask[ptype].id = 3;
-                        }
-                        else
-                        {
+                        case 1:
+                            taketask[ptype].id = 2;
+                            break;
+                        case 2:
+                            if (taketask[(ptype + 1) % 2].id == 0)
+                            {
+                                taketask[ptype].id = 3;
+                            }
+                            else
+                            {
+                                taketask[ptype].id = -1;
+                            }
+                            break;
+                        case 3:
+                            taketask[ptype].id = 4;
+                            break;
+                        case 4:
                             taketask[ptype].id = -1;
+                            break;
                         }
-                        break;
-                    case 3:
-                        taketask[ptype].id = 4;
-                        break;
-                    case 4:
-                        taketask[ptype].id = -1;
-                        break;
                     }
                 }
             }
