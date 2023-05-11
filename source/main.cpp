@@ -45,11 +45,12 @@ void init()
         }
     }
     curplates = 0;
+    cerr << "Why1" << endl;
     for (int i = 0; i < entityCount; i++)
     {
         if (Entity[i].containerKind == ContainerKind::Plate)
         {
-            cerr << "Why1" << endl;
+            // cerr << "Why1" << endl;
             curplates++;
         }
     }
