@@ -24,6 +24,7 @@ extern pair<double, double> sink;
 
 int dir[2 + 5];
 int solvecrash[2 + 5];
+int whosolve = 0;
 int hascrash = 0;
 pair<double, double> crashloc[2 + 5];
 int solvetrap[2 + 5] = {0};
@@ -280,54 +281,58 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         if (dir[ptype] == 1)
             return "Move R";
     }
-    if (ptype == 0 && solvecrash[ptype] != 0)
+    if (solvecrash[ptype] != 0)
     {
-
-        if (solvecrash[ptype] == 1)
+        if (whosolve != ptype && solvecrash[(ptype + 1) % 2] == 0)
+            whosolve = ptype;
+        if (whosolve == ptype)
         {
-            if (crashloc[ptype].second - y0 >= block - 0.3)
+            if (solvecrash[ptype] == 1)
             {
-                if (v0y == 0)
+                if (crashloc[ptype].second - y0 >= block - 0.3)
                 {
-                    solvecrash[ptype] = 0;
+                    if (v0y == 0)
+                    {
+                        solvecrash[ptype] = 0;
+                    }
+                    return "Move";
                 }
-                return "Move";
+                else
+                    return "Move U";
             }
-            else
-                return "Move U";
-        }
-        else if (solvecrash[ptype] == 2)
-        {
-            if (y0 - crashloc[ptype].second >= block - 0.3)
+            else if (solvecrash[ptype] == 2)
             {
-                if (v0y == 0)
-                    solvecrash[ptype] = 0;
-                return "Move";
+                if (y0 - crashloc[ptype].second >= block - 0.3)
+                {
+                    if (v0y == 0)
+                        solvecrash[ptype] = 0;
+                    return "Move";
+                }
+                else
+                    return "Move D";
             }
-            else
-                return "Move D";
-        }
-        else if (solvecrash[ptype] == 3)
-        {
-            if (crashloc[ptype].first - x0 >= block - 0.3)
+            else if (solvecrash[ptype] == 3)
             {
-                if (v0x == 0)
-                    solvecrash[ptype] = 0;
-                return "Move";
+                if (crashloc[ptype].first - x0 >= block - 0.3)
+                {
+                    if (v0x == 0)
+                        solvecrash[ptype] = 0;
+                    return "Move";
+                }
+                else
+                    return "Move L";
             }
-            else
-                return "Move L";
-        }
-        else if (solvecrash[ptype] == 4)
-        {
-            if (x0 - crashloc[ptype].first >= block - 0.3)
+            else if (solvecrash[ptype] == 4)
             {
-                if (v0x == 0)
-                    solvecrash[ptype] = 0;
-                return "Move";
+                if (x0 - crashloc[ptype].first >= block - 0.3)
+                {
+                    if (v0x == 0)
+                        solvecrash[ptype] = 0;
+                    return "Move";
+                }
+                else
+                    return "Move R";
             }
-            else
-                return "Move R";
         }
     }
 

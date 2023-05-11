@@ -91,9 +91,9 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
 
-        // std::string player0_Action = "Move";
-        // std::string player1_Action = "Move";
-        string playerAction[2 + 5];
+        std::string player0_Action = "Move";
+        std::string player1_Action = "Move";
+        /*string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
         for (int ptype = 0; ptype <= 1; ptype++)
@@ -158,8 +158,8 @@ int main()
                     }
                 }
             }
-        }
-        /*if (Players[0].entity.empty())
+        }*/
+        if (Players[0].entity.empty())
         {
             for (int i = 0; i < IngredientCount; i++)
             {
@@ -246,7 +246,7 @@ int main()
                     }
                 }
             }
-        }*/
+        }
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = playerAction[0] + "\n" + playerAction[1] + "\n";
         std::cout << action;

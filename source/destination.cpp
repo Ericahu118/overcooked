@@ -65,7 +65,7 @@ Task arrangetask(int ptype)
         assert(!Players[ptype].entity.empty());
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].containerKind == ContainerKind::Plate)
+            if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
             {
                 task.id = 1;
                 task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1;
