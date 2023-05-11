@@ -29,7 +29,6 @@ extern pair<double, double> sink;
 Task arrangetask(int ptype)
 {
     changephase[ptype] = 0;
-
     Task task;
     task.id = -1;
     task.op = 0, task.x = 0, task.y = 0, task.flag = 0;

@@ -101,6 +101,7 @@ int main()
             if (taketask[ptype].id == -1 || changephase[ptype] == 1)
             {
                 taketask[ptype] = arrangetask(ptype);
+                cerr << "[" << ptype << "]:" << taketask[ptype].id << endl;
             }
             if (taketask[ptype].id != -1)
             {
