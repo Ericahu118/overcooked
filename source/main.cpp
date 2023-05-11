@@ -91,8 +91,8 @@ int main()
         /* 输出当前帧的操作，此处仅作示例 */
         std::cout << "Frame " << i << "\n";
 
-        std::string player0_Action = "Move";
-        std::string player1_Action = "Move";
+        // std::string player0_Action = "Move";
+        // std::string player1_Action = "Move";
         string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
