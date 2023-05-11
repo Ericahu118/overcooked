@@ -248,7 +248,8 @@ int main()
             }
         }
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
-        std::string action = playerAction[0] + "\n" + playerAction[1] + "\n";
+        // std::string action = playerAction[0] + "\n" + playerAction[1] + "\n";
+        std::string action = player0_Action + "\n" + player1_Action + "\n";
         std::cout << action;
 
         /* 不要忘记刷新输出流，否则游戏将无法及时收到响应 */
