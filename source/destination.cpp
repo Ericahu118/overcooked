@@ -62,6 +62,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 1)
     {
+        cerr << "step 1:2" << endl;
         assert(!Players[ptype].entity.empty());
         for (int i = 0; i < entityCount; i++)
         {
@@ -116,7 +117,7 @@ Task arrangetask(int ptype)
         }
     }
     // 是否有人点单拿菜
-    if (taketask[(ptype + 1) % 2].id != 1 || (taketask[(ptype + 1) % 2].id == 1 && taketask[(ptype + 1) % 2].flag == 1))
+    if (taketask[(ptype + 1) % 2].id != 1)
     {
         if (curplates > 0)
         {
