@@ -48,7 +48,10 @@ void init()
     for (int i = 0; i < entityCount; i++)
     {
         if (Entity[i].containerKind == ContainerKind::Plate)
+        {
+            cerr << "Why1" << endl;
             curplates++;
+        }
     }
     Task task;
     task.id = -1;
