@@ -117,6 +117,18 @@ int main()
                         switch (taketask[ptype].id)
                         {
                         case 1:
+                            if (Order[0].recipe[0] != Order[1].recipe[0])
+                            { // 不同
+                                for (int i = 0; i < entityCount; i++)
+                                {
+                                    if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
+                                    {
+                                        taketask[ptype].id = -1;
+                                        playerAction[ptype] = "Move";
+                                        break;
+                                    }
+                                }
+                            }
                             taketask[ptype].id = 2;
                             break;
                         case 2:
