@@ -3,7 +3,8 @@
 #include <cassert>
 #include <string>
 
-enum class ContainerKind {
+enum class ContainerKind
+{
     None,
     Pan,
     Pot,
@@ -11,7 +12,8 @@ enum class ContainerKind {
     DirtyPlates,
 };
 
-enum class TileKind {
+enum class TileKind
+{
     None,
     Void,
     Floor,
@@ -27,8 +29,10 @@ enum class TileKind {
     PlateRack,
 };
 
-inline TileKind getTileKind(char kindChar) {
-    switch (kindChar) {
+inline TileKind getTileKind(char kindChar)
+{
+    switch (kindChar)
+    {
     case '_':
         return TileKind::Void;
     case '.':
@@ -54,8 +58,10 @@ inline TileKind getTileKind(char kindChar) {
     }
 }
 
-inline char getAbbrev(TileKind kind) {
-    switch (kind) {
+inline char getAbbrev(TileKind kind)
+{
+    switch (kind)
+    {
     case TileKind::IngredientBox:
         return 'i';
     case TileKind::Trashbin:

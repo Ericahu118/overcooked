@@ -47,14 +47,14 @@ void init_read()
         for (int j = 0; j < width; j++)
         {
             ss >> Map[i][j];
-            if (Map[i][j] == '$')
+            /*if (Map[i][j] == '$')
             {
                 window.first = j, window.second = i;
             }
             else if (Map[i][j] == 'k')
             {
                 sink.first = j, sink.second = i;
-            }
+            }*/
         }
 
     /* 读入原料箱：位置、名字、以及采购单价 */

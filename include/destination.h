@@ -10,6 +10,15 @@
 #include <framework.h>
 #include <movement.h>
 
-int arrangetask(int ptype);
+using namespace std;
+
+struct Task
+{
+    int id;
+    int x, y, op; // 位置，操作
+    bool flag = 0;
+};
+
+Task arrangetask(int ptype);
 
 #endif
