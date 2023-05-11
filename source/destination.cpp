@@ -12,6 +12,7 @@ using namespace std;
 int curplates;
 Task taketask[2 + 5];
 bool changephase[2 + 5];
+int curorder = 0;
 // 0 for wash
 
 extern Player Players[2 + 5];
@@ -52,11 +53,12 @@ Task arrangetask(int ptype)
             }
             for (int i = 0; i < IngredientCount; i++)
             {
-                string need = Order[0].recipe[0];
+                string need = Order[curorder].recipe[0];
                 if (Ingredient[i].name.compare(need) == 0)
                 {
                     task.id = 1;
                     task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
+                    curorder++;
                     return task;
                 }
             }
@@ -89,7 +91,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 1)
     {
-        for (int i = 0; i < IngredientCount; i++)
+        /*for (int i = 0; i < IngredientCount; i++)
         {
             string need = Order[0].recipe[0];
             if (Ingredient[i].name.compare(need) == 0)
@@ -98,7 +100,8 @@ Task arrangetask(int ptype)
                 task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
                 return task;
             }
-        }
+        }*/
+        return taketask[ptype];
     }
     else if (taketask[ptype].id == 2)
     {

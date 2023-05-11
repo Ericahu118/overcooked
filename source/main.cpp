@@ -27,6 +27,7 @@ extern char Map[20 + 5][20 + 5];
 extern int curplates;
 extern Task taketask[2 + 5];
 extern bool changephase[2 + 5];
+extern int curorder;
 
 void init()
 {
@@ -133,6 +134,8 @@ int main()
                             taketask[ptype].id = 4;
                             break;
                         case 4:
+                            curorder--;
+                            assert(curorder >= 0);
                             taketask[ptype].id = -1;
                             break;
                         }
