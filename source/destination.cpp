@@ -120,6 +120,7 @@ Task arrangetask(int ptype)
     {
         if (curplates > 0)
         {
+            cerr << "Why" << endl;
             curplates--;
             for (int i = 0; i < IngredientCount; i++)
             {
