@@ -36,23 +36,21 @@ Task arrangetask(int ptype)
          << " take task:" << taketask[ptype].id << endl;
     if (taketask[ptype].id == -1)
     {
-        if (ptype == 0)
+        if (taketask[(ptype + 1) % 2].id != 3)
         {
-            int takenow = 0;
             for (int i = 0; i < entityCount; i++)
             {
                 if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
                 {
-                    if (Order[0].recipe[0] != Order[1].recipe[0])
-                    {
-                        takenow = 1;
-                    }
+                    task.id = 3;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                    return task;
                 }
             }
-            if ((!Players[1].entity.empty() && Players[1].containerKind == ContainerKind::Plate) && (Order[0].recipe[0] != Order[1].recipe[0]))
-            {
-                takenow = 1;
-            }
+        }
+        if (ptype == 0)
+        {
+            int takenow = 0;
 
             for (int i = 0; i < IngredientCount; i++)
             {
@@ -67,18 +65,6 @@ Task arrangetask(int ptype)
         }
         else
         {
-            if (taketask[(ptype + 1) % 2].id != 3)
-            {
-                for (int i = 0; i < entityCount; i++)
-                {
-                    if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
-                    {
-                        task.id = 3;
-                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                        return task;
-                    }
-                }
-            }
             // 是否需要洗盘子
             for (int i = 0; i < entityCount; i++)
             {
