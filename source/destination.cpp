@@ -109,7 +109,7 @@ Task arrangetask(int ptype)
     {
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].containerKind == ContainerKind::Plate && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+            if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty() && *Entity[i].entity.begin() == *Order[0].recipe.begin())
             {
                 task.id = 3;
                 task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
