@@ -133,7 +133,7 @@ int main()
                                 if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].x == sink.first && Entity[i].y == sink.second)
                                 {
                                     cerr << "curframe: " << Entity[i].currentFrame << endl;
-                                    if (Entity[i].currentFrame >= Entity[i].currentFrame - 2)
+                                    if (Entity[i].currentFrame == Entity[i].currentFrame - 2)
                                     {
                                         cerr << "plus" << endl;
                                         curplates++;
