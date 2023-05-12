@@ -8,6 +8,7 @@
 #include <movement.h>
 #include <destination.h>
 #include <map>
+#include <math.h>
 
 using namespace std;
 
@@ -234,6 +235,26 @@ int main()
                             taketask[ptype].id = 4;
                         }
                         break;
+                    }
+                }
+            }
+            else
+            {
+                if (fabs(Players[0].x - Players[1].x) <= 2 * radius + 0.3 && fabs(Players[0].y - Players[1].y) <= 2 * radius + 0.3)
+                {
+                    if (fabs(Players[0].y - Players[1].y) < fabs(Players[0].x - Players[1].x))
+                    {
+                        if (Players[ptype].y >= 2)
+                            playerAction[ptype] = "Move U";
+                        else
+                            playerAction[ptype] = "Move D";
+                    }
+                    else
+                    {
+                        if (Players[ptype].x >= 2)
+                            playerAction[ptype] = "Move L";
+                        else
+                            playerAction[ptype] = "Move R";
                     }
                 }
             }
