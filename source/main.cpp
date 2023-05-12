@@ -230,6 +230,7 @@ int main()
                     case 7:
                         if (!Players[ptype].entity.empty())
                         {
+                            cerr << "here 7" << endl;
                             taketask[ptype].id = 4;
                         }
                         break;
