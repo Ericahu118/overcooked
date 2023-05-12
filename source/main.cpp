@@ -228,7 +228,10 @@ int main()
                         }
                         break;
                     case 7:
-                        taketask[ptype].id = 4;
+                        if (!Players[ptype].entity.empty())
+                        {
+                            taketask[ptype].id = 4;
+                        }
                         break;
                     }
                 }
