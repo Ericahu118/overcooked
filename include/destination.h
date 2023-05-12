@@ -19,8 +19,6 @@ struct Task
     int x, y, op; // 位置，操作
     int flag = 0; // 附加
 };
-map<string, string> Origin;
-map<string, int> Cookstep;
 
 Task arrangetask(int ptype);
 
