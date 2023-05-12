@@ -11,7 +11,8 @@ using namespace std;
 
 int curplates;
 Task taketask[2 + 5];
-int curorder = 0;
+int curorder = -1;
+int curcount = -1;
 
 map<string, string> Origin;
 map<string, int> Cookkind;
@@ -54,6 +55,9 @@ Task arrangetask(int ptype)
                     }
                 }
             }*/
+            curcount++; // 当前个数
+            curorder++;
+            // if(curcount > O)
             for (int i = 0; i < IngredientCount; i++)
             {
                 string need = Order[curorder].recipe[0];
@@ -62,7 +66,6 @@ Task arrangetask(int ptype)
                 {
                     task.id = 1;
                     task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
-                    curorder++;
                     return task;
                 }
             }
@@ -84,18 +87,18 @@ Task arrangetask(int ptype)
                 }
             }
             // 是否需要洗盘子
-            // if (curplates == 0)
-            //{
-            for (int i = 0; i < entityCount; i++)
+            if (curplates == 0)
             {
-                if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                for (int i = 0; i < entityCount; i++)
                 {
-                    task.id = 0;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                    return task;
+                    if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                    {
+                        task.id = 0;
+                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                        return task;
+                    }
                 }
             }
-            //}
         }
     }
     else if (taketask[ptype].id == 1)
