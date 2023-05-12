@@ -294,7 +294,7 @@ Task arrangetask(int ptype)
                 {
                     if (Entity[i].containerKind == ContainerKind::Pan)
                     {
-                        assert(!Entity[i].entity.empty());
+                        // assert(!Entity[i].entity.empty());
                         task.id = 7;
                         task.op = 2;
                         task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2;

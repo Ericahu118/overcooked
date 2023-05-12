@@ -180,13 +180,11 @@ int main()
                         case 3:
                         case 1:
                             taketask[ptype].id = 5;
-                            cerr << "take 5" << endl;
                             break;
                         case 2:
                             taketask[ptype].id = 6;
                             taketask[ptype].flag = 1; // 1 for pot
                             break;
-
                         default:
                             cerr << "fill me 1" << endl;
                             assert(0);
@@ -218,9 +216,11 @@ int main()
                             if (Cookkind.find(Order[curorder].recipe[0])->second == 1)
                             {
                                 taketask[ptype].id = 2;
+                                taketask[ptype].flag = 1;
                             }
                             else if (Cookkind.find(Order[curorder].recipe[0])->second == 3)
                             {
+                                cerr << "here 5" << endl;
                                 taketask[ptype].id = 6;
                                 taketask[ptype].flag = 2;
                             }
@@ -242,7 +242,6 @@ int main()
                     case 7:
                         if (Players[ptype].containerKind == ContainerKind::Plate)
                         {
-                            cerr << "here 7" << endl;
                             taketask[ptype].id = 4;
                         }
                         break;
