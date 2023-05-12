@@ -212,8 +212,24 @@ int main()
                         if (taketask[ptype].flag == 1)
                         { // last step
                             taketask[ptype].id = 2;
-                            break;
                         }
+                        break;
+                    case 6:
+                        assert(ptype == 0);
+                        if (taketask[1].id == -1)
+                        { // 另一个人没事干
+                            taketask[1].id = 7;
+                            taketask[1].flag = taketask[0].flag;
+                            taketask[0].id = -1;
+                        }
+                        else
+                        {
+                            taketask[0].id = 7;
+                        }
+                        break;
+                    case 7:
+                        taketask[ptype].id = 4;
+                        break;
                     }
                 }
             }

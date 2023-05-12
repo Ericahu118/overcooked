@@ -212,8 +212,6 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 6)
     {
-        task.id = 5;
-        task.op = 0;
         assert(taketask[ptype].flag == 1 || taketask[ptype].flag == 2);
         if (taketask[ptype].flag == 1)
         {
@@ -226,6 +224,9 @@ Task arrangetask(int ptype)
                     return task;
                 }
             }
+            // no pot
+            taketask[ptype].op = 2;
+            return taketask[ptype];
         }
         else if (taketask[ptype].flag == 2)
         {
@@ -238,8 +239,78 @@ Task arrangetask(int ptype)
                     return task;
                 }
             }
+            taketask[ptype].op = 2;
+            return taketask[ptype];
         }
         return task;
+    }
+    else if (taketask[ptype].id == 7)
+    {
+        if (Players[ptype].entity.empty())
+        { // 去拿盘子
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                {
+                    task.id = 7;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = taketask[ptype].flag;
+                    return task;
+                }
+            }
+            cerr << "have no plates" << endl;
+            taketask[ptype].op = 2;
+            return taketask[ptype];
+        }
+        else
+        {
+            assert(Players[ptype].containerKind == ContainerKind::Plate);
+            assert(taketask[ptype].flag == 1 || taketask[ptype].flag == 2);
+            if (taketask[ptype].flag == 1)
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if (Entity[i].containerKind == ContainerKind::Pot)
+                    {
+                        assert(!Entity[i].entity.empty());
+                        task.id = 7;
+                        task.op = 2;
+                        task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1;
+                        if (Entity[i].currentFrame >= Entity[i].totalFrame)
+                        {
+                            task.op = 0;
+                        }
+                        return task;
+                    }
+                }
+                // no pot
+                assert(0);
+                taketask[ptype].op = 2;
+                return taketask[ptype];
+            }
+            else if (taketask[ptype].flag == 2)
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if (Entity[i].containerKind == ContainerKind::Pan)
+                    {
+                        assert(!Entity[i].entity.empty());
+                        task.id = 7;
+                        task.op = 2;
+                        task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2;
+                        if (Entity[i].currentFrame >= Entity[i].totalFrame)
+                        {
+                            task.op = 0;
+                        }
+                        return task;
+                    }
+                }
+                // no pot
+                assert(0);
+                taketask[ptype].op = 2;
+                return taketask[ptype];
+            }
+            return task;
+        }
     }
     //////////
     cerr << "player[" << ptype << "]"
