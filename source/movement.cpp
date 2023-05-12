@@ -266,8 +266,8 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     bool getdown = (des_y - y0) <= center + 0.4;
     bool getleft = (x0 - des_x) <= center + block + 0.4;
     bool getright = (des_x - x0) <= center + 0.4;
-    bool pickLR = ((y0 > des_y) && (y0 - des_y <= center + 0.4));
-    bool pickUD = ((x0 > des_x) && (x0 - des_x <= center + 0.4));
+    bool pickLR = ((y0 > des_y) && (y0 - des_y <= center + 0.3));
+    bool pickUD = ((x0 > des_x) && (x0 - des_x <= center + 0.3));
     if (hascrash && ptype == 1)
     {
         if (v0x != 0 || v0y != 0)
