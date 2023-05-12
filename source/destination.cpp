@@ -272,6 +272,7 @@ Task arrangetask(int ptype)
                     if (Entity[i].containerKind == ContainerKind::Pot)
                     {
                         assert(!Entity[i].entity.empty());
+                        cerr << "have pot" << endl;
                         task.id = 7;
                         task.op = 2;
                         task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1;
