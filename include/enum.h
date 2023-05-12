@@ -3,6 +3,18 @@
 #include <cassert>
 #include <string>
 
+enum class Worktype
+{
+    None = -1,
+    Washdish,   // 0
+    Takeorder,  // 1 flag=4 for cut
+    PutinPlate, // 2
+    TakeFood,   // 3
+    SendFood,   // 4
+    CutFood,    // 5->2 or 5->6
+    FireFood,   // 6->2
+};
+
 enum class ContainerKind
 {
     None,
