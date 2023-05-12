@@ -106,6 +106,12 @@ void init()
             }
             assert(Origin.find(Recipe[i].nameAfter)->second == "fish" || Origin.find(Recipe[i].nameAfter)->second == "rice");
             break;
+        case 'p':
+            if (Origin.find(Recipe[i].nameAfter)->second == "fish")
+            {
+                Cookkind.emplace(Recipe[i].nameAfter, 3);
+            }
+            break;
         default:
             assert(0);
             break;
