@@ -246,7 +246,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 7)
     {
-        if (Players[ptype].entity.empty())
+        if (Players[ptype].containerKind == ContainerKind::None)
         { // 去拿盘子
             for (int i = 0; i < entityCount; i++)
             {
