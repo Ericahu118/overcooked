@@ -56,6 +56,7 @@ Task arrangetask(int ptype)
             for (int i = 0; i < IngredientCount; i++)
             {
                 string need = Order[curorder].recipe[0];
+                cerr << "need:" << need << endl;
                 if (Ingredient[i].name == Origin.find(need)->second)
                 {
                     task.id = 1;
