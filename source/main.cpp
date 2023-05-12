@@ -185,7 +185,7 @@ int main()
                                 assert(0);
                                 break;
                             }
-
+                            break;
                         case 2:
                             if (taketask[(ptype + 1) % 2].id == 0)
                             {
