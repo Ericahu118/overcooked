@@ -232,7 +232,7 @@ Task arrangetask(int ptype)
         {
             for (int i = 0; i < entityCount; i++)
             {
-                if (Entity[i].containerKind == ContainerKind::Pot && Entity[i].entity.empty())
+                if (Entity[i].containerKind == ContainerKind::Pan && Entity[i].entity.empty())
                 {
                     task.id = 6;
                     task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2;
