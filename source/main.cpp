@@ -171,11 +171,10 @@ int main()
                     switch (taketask[ptype].id)
                     {
                     case 1:
-                        assert(Cookkind.find(Order[curorder].recipe[0]) != Cookkind.end());
-                        cerr << Order[curorder].recipe[0] << ": " << Cookkind.find(Order[curorder].recipe[0])->second << endl;
-                        switch (Cookkind.find(Order[curorder].recipe[0])->second)
+                        assert(Cookkind.find(Order[curorder - 1].recipe[0]) != Cookkind.end());
+                        cerr << "here" << Order[curorder - 1].recipe[0] << ": " << Cookkind.find(Order[curorder - 1].recipe[0])->second << endl;
+                        switch (Cookkind.find(Order[curorder - 1].recipe[0])->second)
                         {
-
                         case 0:
                             taketask[ptype].id = 2;
                             break;

@@ -42,8 +42,8 @@ Task arrangetask(int ptype)
     {
         if (ptype == 0)
         {
-            if (taketask[1].id == 0)
-            {
+            /*if (taketask[1].id == 0)
+            {//在洗碗
                 for (int i = 0; i < entityCount; i++)
                 {
                     if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty() && *Entity[i].entity.begin() == *Order[0].recipe.begin())
@@ -53,7 +53,7 @@ Task arrangetask(int ptype)
                         return task;
                     }
                 }
-            }
+            }*/
             for (int i = 0; i < IngredientCount; i++)
             {
                 string need = Order[curorder].recipe[0];
