@@ -29,6 +29,7 @@ extern struct Recipe Recipe[20 + 5];
 extern int curplates;
 extern Task taketask[2 + 5];
 extern int curorder;
+extern int curcount;
 
 extern map<string, string> Origin;
 extern map<string, int> Cookkind;
@@ -171,9 +172,9 @@ int main()
                     switch (taketask[ptype].id)
                     {
                     case 1:
-                        assert(Cookkind.find(Order[curorder].recipe[0]) != Cookkind.end());
-                        cerr << "here" << Order[curorder].recipe[0] << ": " << Cookkind.find(Order[curorder].recipe[0])->second << endl;
-                        switch (Cookkind.find(Order[curorder].recipe[0])->second)
+                        assert(Cookkind.find(Order[curorder].recipe[curcount]) != Cookkind.end());
+                        cerr << "here" << Order[curorder].recipe[curcount] << ": " << Cookkind.find(Order[curorder].recipe[curcount])->second << endl;
+                        switch (Cookkind.find(Order[curorder].recipe[curcount])->second)
                         {
                         case 0:
                             taketask[ptype].id = 2;
@@ -207,19 +208,20 @@ int main()
                         break;
                     case 4:
                         curorder--;
+                        curcount = -1;
                         assert(curorder >= -1);
                         taketask[ptype].id = -1;
                         break;
                     case 5:
                         if (taketask[ptype].flag == 1)
                         { // last step
-                            assert(Cookkind.find(Order[curorder].recipe[0])->second == 1 || Cookkind.find(Order[curorder].recipe[0])->second == 3);
-                            if (Cookkind.find(Order[curorder].recipe[0])->second == 1)
+                            assert(Cookkind.find(Order[curorder].recipe[curcount])->second == 1 || Cookkind.find(Order[curorder].recipe[curcount])->second == 3);
+                            if (Cookkind.find(Order[curorder].recipe[curcount])->second == 1)
                             {
                                 taketask[ptype].id = 2;
                                 taketask[ptype].flag = 1;
                             }
-                            else if (Cookkind.find(Order[curorder].recipe[0])->second == 3)
+                            else if (Cookkind.find(Order[curorder].recipe[curcount])->second == 3)
                             {
                                 cerr << "here 5" << endl;
                                 taketask[ptype].id = 6;

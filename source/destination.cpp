@@ -32,6 +32,27 @@ extern pair<double, double> window;
 extern pair<double, double> sink;
 extern pair<double, double> cutplate;
 
+bool checkdish(int i)
+{
+    if (Entity[i].containerKind == ContainerKind::Plate)
+    {
+        int total = 0;
+        for (int j = 0; j < Order[0].recipe.size(); j++)
+        {
+            for (int k = 0; k < Entity[i].entity.size(); k++)
+            {
+                if (Entity[i].entity[k] == Order[0].recipe[j])
+                    total++;
+            }
+        }
+        if (total == Order[0].recipe.size())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 Task arrangetask(int ptype)
 {
     Task task;
@@ -43,24 +64,16 @@ Task arrangetask(int ptype)
     {
         if (ptype == 0)
         {
-            /*if (taketask[1].id == 0)
-            {//在洗碗
-                for (int i = 0; i < entityCount; i++)
-                {
-                    if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty() && *Entity[i].entity.begin() == *Order[0].recipe.begin())
-                    {
-                        task.id = 3;
-                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                        return task;
-                    }
-                }
-            }*/
-            curcount++; // 当前个数
-            curorder++;
+            curcount++; // 当前位置
+            if (curorder == -1 || curcount > Order[curorder].recipe.size() - 1)
+            {
+                curorder++;
+                curcount = 0;
+            }
             // if(curcount > O)
             for (int i = 0; i < IngredientCount; i++)
             {
-                string need = Order[curorder].recipe[0];
+                string need = Order[curorder].recipe[curcount];
                 cerr << "need:" << need << endl;
                 if (Ingredient[i].name == Origin.find(need)->second)
                 {
@@ -78,7 +91,7 @@ Task arrangetask(int ptype)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty() && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+                    if (checkdish(i))
                     {
                         task.id = 3;
                         task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
@@ -103,16 +116,6 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 1)
     {
-        /*for (int i = 0; i < IngredientCount; i++)
-        {
-            string need = Order[0].recipe[0];
-            if (Ingredient[i].name.compare(need) == 0)
-            {
-                task.id = 1;
-                task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
-                return task;
-            }
-        }*/
         return taketask[ptype];
     }
     else if (taketask[ptype].id == 2)
@@ -135,7 +138,7 @@ Task arrangetask(int ptype)
     {
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty() && *Entity[i].entity.begin() == *Order[0].recipe.begin())
+            if (checkdish(i))
             {
                 task.id = 3;
                 task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
@@ -193,6 +196,7 @@ Task arrangetask(int ptype)
         {
             for (int i = 0; i < entityCount; i++)
             {
+                // fix
                 if (!Entity[i].entity.empty() && Entity[i].entity[0][0] != 'c' && Entity[i].x == cutplate.first && Entity[i].y == cutplate.second)
                 {
                     task.id = 5;
