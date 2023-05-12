@@ -228,7 +228,7 @@ int main()
                         }
                         break;
                     case 7:
-                        if (!Players[ptype].entity.empty())
+                        if (Players[ptype].containerKind == ContainerKind::Plate)
                         {
                             cerr << "here 7" << endl;
                             taketask[ptype].id = 4;
