@@ -208,7 +208,7 @@ int main()
                         break;
                     case 4:
                         curorder--;
-                        curcount = -1;
+                        curcount = 0;
                         cerr << "curorder" << curorder << endl;
                         assert(curorder >= -1);
                         taketask[ptype].id = -1;
