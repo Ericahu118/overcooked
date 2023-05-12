@@ -213,13 +213,13 @@ int main()
                     case 5:
                         if (taketask[ptype].flag == 1)
                         { // last step
-                            assert(Cookkind.find(Order[curorder].recipe[0])->second == 1 || Cookkind.find(Order[curorder].recipe[0])->second == 3);
-                            if (Cookkind.find(Order[curorder].recipe[0])->second == 1)
+                            assert(Cookkind.find(Order[curorder - 1].recipe[0])->second == 1 || Cookkind.find(Order[curorder - 1].recipe[0])->second == 3);
+                            if (Cookkind.find(Order[curorder - 1].recipe[0])->second == 1)
                             {
                                 taketask[ptype].id = 2;
                                 taketask[ptype].flag = 1;
                             }
-                            else if (Cookkind.find(Order[curorder].recipe[0])->second == 3)
+                            else if (Cookkind.find(Order[curorder - 1].recipe[0])->second == 3)
                             {
                                 cerr << "here 5" << endl;
                                 taketask[ptype].id = 6;
