@@ -174,6 +174,7 @@ int main()
                         assert(Cookkind.find(Order[curorder].recipe[0]) != Cookkind.end());
                         switch (Cookkind.find(Order[curorder].recipe[0])->second)
                         {
+                            cerr << Order[curorder].recipe[0] << ": " << Cookkind.find(Order[curorder].recipe[0])->second << endl;
                         case 0:
                             taketask[ptype].id = 2;
                             break;
