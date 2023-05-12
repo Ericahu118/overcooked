@@ -294,6 +294,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
                     if (v0y == 0)
                     {
                         solvecrash[ptype] = 0;
+                        solvecrash[(ptype + 1) % 2] = 0;
                     }
                     return "Move";
                 }
