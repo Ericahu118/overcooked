@@ -159,61 +159,65 @@ int main()
         }
         for (int ptype = 0; ptype <= 1; ptype++)
         {
-            if (!(taketask[ptype].id == 2 && curplates == 0))
+            // if (!(taketask[ptype].id == 2 && curplates == 0))
+            //{
+            taketask[ptype] = arrangetask(ptype);
+            if (taketask[ptype].id != -1)
             {
-                taketask[ptype] = arrangetask(ptype);
-                if (taketask[ptype].id != -1)
+                playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
+                if (playerAction[ptype][0] == 'P')
                 {
-                    playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
-                    if (playerAction[ptype][0] == 'P')
+                    switch (taketask[ptype].id)
                     {
-                        switch (taketask[ptype].id)
+                    case 1:
+                        assert(Cookkind.find(Order[curorder].recipe[0]) != Cookkind.end());
+                        switch (Cookkind.find(Order[curorder].recipe[0])->second)
                         {
+                        case 0:
+                            taketask[ptype].id = 2;
+                            break;
                         case 1:
-                            assert(Cookkind.find(Order[curorder].recipe[0]) != Cookkind.end());
-                            switch (Cookkind.find(Order[curorder].recipe[0])->second)
-                            {
-                            case 0:
-                                taketask[ptype].id = 2;
-                                break;
-                            case 1:
-                                taketask[ptype].id = 5;
-                                cerr << "take 5" << endl;
-                                break;
-                            default:
-                                cerr << "fill me 1" << endl;
-                                assert(0);
-                                break;
-                            }
+                            taketask[ptype].id = 5;
+                            cerr << "take 5" << endl;
                             break;
                         case 2:
-                            if (taketask[(ptype + 1) % 2].id == 0)
-                            {
-                                taketask[ptype].id = 3;
-                            }
-                            else
-                            {
-                                taketask[ptype].id = -1;
-                            }
+                            taketask[ptype].id = 6;
+                            taketask[ptype].flag = 1; // 1 for pot
                             break;
-                        case 3:
-                            taketask[ptype].id = 4;
+                        default:
+                            cerr << "fill me 1" << endl;
+                            assert(0);
                             break;
-                        case 4:
-                            curorder--;
-                            assert(curorder >= 0);
+                        }
+                        break;
+                    case 2:
+                        if (taketask[(ptype + 1) % 2].id == 0)
+                        {
+                            taketask[ptype].id = 3;
+                        }
+                        else
+                        {
                             taketask[ptype].id = -1;
+                        }
+                        break;
+                    case 3:
+                        taketask[ptype].id = 4;
+                        break;
+                    case 4:
+                        curorder--;
+                        assert(curorder >= 0);
+                        taketask[ptype].id = -1;
+                        break;
+                    case 5:
+                        if (taketask[ptype].flag == 1)
+                        { // last step
+                            taketask[ptype].id = 2;
                             break;
-                        case 5:
-                            if (taketask[ptype].flag == 1)
-                            { // last step
-                                taketask[ptype].id = 2;
-                                break;
-                            }
                         }
                     }
                 }
             }
+            //}
         }
         /* 合成一个字符串再输出，否则输出有可能会被打断 */
         std::string action = playerAction[0] + "\n" + playerAction[1] + "\n";

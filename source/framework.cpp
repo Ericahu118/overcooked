@@ -166,10 +166,15 @@ bool frame_read(int nowFrame)
             /*
                 Todo: 其他容器
             */
+            // hjx add
             if (s == "Plate")
                 Players[i].containerKind = ContainerKind::Plate;
             else if (s == "DirtyPlates")
                 Players[i].containerKind = ContainerKind::DirtyPlates;
+            else if (s == "Pot")
+                Players[i].containerKind = ContainerKind::Pot;
+            else if (s == "Pan")
+                Players[i].containerKind = ContainerKind::Pan;
             else
                 Players[i].entity.push_back(s);
         }
@@ -216,6 +221,10 @@ bool frame_read(int nowFrame)
                 Entity[i].containerKind = ContainerKind::DirtyPlates;
                 tmp >> Entity[i].sum;
             }
+            else if (s == "Pot")
+                Entity[i].containerKind = ContainerKind::Pot;
+            else if (s == "Pan")
+                Entity[i].containerKind = ContainerKind::Pan;
             else
                 Entity[i].entity.push_back(s);
         }

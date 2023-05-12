@@ -123,8 +123,10 @@ Task arrangetask(int ptype)
                 return task;
             }
         }
-        cerr << "always have plates" << endl;
-        assert(0);
+
+        cerr << "have no plates" << endl;
+        taketask[ptype].op = 2;
+        return taketask[ptype];
     }
     else if (taketask[ptype].id == 3)
     {
@@ -207,6 +209,37 @@ Task arrangetask(int ptype)
             cerr << "Not reach here 5" << endl;
             assert(0);
         }
+    }
+    else if (taketask[ptype].id == 6)
+    {
+        task.id = 5;
+        task.op = 0;
+        assert(taketask[ptype].flag == 1 || taketask[ptype].flag == 2);
+        if (taketask[ptype].flag == 1)
+        {
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::Pot && Entity[i].entity.empty())
+                {
+                    task.id = 6;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1;
+                    return task;
+                }
+            }
+        }
+        else if (taketask[ptype].flag == 2)
+        {
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (Entity[i].containerKind == ContainerKind::Pot && Entity[i].entity.empty())
+                {
+                    task.id = 6;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2;
+                    return task;
+                }
+            }
+        }
+        return task;
     }
     //////////
     cerr << "player[" << ptype << "]"
