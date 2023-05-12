@@ -29,6 +29,7 @@ int remainFrame, Fund;
 // hjx add
 pair<double, double> window;
 pair<double, double> sink;
+pair<double, double> cutplate;
 
 void init_read()
 {

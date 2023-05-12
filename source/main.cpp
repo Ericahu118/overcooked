@@ -20,8 +20,6 @@ extern struct Entity Entity[20 + 5];
 extern struct Order totalOrder[20 + 5]; // 总订单数组，
 extern int orderCount;                  // 订单数
 extern struct Order Order[20 + 5];      // 订单
-extern pair<double, double> window;
-extern pair<double, double> sink;
 extern int width, height;
 extern char Map[20 + 5][20 + 5];
 extern int recipeCount; // 菜谱种类,y
@@ -33,6 +31,10 @@ extern int curorder;
 
 extern map<string, string> Origin;
 extern map<string, int> Cookkind;
+
+extern pair<double, double> window;
+extern pair<double, double> sink;
+extern pair<double, double> cutplate;
 
 void init()
 {
@@ -48,16 +50,10 @@ void init()
             {
                 sink.first = j, sink.second = i;
             }
-        }
-    }
-    curplates = 0;
-    for (int i = 0; i < entityCount; i++)
-    {
-        cerr << "Why1" << endl;
-        if (*Entity[i].entity.begin() == "Plate")
-        {
-            // cerr << "Why1" << endl;
-            curplates++;
+            else if (Map[i][j] == 'c')
+            {
+                cutplate.first = j, cutplate.second = i;
+            }
         }
     }
 
@@ -174,8 +170,19 @@ int main()
                         switch (taketask[ptype].id)
                         {
                         case 1:
-                            taketask[ptype].id = 2;
-                            break;
+                            assert(Cookkind.find(Order[curorder].recipe[0]) != Cookkind.end());
+                            switch (Cookkind.find(Order[curorder].recipe[0])->second)
+                            {
+                            case 0:
+                                taketask[ptype].id = 2;
+                            case 1:
+                                taketask[ptype].id = 5;
+                            default:
+                                cerr << "fill me 1" << endl;
+                                assert(0);
+                                break;
+                            }
+
                         case 2:
                             if (taketask[(ptype + 1) % 2].id == 0)
                             {
@@ -194,6 +201,12 @@ int main()
                             assert(curorder >= 0);
                             taketask[ptype].id = -1;
                             break;
+                        case 5:
+                            if (taketask[ptype].flag == 1)
+                            { // last step
+                                taketask[ptype].id = 2;
+                                break;
+                            }
                         }
                     }
                 }

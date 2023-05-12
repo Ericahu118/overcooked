@@ -29,6 +29,7 @@ extern int orderCount;                  // 订单数
 extern struct Order Order[20 + 5];      // 订单
 extern pair<double, double> window;
 extern pair<double, double> sink;
+extern pair<double, double> cutplate;
 
 Task arrangetask(int ptype)
 {
@@ -172,7 +173,38 @@ Task arrangetask(int ptype)
         }
         taketask[ptype].id = -1; // 洗完了
     }
-
+    else if (taketask[ptype].id == 5)
+    {
+        if (!Players[ptype].entity.empty())
+        {
+            task.id = 5;
+            task.op = 0, task.x = cutplate.first, task.y = cutplate.second, task.flag = 0;
+            return task;
+        }
+        else
+        {
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (!Entity[i].entity.empty() && Entity[i].entity[0][0] != 'c' && Entity[i].x == cutplate.first && Entity[i].y == cutplate.second)
+                {
+                    task.id = 5;
+                    task.op = 1, task.x = cutplate.first, task.y = cutplate.second, task.flag = 0;
+                    return task;
+                }
+            }
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (!Entity[i].entity.empty() && Entity[i].entity[0][0] == 'c' && Entity[i].x == cutplate.first && Entity[i].y == cutplate.second)
+                {
+                    task.id = 5;
+                    task.op = 0, task.x = cutplate.first, task.y = cutplate.second, task.flag = 1;
+                    return task;
+                }
+            }
+            cerr << "Not reach here 5" << endl;
+            assert(0);
+        }
+    }
     //////////
     cerr << "player[" << ptype << "]"
          << " takes no task" << endl;
