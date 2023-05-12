@@ -84,13 +84,16 @@ Task arrangetask(int ptype)
                 }
             }
             // 是否需要洗盘子
-            for (int i = 0; i < entityCount; i++)
+            if (curplates == 0)
             {
-                if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                for (int i = 0; i < entityCount; i++)
                 {
-                    task.id = 0;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                    return task;
+                    if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                    {
+                        task.id = 0;
+                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                        return task;
+                    }
                 }
             }
         }
