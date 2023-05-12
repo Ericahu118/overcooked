@@ -65,10 +65,14 @@ Task arrangetask(int ptype)
         if (ptype == 0)
         {
             curcount++; // 当前位置
-            if (curorder == -1 || curcount > Order[curorder].recipe.size() - 1)
+            if (curcount > Order[curorder].recipe.size() - 1)
             {
                 curorder++;
                 curcount = 0;
+            }
+            if (curorder == -1)
+            {
+                curorder = 0, curcount = 0;
             }
             // if(curcount > O)
             for (int i = 0; i < IngredientCount; i++)
