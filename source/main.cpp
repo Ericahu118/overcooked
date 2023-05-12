@@ -175,8 +175,10 @@ int main()
                             {
                             case 0:
                                 taketask[ptype].id = 2;
+                                break;
                             case 1:
                                 taketask[ptype].id = 5;
+                                break;
                             default:
                                 cerr << "fill me 1" << endl;
                                 assert(0);
