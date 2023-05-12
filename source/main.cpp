@@ -178,6 +178,7 @@ int main()
                                 break;
                             case 1:
                                 taketask[ptype].id = 5;
+                                cerr << "take 5" << endl;
                                 break;
                             default:
                                 cerr << "fill me 1" << endl;
