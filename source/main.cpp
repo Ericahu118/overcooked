@@ -177,6 +177,7 @@ int main()
                         case 0:
                             taketask[ptype].id = 2;
                             break;
+                        case 3:
                         case 1:
                             taketask[ptype].id = 5;
                             cerr << "take 5" << endl;
@@ -185,6 +186,7 @@ int main()
                             taketask[ptype].id = 6;
                             taketask[ptype].flag = 1; // 1 for pot
                             break;
+
                         default:
                             cerr << "fill me 1" << endl;
                             assert(0);
@@ -212,7 +214,16 @@ int main()
                     case 5:
                         if (taketask[ptype].flag == 1)
                         { // last step
-                            taketask[ptype].id = 2;
+                            assert(Cookkind.find(Order[curorder].recipe[0])->second == 1 || Cookkind.find(Order[curorder].recipe[0])->second == 3);
+                            if (Cookkind.find(Order[curorder].recipe[0])->second == 1)
+                            {
+                                taketask[ptype].id = 2;
+                            }
+                            else if (Cookkind.find(Order[curorder].recipe[0])->second == 3)
+                            {
+                                taketask[ptype].id = 6;
+                                taketask[ptype].flag = 2;
+                            }
                         }
                         break;
                     case 6:
