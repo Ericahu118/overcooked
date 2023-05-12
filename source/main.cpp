@@ -240,7 +240,7 @@ int main()
             }
             else
             {
-                if (fabs(Players[0].x - Players[1].x) <= 2 * radius + 0.3 && fabs(Players[0].y - Players[1].y) <= 2 * radius + 0.3)
+                if (fabs(Players[0].x - Players[1].x) <= 2 * radius + 0.5 && fabs(Players[0].y - Players[1].y) <= 2 * radius + 0.5)
                 {
                     if (fabs(Players[0].y - Players[1].y) < fabs(Players[0].x - Players[1].x))
                     {
