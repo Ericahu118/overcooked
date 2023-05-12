@@ -260,8 +260,8 @@ string frame_move(double des_x, double des_y, int ptype, int op)
     bool trapx = (x0 <= 8 && (8 - x0 <= center + 0.3) && ((y0 >= 8 && y0 - 8 <= block + center) || (y0 < 8 && 8 - y0 <= center)));
     bool crashy1 = (y0 >= y1 && (y0 - y1 <= 2 * radius + 0.4)) && ((x0 < x1 && (x1 - x0) <= 2 * radius) || (x0 > x1) && (x0 - x1 <= 2 * radius));
     bool crashy2 = (y0 <= y1 && (y1 - y0 <= 2 * radius + 0.4)) && ((x0 < x1 && (x1 - x0) <= 2 * radius) || (x0 > x1) && (x0 - x1 <= 2 * radius));
-    bool crashx1 = (x0 >= x1 && (x0 - x1 <= 2 * radius + 0.3)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
-    bool crashx2 = (x0 < x1 && (x1 - x0 <= 2 * radius + 0.3)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
+    bool crashx1 = (x0 >= x1 && (x0 - x1 <= 2 * radius + 0.4)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
+    bool crashx2 = (x0 < x1 && (x1 - x0 <= 2 * radius + 0.4)) && ((y0 < y1 && (y1 - y0) <= 2 * radius) || (y0 > y1) && (y0 - y1 <= 2 * radius));
     bool getup = (y0 - des_y) <= block + center + 0.3;
     bool getdown = (des_y - y0) <= center + 0.3;
     bool getleft = (x0 - des_x) <= center + block + 0.3;
