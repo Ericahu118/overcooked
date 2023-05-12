@@ -64,9 +64,9 @@ Task arrangetask(int ptype)
                     curorder++;
                     return task;
                 }
-                cerr << "Must have ingredient" << endl;
-                assert(0);
             }
+            cerr << "Must have ingredient" << endl;
+            assert(0);
         }
         else
         {
