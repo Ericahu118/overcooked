@@ -224,6 +224,7 @@ int main()
                         topick.pop();
                         // taketask[ptype].id = 4;
                         // fix week3
+
                         taketask[ptype].id = -1;
                         break;
                     case 4:
@@ -254,10 +255,13 @@ int main()
                     case 6:
                         assert(ptype == 0);
                         currentdish.cur++;
-                        if (taketask[1].id == -1)
+                        if (taketask[1].id == -1 || taketask[1].id == 3)
                         { // 另一个人没事干
-                            taketask[1].id = 7;
-                            taketask[1].flag = taketask[0].flag;
+                            if (taketask[1].id == -1)
+                            {
+                                taketask[1].id = 7;
+                                taketask[1].flag = taketask[0].flag;
+                            }
                             taketask[0].id = -1;
                         }
                         else

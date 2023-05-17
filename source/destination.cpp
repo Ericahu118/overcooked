@@ -124,6 +124,22 @@ Task arrangetask(int ptype)
                     }
                 }
             }*/
+            if (taketask[(ptype + 1) % 2].id != 7)
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if ((Entity[i].containerKind == ContainerKind::Pot && !Entity->entity.empty()) || (Entity[i].containerKind == ContainerKind::Pan && !Entity->entity.empty()))
+                    {
+                        task.id = 7;
+                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y;
+                        if (Entity[i].containerKind == ContainerKind::Pot)
+                            task.flag = 1;
+                        else
+                            task.flag = 2;
+                        return task;
+                    }
+                }
+            }
             // 是否需要洗盘子
             if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
             {
