@@ -197,14 +197,17 @@ int main()
                         }
                         break;
                     case 2:
+                        assert(ptype == 0);
                         topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
                         currentdish.cur++;
-                        if (taketask[(ptype + 1) % 2].id == 0)
+                        // hjx change 0 to -1
+                        if (taketask[(ptype + 1) % 2].id != -1)
                         {
                             taketask[ptype].id = 3;
                         }
                         else
                         {
+                            taketask[(ptype + 1) % 2].id = 3;
                             taketask[ptype].id = -1;
                         }
                         break;

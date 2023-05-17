@@ -37,20 +37,20 @@ extern pair<double, double> window;
 extern pair<double, double> sink;
 extern pair<double, double> cutplate;
 
-bool checkdish(int i)
+bool checkdish(int i, int n)
 {
     if (Entity[i].containerKind == ContainerKind::Plate)
     {
         int total = 0;
-        for (int j = 0; j < Order[0].recipe.size(); j++)
+        for (int j = 0; j < n; j++)
         {
             for (int k = 0; k < Entity[i].entity.size(); k++)
             {
-                if (Entity[i].entity[k] == Order[0].recipe[j])
+                if (Entity[i].entity[k] == currentdish.dish[j])
                     total++;
             }
         }
-        if (total == Order[0].recipe.size())
+        if (total == n - 1)
         {
             return true;
         }
@@ -122,7 +122,8 @@ Task arrangetask(int ptype)
         }
         else
         {
-            if (taketask[(ptype + 1) % 2].id != 3)
+            // fix
+            /*if (taketask[(ptype + 1) % 2].id != 3)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
@@ -133,7 +134,7 @@ Task arrangetask(int ptype)
                         return task;
                     }
                 }
-            }
+            }*/
             // 是否需要洗盘子
             if (curplates == 0)
             {
@@ -155,13 +156,30 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 2)
     {
-        for (int i = 0; i < entityCount; i++)
+        assert(currentdish.cur >= 0 && currentdish.cur < currentdish.dish.size());
+        if (currentdish.cur == 0)
         {
-            if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+            for (int i = 0; i < entityCount; i++)
             {
-                task.id = 2;
-                task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                return task;
+                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                {
+                    task.id = 2;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                    return task;
+                }
+            }
+        }
+        else if (currentdish.cur > 0)
+        {
+            for (int i = 0; i < entityCount; i++)
+            {
+                if (checkdish(i, currentdish.cur))
+                {
+
+                    task.id = 2;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                    return task;
+                }
             }
         }
 
