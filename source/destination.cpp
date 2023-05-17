@@ -20,6 +20,7 @@ map<string, int> Cookkind;
 
 Dishes currentdish;
 queue<pair<double, double>> topick;
+int testcount = 0;
 
 // 0 for wash
 
@@ -84,6 +85,8 @@ Task arrangetask(int ptype)
             {
                 currentdish.cur = 0;
                 curorder++;
+                testcount++;
+                cerr << "testcount: " << testcount << endl;
                 // pre work know just copy
                 assert(curorder >= 0);
                 for (int i = 0; i < Order[curorder].recipe.size(); i++)
