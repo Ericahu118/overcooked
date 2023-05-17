@@ -303,9 +303,9 @@ Task arrangetask(int ptype)
 
             for (int i = 0; i < entityCount; i++)
             {
-                if (checkdish(i, 1))
+                if (Entity[i].containerKind == ContainerKind::Plate && !Entity->entity.empty())
                 {
-
+                    cerr << "test 7" << endl;
                     task.id = 7;
                     task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = taketask[ptype].flag;
                     return task;
