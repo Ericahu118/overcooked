@@ -89,6 +89,7 @@ Task arrangetask(int ptype)
                 cerr << "testcount: " << testcount << endl;
                 // pre work know just copy
                 assert(curorder >= 0);
+                currentdish.dish.clear();
                 for (int i = 0; i < Order[curorder].recipe.size(); i++)
                 {
                     currentdish.dish.push_back(Order[curorder].recipe[i]);
