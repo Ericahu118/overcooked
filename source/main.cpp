@@ -32,6 +32,7 @@ extern int curorder;
 
 extern Dishes currentdish;
 extern queue<pair<double, double>> topick;
+extern int whosent;
 
 extern map<string, string> Origin;
 extern map<string, int> Cookkind;
@@ -198,25 +199,37 @@ int main()
                         break;
                     case 2:
                         assert(ptype == 0);
-                        topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
                         currentdish.cur++;
                         // hjx change 0 to -1
                         if (taketask[(ptype + 1) % 2].id != -1)
                         {
-                            taketask[ptype].id = 3;
+                            if (currentdish.cur == currentdish.dish.size())
+                            { // 最后一个 即加完之后比数组大一
+                                topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
+                                taketask[ptype].id = 3;
+                            }
+                            else
+                            {
+                                taketask[ptype].id = -1;
+                            }
                         }
                         else
                         {
+                            topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
                             taketask[(ptype + 1) % 2].id = 3;
                             taketask[ptype].id = -1;
                         }
                         break;
                     case 3:
                         topick.pop();
-                        taketask[ptype].id = 4;
+                        // taketask[ptype].id = 4;
+                        // fix week3
+                        taketask[ptype].id = -1;
                         break;
                     case 4:
+                        // assert(whosent == ptype);
                         curorder--;
+                        whosent = -1;
                         cerr << "curorder" << curorder << endl;
                         assert(curorder >= -1);
                         taketask[ptype].id = -1;

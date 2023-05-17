@@ -18,6 +18,7 @@ struct Task
     int id;
     int x, y, op; // 位置，操作
     int flag = 0; // 附加
+    int sum = 0;
 };
 
 struct Dishes

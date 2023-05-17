@@ -13,7 +13,6 @@ using namespace std;
 int curplates;
 Task taketask[2 + 5];
 int curorder = -1;
-int curcount = 0;
 
 map<string, string> Origin;
 map<string, int> Cookkind;
@@ -21,6 +20,7 @@ map<string, int> Cookkind;
 Dishes currentdish;
 queue<pair<double, double>> topick;
 int testcount = 0;
+int whosent = -1;
 
 // 0 for wash
 
@@ -69,18 +69,7 @@ Task arrangetask(int ptype)
     {
         if (ptype == 0)
         {
-            /*curcount++; // 当前位置
-            if (curcount > Order[curorder].recipe.size() - 1)
-            {
-                curorder++;
-                curcount = 0;
-            }
-            if (curorder == -1)
-            {
-                curorder = 0, curcount = 0;
-            }*/
-            // if(curcount > O)
-            // currentdish.cur++;
+
             if (currentdish.cur >= currentdish.dish.size())
             {
                 currentdish.cur = 0;
@@ -136,7 +125,7 @@ Task arrangetask(int ptype)
                 }
             }*/
             // 是否需要洗盘子
-            if (curplates == 0)
+            if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
@@ -310,16 +299,29 @@ Task arrangetask(int ptype)
     else if (taketask[ptype].id == 7)
     {
         if (Players[ptype].containerKind == ContainerKind::None)
-        { // 去拿盘子
+        { // 去拿盘子 fix
+
             for (int i = 0; i < entityCount; i++)
             {
-                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                if (checkdish(i, 1))
                 {
+
                     task.id = 7;
                     task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = taketask[ptype].flag;
                     return task;
                 }
             }
+
+            ////
+            /*for (int i = 0; i < entityCount; i++)
+             {
+                 if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                 {
+                     task.id = 7;
+                     task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = taketask[ptype].flag;
+                     return task;
+                 }
+             }*/
             cerr << "have no plates" << endl;
             taketask[ptype].op = 2;
             return taketask[ptype];
