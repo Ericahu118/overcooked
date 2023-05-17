@@ -29,7 +29,7 @@ extern struct Recipe Recipe[20 + 5];
 extern int curplates;
 extern Task taketask[2 + 5];
 extern int curorder;
-extern int curcount;
+
 extern Dishes currentdish;
 extern queue<pair<double, double>> topick;
 
@@ -174,7 +174,7 @@ int main()
                     switch (taketask[ptype].id)
                     {
                     case 1:
-                        // assert(Cookkind.find(Order[curorder].recipe[curcount]) != Cookkind.end());
+
                         assert(Cookkind.find(currentdish.dish[currentdish.cur]) != Cookkind.end());
                         cerr << "here" << currentdish.dish[currentdish.cur] << ": " << Cookkind.find(currentdish.dish[currentdish.cur])->second << endl;
                         switch (Cookkind.find(currentdish.dish[currentdish.cur])->second)
@@ -217,7 +217,6 @@ int main()
                         break;
                     case 4:
                         curorder--;
-                        // curcount = 0;
                         cerr << "curorder" << curorder << endl;
                         assert(curorder >= -1);
                         taketask[ptype].id = -1;
