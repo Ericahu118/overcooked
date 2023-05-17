@@ -7,6 +7,7 @@
 #include <framework.h>
 #include <movement.h>
 #include <destination.h>
+#include <queue>
 using namespace std;
 
 int curplates;
@@ -16,6 +17,9 @@ int curcount = 0;
 
 map<string, string> Origin;
 map<string, int> Cookkind;
+
+Dishes currentdish;
+queue<pair<double, double>> topick;
 
 // 0 for wash
 
@@ -75,8 +79,30 @@ Task arrangetask(int ptype)
                 curorder = 0, curcount = 0;
             }*/
             // if(curcount > O)
-            curorder++;
+            // currentdish.cur++;
+            if (currentdish.cur >= currentdish.dish.size())
+            {
+                currentdish.cur = 0;
+                curorder++;
+                // pre work know just copy
+                assert(curorder >= 0);
+                for (int i = 0; i < Order[curorder].recipe.size(); i++)
+                {
+                    currentdish.dish.push_back(Order[curorder].recipe[i]);
+                }
+            }
             for (int i = 0; i < IngredientCount; i++)
+            {
+                string need = currentdish.dish[currentdish.cur];
+                cerr << "need:" << need << endl;
+                if (Ingredient[i].name == Origin.find(need)->second)
+                {
+                    task.id = 1;
+                    task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
+                    return task;
+                }
+            }
+            /*for (int i = 0; i < IngredientCount; i++)
             {
                 string need = Order[curorder].recipe[curcount];
                 cerr << "need:" << need << endl;
@@ -86,7 +112,7 @@ Task arrangetask(int ptype)
                     task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
                     return task;
                 }
-            }
+            }*/
             cerr << "Must have ingredient" << endl;
             assert(0);
         }
@@ -141,7 +167,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 3)
     {
-        for (int i = 0; i < entityCount; i++)
+        /*for (int i = 0; i < entityCount; i++)
         {
             if (checkdish(i))
             {
@@ -149,7 +175,10 @@ Task arrangetask(int ptype)
                 task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
                 return task;
             }
-        }
+        }*/
+        task.id = 3;
+        task.op = 0, task.x = topick.front().first, task.y = topick.front().second, task.flag = 0;
+        return task;
     }
     else if (taketask[ptype].id == 4)
     {

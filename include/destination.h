@@ -20,6 +20,12 @@ struct Task
     int flag = 0; // 附加
 };
 
+struct Dishes
+{
+    vector<string> dish;
+    int cur;
+};
+
 Task arrangetask(int ptype);
 
 #endif

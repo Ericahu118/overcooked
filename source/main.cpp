@@ -8,7 +8,7 @@
 #include <movement.h>
 #include <destination.h>
 #include <map>
-#include <math.h>
+#include <queue>
 
 using namespace std;
 
@@ -30,6 +30,8 @@ extern int curplates;
 extern Task taketask[2 + 5];
 extern int curorder;
 extern int curcount;
+extern Dishes currentdish;
+extern queue<pair<double, double>> topick;
 
 extern map<string, string> Origin;
 extern map<string, int> Cookkind;
@@ -172,12 +174,14 @@ int main()
                     switch (taketask[ptype].id)
                     {
                     case 1:
-                        assert(Cookkind.find(Order[curorder].recipe[curcount]) != Cookkind.end());
-                        cerr << "here" << Order[curorder].recipe[curcount] << ": " << Cookkind.find(Order[curorder].recipe[curcount])->second << endl;
-                        switch (Cookkind.find(Order[curorder].recipe[curcount])->second)
+                        // assert(Cookkind.find(Order[curorder].recipe[curcount]) != Cookkind.end());
+                        assert(Cookkind.find(currentdish.dish[currentdish.cur]) != Cookkind.end());
+                        cerr << "here" << currentdish.dish[currentdish.cur] << ": " << Cookkind.find(currentdish.dish[currentdish.cur])->second << endl;
+                        switch (Cookkind.find(currentdish.dish[currentdish.cur])->second)
                         {
                         case 0:
                             taketask[ptype].id = 2;
+                            currentdish.cur++;
                             break;
                         case 3:
                         case 1:
@@ -194,6 +198,7 @@ int main()
                         }
                         break;
                     case 2:
+                        topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
                         if (taketask[(ptype + 1) % 2].id == 0)
                         {
                             taketask[ptype].id = 3;
@@ -204,6 +209,7 @@ int main()
                         }
                         break;
                     case 3:
+                        topick.pop();
                         taketask[ptype].id = 4;
                         break;
                     case 4:
@@ -216,13 +222,16 @@ int main()
                     case 5:
                         if (taketask[ptype].flag == 1)
                         { // last step
-                            assert(Cookkind.find(Order[curorder].recipe[curcount])->second == 1 || Cookkind.find(Order[curorder].recipe[curcount])->second == 3);
-                            if (Cookkind.find(Order[curorder].recipe[curcount])->second == 1)
+                            // assert(Cookkind.find(Order[curorder].recipe[curcount])->second == 1 || Cookkind.find(Order[curorder].recipe[curcount])->second == 3);
+                            assert(Cookkind.find(currentdish.dish[currentdish.cur])->second == 1 || Cookkind.find(currentdish.dish[currentdish.cur])->second == 3);
+
+                            if (Cookkind.find(currentdish.dish[currentdish.cur])->second == 1)
                             {
                                 taketask[ptype].id = 2;
                                 taketask[ptype].flag = 1;
+                                currentdish.cur++;
                             }
-                            else if (Cookkind.find(Order[curorder].recipe[curcount])->second == 3)
+                            else if (Cookkind.find(currentdish.dish[currentdish.cur])->second == 3)
                             {
                                 cerr << "here 5" << endl;
                                 taketask[ptype].id = 6;
@@ -232,6 +241,7 @@ int main()
                         break;
                     case 6:
                         assert(ptype == 0);
+                        currentdish.cur++;
                         if (taketask[1].id == -1)
                         { // 另一个人没事干
                             taketask[1].id = 7;
