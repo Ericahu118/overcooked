@@ -124,7 +124,7 @@ Task arrangetask(int ptype)
                     }
                 }
             }*/
-            if (taketask[(ptype + 1) % 2].id != 7)
+            if (taketask[(ptype + 1) % 2].id != 7 && Players[ptype].containerKind == ContainerKind::Plate)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
