@@ -79,9 +79,21 @@ Task arrangetask(int ptype)
                 // pre work know just copy
                 assert(curorder >= 0);
                 currentdish.dish.clear();
+                // pre work
                 for (int i = 0; i < Order[curorder].recipe.size(); i++)
                 {
-                    currentdish.dish.push_back(Order[curorder].recipe[i]);
+                    if (Order[curorder].recipe[i][1] != '_')
+                        currentdish.dish.push_back(Order[curorder].recipe[i]);
+                }
+                for (int i = 0; i < Order[curorder].recipe.size(); i++)
+                {
+                    if (Order[curorder].recipe[i][0] == 'c')
+                        currentdish.dish.push_back(Order[curorder].recipe[i]);
+                }
+                for (int i = 0; i < Order[curorder].recipe.size(); i++)
+                {
+                    if (Order[curorder].recipe[i][0] == 's')
+                        currentdish.dish.push_back(Order[curorder].recipe[i]);
                 }
             }
             for (int i = 0; i < IngredientCount; i++)
