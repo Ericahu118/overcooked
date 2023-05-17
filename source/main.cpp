@@ -181,7 +181,6 @@ int main()
                         {
                         case 0:
                             taketask[ptype].id = 2;
-                            currentdish.cur++;
                             break;
                         case 3:
                         case 1:
@@ -199,6 +198,7 @@ int main()
                         break;
                     case 2:
                         topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
+                        currentdish.cur++;
                         if (taketask[(ptype + 1) % 2].id == 0)
                         {
                             taketask[ptype].id = 3;
@@ -214,7 +214,7 @@ int main()
                         break;
                     case 4:
                         curorder--;
-                        curcount = 0;
+                        // curcount = 0;
                         cerr << "curorder" << curorder << endl;
                         assert(curorder >= -1);
                         taketask[ptype].id = -1;
@@ -222,14 +222,11 @@ int main()
                     case 5:
                         if (taketask[ptype].flag == 1)
                         { // last step
-                            // assert(Cookkind.find(Order[curorder].recipe[curcount])->second == 1 || Cookkind.find(Order[curorder].recipe[curcount])->second == 3);
                             assert(Cookkind.find(currentdish.dish[currentdish.cur])->second == 1 || Cookkind.find(currentdish.dish[currentdish.cur])->second == 3);
-
                             if (Cookkind.find(currentdish.dish[currentdish.cur])->second == 1)
                             {
                                 taketask[ptype].id = 2;
                                 taketask[ptype].flag = 1;
-                                currentdish.cur++;
                             }
                             else if (Cookkind.find(currentdish.dish[currentdish.cur])->second == 3)
                             {
