@@ -362,25 +362,11 @@ int main()
                             }
                         }
                         break;
-                        /*
-                        if (taketask[1].id == -1 || taketask[1].id == 3)
-                        { // 另一个人没事干
-                            if (taketask[1].id == -1)
-                            {
-                                taketask[1].id = 7;
-                                taketask[1].flag = taketask[0].flag;
-                            }
-                            taketask[0].id = -1;
-                        }
-                        else
-                        {
-                            taketask[0].id = 7;
-                        }*/
 
                     case 7:
                         if (Players[ptype].containerKind == ContainerKind::Plate)
                         {
-                            if (Players[ptype].entity.size() == taketask[ptype].sum - 1)
+                            if (Players[ptype].entity.size() >= taketask[ptype].sum - 1)
                             {
                                 taketask[ptype].id = 4;
                             }

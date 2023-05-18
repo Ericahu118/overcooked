@@ -126,7 +126,7 @@ Task arrangetask(int ptype)
                     if (Players[ptype].entity[k][0] != 's')
                         tmp++;
                 }
-                assert(!whosent.second.empty());
+                assert(whosent.second.size() != 0);
                 /* task.id = 7;
                  task.op = 0;
                  task.sum = taketask[ptype].sum;*/
