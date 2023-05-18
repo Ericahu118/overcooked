@@ -275,6 +275,7 @@ int main()
                         //   taketask[ptype].id = 4;
                         //   fix week3
                         // assert(Players[ptype].containerKind == ContainerKind::Plate && !Players[ptype].entity.empty());
+                        assert(taketask[ptype].flag != 0);
                         if (taketask[ptype].flag < taketask[ptype].sum)
                         {
                             if (ptype == 0)

@@ -232,6 +232,7 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 3)
     { // 3 一定由2 转移
+        task.flag = 0;
         for (int i = 0; i < entityCount; i++)
         {
             if (Entity[i].x == taketask[ptype].x && Entity[i].x == taketask[ptype].y && Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
@@ -239,7 +240,6 @@ Task arrangetask(int ptype)
                 task.flag = Entity[i].entity.size();
             }
         }
-        assert(task.flag != 0);
         task.id = 3;
         task.op = 0, task.x = taketask[ptype].x, task.y = taketask[ptype].y, task.sum = taketask[ptype].sum;
         return task;
