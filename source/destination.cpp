@@ -131,7 +131,7 @@ Task arrangetask(int ptype)
                 }
             }*/
             // fix!!
-            if (taketask[(ptype + 1) % 2].id != 7 && Players[ptype].containerKind == ContainerKind::Plate)
+            /*if (taketask[(ptype + 1) % 2].id != 7 && Players[ptype].containerKind == ContainerKind::Plate)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
@@ -146,7 +146,7 @@ Task arrangetask(int ptype)
                         return task;
                     }
                 }
-            }
+            }*/
             if (Players[ptype].containerKind == ContainerKind::Plate)
             {
                 assert(whosent.first == 1);
