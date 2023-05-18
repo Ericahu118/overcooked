@@ -117,7 +117,7 @@ Task arrangetask(int ptype)
         }
         else
         {
-            if (Players[ptype].containerKind == ContainerKind::Plate && cursent == 1)
+            /*if (Players[ptype].containerKind == ContainerKind::Plate && cursent == 1)
             {
                 assert(whosent.first == 1);
                 int tmp = 0;
@@ -127,9 +127,7 @@ Task arrangetask(int ptype)
                         tmp++;
                 }
                 assert(whosent.second.size() != 0);
-                /* task.id = 7;
-                 task.op = 0;
-                 task.sum = taketask[ptype].sum;*/
+
                 cerr << "whosent" << whosent.second[Players[0].entity.size() - tmp] << endl;
                 for (int i = 0; i < entityCount; i++)
                 {
@@ -153,23 +151,23 @@ Task arrangetask(int ptype)
                     }
                 }
                 cerr << "Not here" << endl;
-            }
+            }*/
             // 是否需要洗盘子
-            else
+            // else
+            //{
+            if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
             {
-                if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
+                for (int i = 0; i < entityCount; i++)
                 {
-                    for (int i = 0; i < entityCount; i++)
+                    if (Entity[i].containerKind == ContainerKind::DirtyPlates)
                     {
-                        if (Entity[i].containerKind == ContainerKind::DirtyPlates)
-                        {
-                            task.id = 0;
-                            task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                            return task;
-                        }
+                        task.id = 0;
+                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                        return task;
                     }
                 }
             }
+            //}
         }
     }
     else if (taketask[ptype].id == 1)
