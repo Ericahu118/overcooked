@@ -274,8 +274,8 @@ int main()
                         //  topick.pop();
                         //   taketask[ptype].id = 4;
                         //   fix week3
-                        assert(Players[ptype].containerKind == ContainerKind::Plate && !Players[ptype].entity.empty());
-                        if (Players[ptype].entity.size() < taketask[ptype].sum)
+                        // assert(Players[ptype].containerKind == ContainerKind::Plate && !Players[ptype].entity.empty());
+                        if (taketask[ptype].flag < taketask[ptype].sum)
                         {
                             if (ptype == 0)
                             {
@@ -331,8 +331,8 @@ int main()
                                 taketask[1].id = 7;
                                 taketask[1].flag = taketask[0].flag;
                                 taketask[1].sum = taketask[0].sum;
-                                taketask[0].id = -1;
                             }
+                            taketask[0].id = -1;
                             // 存在此时玩家1还没拿到盘子的情况，将在后面调度
                         }
                         else
