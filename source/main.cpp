@@ -33,6 +33,7 @@ extern int curorder;
 extern Dishes currentdish;
 extern queue<pair<double, double>> topick;
 extern pair<int, vector<int>> whosent;
+extern int cursent;
 
 extern map<string, string> Origin;
 extern map<string, int> Cookkind;
@@ -214,6 +215,7 @@ int main()
                                 taketask[(ptype + 1) % 2].x = taketask[ptype].x, taketask[(ptype + 1) % 2].y = taketask[ptype].y;
                                 taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
                                 whosent.first = 1;
+                                cursent = 1;
                                 whosent.second.clear();
                             }
                         }
@@ -230,6 +232,7 @@ int main()
                                 taketask[(ptype + 1) % 2].id = 3;
                                 taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
                                 whosent.first = 1;
+                                cursent = 1;
                                 for (int k = currentdish.cur; k < currentdish.dish.size(); k++)
                                 {
                                     if (currentdish.dish[k] == "s_fish" || currentdish.dish[k] == "p_fish")
@@ -326,7 +329,7 @@ int main()
                     case 6:
                         assert(ptype == 0);
                         currentdish.cur++;
-                        if (whosent.first == 1)
+                        if (cursent == 1)
                         { // 1玩家之前拿了盘子
                             if (taketask[1].id == -1)
                             {

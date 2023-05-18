@@ -23,6 +23,7 @@ queue<pair<double, double>> topick;
 int testcount = 0;
 
 pair<int, vector<int>> whosent;
+int cursent;
 
 // 0 for wash
 
@@ -81,7 +82,7 @@ Task arrangetask(int ptype)
                 // pre work know just copy
                 assert(curorder >= 0);
                 currentdish.dish.clear();
-
+                cursent = -1;
                 // pre work
                 for (int i = 0; i < Order[curorder].recipe.size(); i++)
                 {
