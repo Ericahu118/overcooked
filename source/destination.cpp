@@ -160,6 +160,7 @@ Task arrangetask(int ptype)
                 /* task.id = 7;
                  task.op = 0;
                  task.sum = taketask[ptype].sum;*/
+                cerr << "whosent" << whosent.second[Players[0].entity.size() - tmp] << endl;
                 for (int i = 0; i < entityCount; i++)
                 {
                     if (whosent.second[Players[0].entity.size() - tmp] == 1 && Entity[i].containerKind == ContainerKind::Pot)
