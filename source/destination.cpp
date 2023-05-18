@@ -8,6 +8,7 @@
 #include <movement.h>
 #include <destination.h>
 #include <queue>
+
 using namespace std;
 
 int curplates;
@@ -20,7 +21,8 @@ map<string, int> Cookkind;
 Dishes currentdish;
 queue<pair<double, double>> topick;
 int testcount = 0;
-int whosent = -1;
+
+pair<int, vector<int>> whosent;
 
 // 0 for wash
 
@@ -50,7 +52,7 @@ bool checkdish(int i, int n)
                     total++;
             }
         }
-        if (total == n - 1)
+        if (total == n)
         {
             return true;
         }
@@ -79,6 +81,7 @@ Task arrangetask(int ptype)
                 // pre work know just copy
                 assert(curorder >= 0);
                 currentdish.dish.clear();
+
                 // pre work
                 for (int i = 0; i < Order[curorder].recipe.size(); i++)
                 {
@@ -103,21 +106,11 @@ Task arrangetask(int ptype)
                 if (Ingredient[i].name == Origin.find(need)->second)
                 {
                     task.id = 1;
-                    task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
+                    task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0, task.sum = currentdish.dish.size();
                     return task;
                 }
             }
-            /*for (int i = 0; i < IngredientCount; i++)
-            {
-                string need = Order[curorder].recipe[curcount];
-                cerr << "need:" << need << endl;
-                if (Ingredient[i].name == Origin.find(need)->second)
-                {
-                    task.id = 1;
-                    task.op = 0, task.x = Ingredient[i].x, task.y = Ingredient[i].y, task.flag = 0;
-                    return task;
-                }
-            }*/
+
             cerr << "Must have ingredient" << endl;
             assert(0);
         }
@@ -136,6 +129,7 @@ Task arrangetask(int ptype)
                     }
                 }
             }*/
+            // fix!!
             if (taketask[(ptype + 1) % 2].id != 7 && Players[ptype].containerKind == ContainerKind::Plate)
             {
                 for (int i = 0; i < entityCount; i++)
@@ -152,16 +146,48 @@ Task arrangetask(int ptype)
                     }
                 }
             }
-            // 是否需要洗盘子
-            if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
+            if (Players[ptype].containerKind == ContainerKind::Plate)
             {
+                assert(whosent.first == 1);
+                int tmp = 0;
+                for (int k = 0; k < Players[ptype].entity.size(); k++)
+                {
+                    if (Players[ptype].entity[k][0] != 's')
+                        tmp++;
+                }
+                assert(!whosent.second.empty());
+                task.id = 7;
+                task.op = 0;
+                task.sum = taketask[ptype].sum;
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                    if (whosent.second[Players[0].entity.size() - tmp] == 1 && Entity[i].containerKind == ContainerKind::Pot)
                     {
-                        task.id = 0;
-                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                        task.x = Entity[i].x, task.y = Entity[i].y;
+                        task.flag = 1;
                         return task;
+                    }
+                    else if (whosent.second[Players[0].entity.size() - tmp] == 2 && Entity[i].containerKind == ContainerKind::Pan)
+                    {
+                        task.x = Entity[i].x, task.y = Entity[i].y;
+                        task.flag = 2;
+                        return task;
+                    }
+                }
+            }
+            // 是否需要洗盘子
+            else
+            {
+                if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
+                {
+                    for (int i = 0; i < entityCount; i++)
+                    {
+                        if (Entity[i].containerKind == ContainerKind::DirtyPlates)
+                        {
+                            task.id = 0;
+                            task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                            return task;
+                        }
                     }
                 }
             }
@@ -181,7 +207,7 @@ Task arrangetask(int ptype)
                 if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
                 {
                     task.id = 2;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0, task.sum = taketask[ptype].sum;
                     return task;
                 }
             }
@@ -194,7 +220,7 @@ Task arrangetask(int ptype)
                 {
 
                     task.id = 2;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0, task.sum = taketask[ptype].sum;
                     return task;
                 }
             }
@@ -205,18 +231,9 @@ Task arrangetask(int ptype)
         return taketask[ptype];
     }
     else if (taketask[ptype].id == 3)
-    {
-        /*for (int i = 0; i < entityCount; i++)
-        {
-            if (checkdish(i))
-            {
-                task.id = 3;
-                task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                return task;
-            }
-        }*/
+    { // 3 一定由2 转移
         task.id = 3;
-        task.op = 0, task.x = topick.front().first, task.y = topick.front().second, task.flag = 0;
+        task.op = 0, task.x = taketask[ptype].x, task.y = taketask[ptype].y, task.flag = 0, task.sum = taketask[ptype].sum;
         return task;
     }
     else if (taketask[ptype].id == 4)
@@ -262,7 +279,7 @@ Task arrangetask(int ptype)
         if (!Players[ptype].entity.empty())
         {
             task.id = 5;
-            task.op = 0, task.x = cutplate.first, task.y = cutplate.second, task.flag = 0;
+            task.op = 0, task.x = cutplate.first, task.y = cutplate.second, task.flag = 0, task.sum = taketask[ptype].sum;
             return task;
         }
         else
@@ -273,7 +290,7 @@ Task arrangetask(int ptype)
                 if (!Entity[i].entity.empty() && Entity[i].entity[0][0] != 'c' && Entity[i].x == cutplate.first && Entity[i].y == cutplate.second)
                 {
                     task.id = 5;
-                    task.op = 1, task.x = cutplate.first, task.y = cutplate.second, task.flag = 0;
+                    task.op = 1, task.x = cutplate.first, task.y = cutplate.second, task.flag = 0, task.sum = taketask[ptype].sum;
                     return task;
                 }
             }
@@ -282,7 +299,7 @@ Task arrangetask(int ptype)
                 if (!Entity[i].entity.empty() && Entity[i].entity[0][0] == 'c' && Entity[i].x == cutplate.first && Entity[i].y == cutplate.second)
                 {
                     task.id = 5;
-                    task.op = 0, task.x = cutplate.first, task.y = cutplate.second, task.flag = 1;
+                    task.op = 0, task.x = cutplate.first, task.y = cutplate.second, task.flag = 1, task.sum = taketask[ptype].sum;
                     return task;
                 }
             }
@@ -300,7 +317,8 @@ Task arrangetask(int ptype)
                 if (Entity[i].containerKind == ContainerKind::Pot && Entity[i].entity.empty())
                 {
                     task.id = 6;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.sum = taketask[ptype].sum;
+                    task.flag = 1;
                     return task;
                 }
             }
@@ -315,7 +333,7 @@ Task arrangetask(int ptype)
                 if (Entity[i].containerKind == ContainerKind::Pan && Entity[i].entity.empty())
                 {
                     task.id = 6;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2;
+                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2, task.sum = taketask[ptype].sum;
                     return task;
                 }
             }
@@ -328,15 +346,28 @@ Task arrangetask(int ptype)
     {
         if (Players[ptype].containerKind == ContainerKind::None)
         { // 去拿盘子 fix
-
             for (int i = 0; i < entityCount; i++)
             {
-                if (Entity[i].containerKind == ContainerKind::Plate && !Entity->entity.empty())
+                if (ptype == 0)
                 {
-                    cerr << "test 7" << endl;
-                    task.id = 7;
-                    task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = taketask[ptype].flag;
-                    return task;
+                    if (checkdish(i, currentdish.cur - 1))
+                    {
+                        cerr << "test 7" << endl;
+                        task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
+                        task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
+                        return task;
+                    }
+                }
+                else
+                {
+                    // 只拿空盘子
+                    if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                    {
+                        cerr << "test 7" << endl;
+                        task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
+                        task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
+                        return task;
+                    }
                 }
             }
 
@@ -362,13 +393,13 @@ Task arrangetask(int ptype)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (Entity[i].containerKind == ContainerKind::Pot)
+                    if (Entity[i].containerKind == ContainerKind::Pot && !Entity[i].entity.empty())
                     {
                         // assert(!Entity[i].entity.empty());
                         cerr << "have pot" << endl;
                         task.id = 7;
                         task.op = 2;
-                        task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1;
+                        task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 1, task.sum = taketask[ptype].sum;
                         if (Entity[i].currentFrame >= Entity[i].totalFrame)
                         {
                             task.op = 0;
@@ -385,12 +416,12 @@ Task arrangetask(int ptype)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (Entity[i].containerKind == ContainerKind::Pan)
+                    if (Entity[i].containerKind == ContainerKind::Pan && !Entity[i].entity.empty())
                     {
                         // assert(!Entity[i].entity.empty());
                         task.id = 7;
                         task.op = 2;
-                        task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2;
+                        task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 2, task.sum = taketask[ptype].sum;
                         if (Entity[i].currentFrame >= Entity[i].totalFrame)
                         {
                             task.op = 0;

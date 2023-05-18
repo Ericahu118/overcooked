@@ -32,7 +32,7 @@ extern int curorder;
 
 extern Dishes currentdish;
 extern queue<pair<double, double>> topick;
-extern int whosent;
+extern pair<int, vector<int>> whosent;
 
 extern map<string, string> Origin;
 extern map<string, int> Cookkind;
@@ -169,22 +169,21 @@ int main()
             taketask[ptype] = arrangetask(ptype);
             if (taketask[ptype].id != -1)
             {
+
                 playerAction[ptype] = frame_move(taketask[ptype].x, taketask[ptype].y, ptype, taketask[ptype].op);
                 if (playerAction[ptype][0] == 'P')
                 {
                     switch (taketask[ptype].id)
                     {
                     case 1:
-
                         assert(Cookkind.find(currentdish.dish[currentdish.cur]) != Cookkind.end());
-                        cerr << "here" << currentdish.dish[currentdish.cur] << ": " << Cookkind.find(currentdish.dish[currentdish.cur])->second << endl;
                         switch (Cookkind.find(currentdish.dish[currentdish.cur])->second)
                         {
                         case 0:
                             taketask[ptype].id = 2;
                             break;
-                        case 3:
-                        case 1:
+                        case 3: // sfish
+                        case 1: // cfish
                             taketask[ptype].id = 5;
                             break;
                         case 2:
@@ -201,7 +200,57 @@ int main()
                         assert(ptype == 0);
                         currentdish.cur++;
                         // hjx change 0 to -1
-                        if (taketask[(ptype + 1) % 2].id != -1)
+                        if (currentdish.cur == currentdish.dish.size())
+                        { // 最后一个
+
+                            if (taketask[(ptype + 1) % 2].id != -1)
+                            { // 不闲
+                                taketask[ptype].id = 3;
+                            }
+                            else
+                            {
+                                taketask[ptype].id = -1;
+                                taketask[(ptype + 1) % 2].id = 3;
+                                taketask[(ptype + 1) % 2].x = taketask[ptype].x, taketask[(ptype + 1) % 2].y = taketask[ptype].y;
+                                taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
+                                whosent.first = 1;
+                                whosent.second.clear();
+                            }
+                        }
+                        else if (currentdish.dish[currentdish.cur][0] == 's')
+                        { // 下一个
+                            if (taketask[(ptype + 1) % 2].id != -1)
+                            { // 不闲
+                                taketask[ptype].id = -1;
+                            }
+                            else
+                            {
+                                taketask[ptype].id = -1;
+                                taketask[(ptype + 1) % 2].x = taketask[ptype].x, taketask[(ptype + 1) % 2].y = taketask[ptype].y;
+                                taketask[(ptype + 1) % 2].id = 3;
+                                taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
+                                whosent.first = 1;
+                                for (int k = currentdish.cur; k < currentdish.dish.size(); k++)
+                                {
+                                    if (currentdish.dish[k] == "s_fish" || currentdish.dish[k] == "p_fish")
+                                    {
+                                        whosent.second.push_back(2);
+                                    }
+                                    else if (currentdish.dish[k] == "s_rice")
+                                    {
+                                        whosent.second.push_back(1);
+                                    }
+                                }
+                            }
+                        }
+                        else if (currentdish.dish[currentdish.cur][0] != 's')
+                        {
+                            taketask[ptype].id = -1;
+                        }
+                        break;
+
+                        ////
+                        /*if (taketask[(ptype + 1) % 2].id != -1)
                         {
                             if (currentdish.cur == currentdish.dish.size())
                             { // 最后一个 即加完之后比数组大一
@@ -218,21 +267,41 @@ int main()
                             topick.push(make_pair(taketask[ptype].x, taketask[ptype].y));
                             taketask[(ptype + 1) % 2].id = 3;
                             taketask[ptype].id = -1;
-                        }
+                        }*/
                         break;
                     case 3:
-                        topick.pop();
-                        // taketask[ptype].id = 4;
-                        // fix week3
-
-                        taketask[ptype].id = -1;
+                        // 拿盘子
+                        //  topick.pop();
+                        //   taketask[ptype].id = 4;
+                        //   fix week3
+                        assert(Players[ptype].containerKind == ContainerKind::Plate && !Players[ptype].entity.empty());
+                        if (Players[ptype].entity.size() < taketask[ptype].sum)
+                        {
+                            if (ptype == 0)
+                            {
+                                // 放盘子 task 9?
+                                int todo = 1;
+                            }
+                            else
+                            {
+                                taketask[1].id = -1;
+                            }
+                        }
+                        else
+                        {
+                            taketask[ptype].id = 4;
+                        }
                         break;
                     case 4:
                         // assert(whosent == ptype);
                         curorder--;
-                        whosent = -1;
                         cerr << "curorder" << curorder << endl;
                         assert(curorder >= -1);
+                        if (ptype == 1 && whosent.first == 1)
+                        {
+                            whosent.first = -1;
+                            whosent.second.clear();
+                        }
                         taketask[ptype].id = -1;
                         break;
                     case 5:
@@ -255,6 +324,40 @@ int main()
                     case 6:
                         assert(ptype == 0);
                         currentdish.cur++;
+                        if (whosent.first == 1)
+                        { // 1玩家之前拿了盘子
+                            if (taketask[1].id == -1)
+                            {
+                                taketask[1].id = 7;
+                                taketask[1].flag = taketask[0].flag;
+                                taketask[1].sum = taketask[0].sum;
+                                taketask[0].id = -1;
+                            }
+                            // 存在此时玩家1还没拿到盘子的情况，将在后面调度
+                        }
+                        else
+                        {
+                            if (currentdish.dish[0][0] != 's')
+                            { // 即之前有需要放到盘子里的
+                                taketask[0].id = 7;
+                            }
+                            else
+                            { // 全部需要举着盘子拿
+                                if (taketask[1].id == -1)
+                                {
+                                    taketask[1].id = 7;
+                                    taketask[1].flag = taketask[0].flag;
+                                    taketask[1].sum = taketask[0].sum;
+                                    taketask[0].id = -1;
+                                }
+                                else
+                                {
+                                    taketask[0].id = 7;
+                                }
+                            }
+                        }
+                        break;
+                        /*
                         if (taketask[1].id == -1 || taketask[1].id == 3)
                         { // 另一个人没事干
                             if (taketask[1].id == -1)
@@ -267,12 +370,26 @@ int main()
                         else
                         {
                             taketask[0].id = 7;
-                        }
-                        break;
+                        }*/
+
                     case 7:
                         if (Players[ptype].containerKind == ContainerKind::Plate)
                         {
-                            taketask[ptype].id = 4;
+                            if (Players[ptype].entity.size() == taketask[ptype].sum - 1)
+                            {
+                                taketask[ptype].id = 4;
+                            }
+                            else
+                            { // always because of s
+                                if (ptype == 0)
+                                {
+                                    int todo = 1;
+                                }
+                                else
+                                {
+                                    taketask[ptype].id = -1; // fix
+                                }
+                            }
                         }
                         break;
                     }
