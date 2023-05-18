@@ -417,7 +417,7 @@ Task arrangetask(int ptype)
                     }
                 }
                 // no pot
-                assert(0);
+                // assert(0);
                 taketask[ptype].op = 2;
                 return taketask[ptype];
             }
@@ -439,7 +439,7 @@ Task arrangetask(int ptype)
                     }
                 }
                 // no pot
-                assert(0);
+                // assert(0);
                 taketask[ptype].op = 2;
                 return taketask[ptype];
             }
