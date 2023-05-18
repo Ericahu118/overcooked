@@ -157,24 +157,31 @@ Task arrangetask(int ptype)
                         tmp++;
                 }
                 assert(!whosent.second.empty());
-                task.id = 7;
-                task.op = 0;
-                task.sum = taketask[ptype].sum;
+                /* task.id = 7;
+                 task.op = 0;
+                 task.sum = taketask[ptype].sum;*/
                 for (int i = 0; i < entityCount; i++)
                 {
                     if (whosent.second[Players[0].entity.size() - tmp] == 1 && Entity[i].containerKind == ContainerKind::Pot)
                     {
+                        task.id = 7;
+                        task.op = 0;
+                        task.sum = taketask[ptype].sum;
                         task.x = Entity[i].x, task.y = Entity[i].y;
                         task.flag = 1;
                         return task;
                     }
                     else if (whosent.second[Players[0].entity.size() - tmp] == 2 && Entity[i].containerKind == ContainerKind::Pan)
                     {
+                        task.id = 7;
+                        task.op = 0;
+                        task.sum = taketask[ptype].sum;
                         task.x = Entity[i].x, task.y = Entity[i].y;
                         task.flag = 2;
                         return task;
                     }
                 }
+                cerr << "Not here" << endl;
             }
             // 是否需要洗盘子
             else
@@ -449,7 +456,7 @@ Task arrangetask(int ptype)
     }
     //////////
     cerr << "player[" << ptype << "]"
-         << " takes no task" << endl;
+         << " takes no task:" << endl;
     assert(task.id == -1);
     return task;
 }
