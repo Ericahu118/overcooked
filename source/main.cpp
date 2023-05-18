@@ -366,18 +366,22 @@ int main()
                     case 7:
                         if (Players[ptype].containerKind == ContainerKind::Plate)
                         {
+                            cerr << "case 7" << endl;
                             if (Players[ptype].entity.size() >= taketask[ptype].sum - 1)
                             {
+                                cerr << "case 7 1" << endl;
                                 taketask[ptype].id = 4;
                             }
                             else
                             { // always because of s
                                 if (ptype == 0)
                                 {
+                                    cerr << "case 7 2" << endl;
                                     int todo = 1;
                                 }
                                 else
                                 {
+                                    cerr << "case 7 3" << endl;
                                     taketask[ptype].id = -1; // fix
                                 }
                             }
