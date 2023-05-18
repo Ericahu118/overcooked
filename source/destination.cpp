@@ -117,37 +117,7 @@ Task arrangetask(int ptype)
         }
         else
         {
-            // fix
-            /*if (taketask[(ptype + 1) % 2].id != 3)
-            {
-                for (int i = 0; i < entityCount; i++)
-                {
-                    if (checkdish(i))
-                    {
-                        task.id = 3;
-                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = 0;
-                        return task;
-                    }
-                }
-            }*/
-            // fix!!
-            /*if (taketask[(ptype + 1) % 2].id != 7 && Players[ptype].containerKind == ContainerKind::Plate)
-            {
-                for (int i = 0; i < entityCount; i++)
-                {
-                    if ((Entity[i].containerKind == ContainerKind::Pot && !Entity->entity.empty()) || (Entity[i].containerKind == ContainerKind::Pan && !Entity->entity.empty()))
-                    {
-                        task.id = 7;
-                        task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y;
-                        if (Entity[i].containerKind == ContainerKind::Pot)
-                            task.flag = 1;
-                        else
-                            task.flag = 2;
-                        return task;
-                    }
-                }
-            }*/
-            if (Players[ptype].containerKind == ContainerKind::Plate)
+            if (Players[ptype].containerKind == ContainerKind::Plate && cursent == 1)
             {
                 assert(whosent.first == 1);
                 int tmp = 0;
