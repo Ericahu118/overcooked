@@ -235,7 +235,7 @@ Task arrangetask(int ptype)
         task.flag = 0;
         for (int i = 0; i < entityCount; i++)
         {
-            if (Entity[i].x == taketask[ptype].x && Entity[i].x == taketask[ptype].y && Entity[i].containerKind == ContainerKind::Plate && !Entity[i].entity.empty())
+            if (Entity[i].x == taketask[ptype].x && Entity[i].x == taketask[ptype].y)
             {
                 cerr << "here 33" << endl;
                 task.flag = Entity[i].entity.size();
