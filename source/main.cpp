@@ -273,6 +273,7 @@ int main()
                             {
                                 taketask[ptype].id = -1;
                                 taketask[(ptype + 1) % 2].id = 7;
+                                taketask[(ptype + 1) % 2].flag = taketask[ptype].flag;
                             }
                             else
                             {
