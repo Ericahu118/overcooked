@@ -265,7 +265,7 @@ int main()
                     case 6:
                         assert(ptype == 0);
                         currentdish.cur++;
-                        if (currentdish.cur == 1)
+                        if (currentdish.cur == 1 && currentdish.dish.size() == 1)
                         {
                             if (taketask[(ptype + 1) % 2].id == -1)
                             {
