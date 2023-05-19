@@ -293,7 +293,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
         {
             if (solvecrash[ptype] == 1)
             {
-                if (crashloc[ptype].second - y0 >= block)
+                if (crashloc[ptype].second - y0 >= block + 0.5)
                 {
                     if (v0y == 0)
                     {
@@ -307,7 +307,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             }
             else if (solvecrash[ptype] == 2)
             {
-                if (y0 - crashloc[ptype].second >= block)
+                if (y0 - crashloc[ptype].second >= block + 0.5)
                 {
                     if (v0y == 0)
                         solvecrash[ptype] = 0;
@@ -318,7 +318,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             }
             else if (solvecrash[ptype] == 3)
             {
-                if (crashloc[ptype].first - x0 >= block)
+                if (crashloc[ptype].first - x0 >= block + 0.5)
                 {
                     if (v0x == 0)
                         solvecrash[ptype] = 0;
@@ -329,7 +329,7 @@ string frame_move(double des_x, double des_y, int ptype, int op)
             }
             else if (solvecrash[ptype] == 4)
             {
-                if (x0 - crashloc[ptype].first >= block)
+                if (x0 - crashloc[ptype].first >= block + 0.5)
                 {
                     if (v0x == 0)
                         solvecrash[ptype] = 0;
