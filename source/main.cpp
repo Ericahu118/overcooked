@@ -203,19 +203,6 @@ int main()
                         if (currentdish.cur == currentdish.dish.size())
                         { // 最后一个
                             taketask[ptype].id = 3;
-                            /*if (taketask[(ptype + 1) % 2].id != -1)
-                            { // 不闲
-                                taketask[ptype].id = 3;
-                            }
-                            else
-                            {
-                                taketask[ptype].id = -1;
-                                taketask[(ptype + 1) % 2].id = 3;
-                                taketask[(ptype + 1) % 2].x = taketask[ptype].x, taketask[(ptype + 1) % 2].y = taketask[ptype].y;
-                                taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
-
-                                cursent = 1;
-                            }*/
                         }
                         else
                         {
@@ -224,7 +211,7 @@ int main()
                         break;
                     case 3:
                         // 拿盘子
-                        cerr << ptype << endl;
+                        /*cerr << ptype << endl;
                         assert(taketask[ptype].flag != 0);
                         if (taketask[ptype].flag < taketask[ptype].sum)
                         {
@@ -239,9 +226,9 @@ int main()
                             }
                         }
                         else
-                        {
-                            taketask[ptype].id = 4;
-                        }
+                        {*/
+                        taketask[ptype].id = 4;
+                        //}
                         break;
                     case 4:
                         // assert(whosent == ptype);
