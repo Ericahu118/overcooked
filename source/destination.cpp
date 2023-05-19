@@ -20,9 +20,7 @@ map<string, int> Cookkind;
 
 Dishes currentdish;
 queue<pair<double, double>> topick;
-int testcount = 0;
 
-pair<int, vector<int>> whosent;
 int cursent;
 
 // 0 for wash
@@ -41,12 +39,12 @@ extern pair<double, double> sink;
 extern pair<double, double> cutplate;
 
 bool checkdish(int i, int n)
-{
+{ // 当前在做第n个
     if (Entity[i].containerKind == ContainerKind::Plate)
     {
         int total = 0;
         for (int j = 0; j < n; j++)
-        {
+        { // 前n-1个要在盘里
             for (int k = 0; k < Entity[i].entity.size(); k++)
             {
                 if (Entity[i].entity[k] == currentdish.dish[j])
@@ -57,6 +55,8 @@ bool checkdish(int i, int n)
         {
             return true;
         }
+        else
+            return false;
     }
     return false;
 }
@@ -77,8 +77,6 @@ Task arrangetask(int ptype)
             {
                 currentdish.cur = 0;
                 curorder++;
-                testcount++;
-                cerr << "testcount: " << testcount << endl;
                 // pre work know just copy
                 assert(curorder >= 0);
                 currentdish.dish.clear();
@@ -99,6 +97,7 @@ Task arrangetask(int ptype)
                     if (Order[curorder].recipe[i][0] == 's')
                         currentdish.dish.push_back(Order[curorder].recipe[i]);
                 }
+                assert(currentdish.dish.size() == Order[curorder].recipe.size());
             }
             for (int i = 0; i < IngredientCount; i++)
             {
@@ -117,44 +116,7 @@ Task arrangetask(int ptype)
         }
         else
         {
-            /*if (Players[ptype].containerKind == ContainerKind::Plate && cursent == 1)
-            {
-                assert(whosent.first == 1);
-                int tmp = 0;
-                for (int k = 0; k < Players[ptype].entity.size(); k++)
-                {
-                    if (Players[ptype].entity[k][0] != 's')
-                        tmp++;
-                }
-                assert(whosent.second.size() != 0);
 
-                cerr << "whosent" << whosent.second[Players[0].entity.size() - tmp] << endl;
-                for (int i = 0; i < entityCount; i++)
-                {
-                    if (whosent.second[Players[0].entity.size() - tmp] == 1 && Entity[i].containerKind == ContainerKind::Pot)
-                    {
-                        task.id = 7;
-                        task.op = 0;
-                        task.sum = taketask[ptype].sum;
-                        task.x = Entity[i].x, task.y = Entity[i].y;
-                        task.flag = 1;
-                        return task;
-                    }
-                    else if (whosent.second[Players[0].entity.size() - tmp] == 2 && Entity[i].containerKind == ContainerKind::Pan)
-                    {
-                        task.id = 7;
-                        task.op = 0;
-                        task.sum = taketask[ptype].sum;
-                        task.x = Entity[i].x, task.y = Entity[i].y;
-                        task.flag = 2;
-                        return task;
-                    }
-                }
-                cerr << "Not here" << endl;
-            }*/
-            // 是否需要洗盘子
-            // else
-            //{
             if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
             {
                 for (int i = 0; i < entityCount; i++)
@@ -167,7 +129,6 @@ Task arrangetask(int ptype)
                     }
                 }
             }
-            //}
         }
     }
     else if (taketask[ptype].id == 1)
@@ -202,7 +163,6 @@ Task arrangetask(int ptype)
                 }
             }
         }
-
         cerr << "have no plates" << endl;
         taketask[ptype].op = 2;
         return taketask[ptype];
@@ -334,39 +294,14 @@ Task arrangetask(int ptype)
         { // 去拿盘子 fix
             for (int i = 0; i < entityCount; i++)
             {
-                if (ptype == 0)
+                if (checkdish(i, currentdish.cur - 1))
                 {
-                    if (checkdish(i, currentdish.cur - 1))
-                    {
-                        cerr << "test 7" << endl;
-                        task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
-                        task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
-                        return task;
-                    }
-                }
-                else
-                {
-                    // 只拿空盘子
-                    if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
-                    {
-                        cerr << "test 7" << endl;
-                        task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
-                        task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
-                        return task;
-                    }
+                    cerr << "test 7" << endl;
+                    task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
+                    task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
+                    return task;
                 }
             }
-
-            ////
-            /*for (int i = 0; i < entityCount; i++)
-             {
-                 if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
-                 {
-                     task.id = 7;
-                     task.op = 0, task.x = Entity[i].x, task.y = Entity[i].y, task.flag = taketask[ptype].flag;
-                     return task;
-                 }
-             }*/
             cerr << "have no plates" << endl;
             taketask[ptype].op = 2;
             return taketask[ptype];
