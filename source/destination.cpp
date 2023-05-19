@@ -363,8 +363,11 @@ Task arrangetask(int ptype)
     }
     else if (taketask[ptype].id == 8)
     {
+
         for (int j = 1; j < width - 1; j++)
         {
+            if (fabs(Players[1].x - j) <= block)
+                continue;
             if (Map[0][j] == '*')
             {
                 task.id = 8;
@@ -375,6 +378,8 @@ Task arrangetask(int ptype)
         }
         for (int j = 1; j < width - 1; j++)
         {
+            if (fabs(Players[1].x - j) <= block)
+                continue;
             if (Map[9][j] == '*')
             {
                 task.id = 8;
@@ -385,6 +390,8 @@ Task arrangetask(int ptype)
         }
         for (int i = 1; i < height - 1; i++)
         {
+            if (fabs(Players[1].y - i) <= block)
+                continue;
             if (Map[i][0] == '*')
             {
                 task.id = 8;
@@ -395,6 +402,8 @@ Task arrangetask(int ptype)
         }
         for (int i = 1; i < height - 1; i++)
         {
+            if (fabs(Players[1].y - i) <= block)
+                continue;
             if (Map[i][9] == '*')
             {
                 task.id = 8;
