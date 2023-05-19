@@ -22,7 +22,6 @@ extern struct Order totalOrder[20 + 5]; // 总订单数组，
 extern int orderCount;                  // 订单数
 extern struct Order Order[20 + 5];      // 订单
 extern int width, height;
-extern char Map[20 + 5][20 + 5];
 extern int recipeCount; // 菜谱种类,y
 extern struct Recipe Recipe[20 + 5];
 
@@ -289,6 +288,7 @@ int main()
                                 {
                                     cerr << "case 7 2" << endl;
                                     int todo = 1;
+                                    taketask[ptype].id = 8;
                                 }
                                 else
                                 {
@@ -297,6 +297,11 @@ int main()
                                 }
                             }
                         }
+                        break;
+                    case 8:
+                        assert(ptype == 0);
+                        assert(Players[ptype].containerKind == ContainerKind::Plate);
+                        taketask[ptype].id = -1;
                         break;
                     }
                 }

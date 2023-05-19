@@ -38,6 +38,9 @@ extern pair<double, double> window;
 extern pair<double, double> sink;
 extern pair<double, double> cutplate;
 
+extern char Map[20 + 5][20 + 5];
+extern int width, height;
+
 bool checkdish(int i, int n)
 { // 当前在做第n个
     if (Entity[i].containerKind == ContainerKind::Plate)
@@ -356,6 +359,49 @@ Task arrangetask(int ptype)
                 return taketask[ptype];
             }
             return task;
+        }
+    }
+    else if (taketask[ptype].id == 8)
+    {
+        for (int j = 1; j < width - 1; j++)
+        {
+            if (Map[0][j] == '*')
+            {
+                task.id = 8;
+                task.op = 0, task.x = j, task.y = 0, task.sum = taketask[ptype].sum;
+                task.flag = 0;
+                return task;
+            }
+        }
+        for (int j = 1; j < width - 1; j++)
+        {
+            if (Map[9][j] == '*')
+            {
+                task.id = 8;
+                task.op = 0, task.x = j, task.y = 9, task.sum = taketask[ptype].sum;
+                task.flag = 0;
+                return task;
+            }
+        }
+        for (int i = 1; i < height - 1; i++)
+        {
+            if (Map[i][0] == '*')
+            {
+                task.id = 8;
+                task.op = 0, task.x = 0, task.y = i, task.sum = taketask[ptype].sum;
+                task.flag = 0;
+                return task;
+            }
+        }
+        for (int i = 1; i < height - 1; i++)
+        {
+            if (Map[i][9] == '*')
+            {
+                task.id = 8;
+                task.op = 0, task.x = 9, task.y = i, task.sum = taketask[ptype].sum;
+                task.flag = 0;
+                return task;
+            }
         }
     }
     //////////
