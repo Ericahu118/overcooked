@@ -274,6 +274,7 @@ int main()
                                 taketask[ptype].id = -1;
                                 taketask[(ptype + 1) % 2].id = 7;
                                 taketask[(ptype + 1) % 2].flag = taketask[ptype].flag;
+                                taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
                             }
                             else
                             {
@@ -289,25 +290,23 @@ int main()
                         if (Players[ptype].containerKind == ContainerKind::Plate)
                         {
                             cerr << "case 7" << endl;
-
-                            if (Players[ptype].entity.size() == taketask[ptype].sum - 1)
+                            if (ptype == 0)
                             {
-                                cerr << "case 7 1" << endl;
-                                taketask[ptype].id = 4;
-                            }
-                            else
-                            { // always because of s
-                                if (ptype == 0)
+                                if (Players[ptype].entity.size() == taketask[ptype].sum - 1)
                                 {
+                                    cerr << "case 7 1" << endl;
+                                    taketask[ptype].id = 4;
+                                }
+                                else
+                                { // always because of s
                                     cerr << "case 7 2" << endl;
                                     int todo = 1;
                                     taketask[ptype].id = 8;
                                 }
-                                else
-                                {
-                                    cerr << "case 7 3" << endl;
-                                    taketask[ptype].id = -1; // fix
-                                }
+                            }
+                            else
+                            {
+                                taketask[ptype].id = 4; // fix
                             }
                         }
                         break;
