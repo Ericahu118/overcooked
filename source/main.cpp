@@ -202,7 +202,15 @@ int main()
                         // hjx change 0 to -1
                         if (currentdish.cur == currentdish.dish.size())
                         { // 最后一个
-                            taketask[ptype].id = 3;
+                            if (taketask[(ptype + 1) % 2].id == -1)
+                            {
+                                taketask[ptype].id = -1;
+                                taketask[(ptype + 1) % 2].id = 3;
+                            }
+                            else
+                            {
+                                taketask[ptype].id = 3;
+                            }
                         }
                         else
                         {
