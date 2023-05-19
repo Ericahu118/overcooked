@@ -63,6 +63,7 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashy1)
         {
+            cerr << ptype << " dir 1: crashy1" << endl;
             crashloc[ptype].first = x0, crashloc[ptype].second = y0;
             if (x0 >= 3 * block)
             {
@@ -109,6 +110,7 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashy2)
         {
+            cerr << ptype << " dir 2: crashy2" << endl;
             crashloc[ptype].first = x0, crashloc[ptype].second = y0;
             if (x0 >= 3 * block)
             {
@@ -155,6 +157,7 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashx1)
         {
+            cerr << ptype << " dir 3: crashx1" << endl;
             crashloc[ptype].first = x0, crashloc[ptype].second = y0;
 
             // giveway
@@ -202,6 +205,7 @@ int changedir(double des_x, double des_y, int ptype)
     {
         if (crashx2)
         {
+            cerr << ptype << " dir 4: crashx2" << endl;
             crashloc[ptype].first = x0, crashloc[ptype].second = y0;
             // giveway
             if (y0 >= 3 * block)
