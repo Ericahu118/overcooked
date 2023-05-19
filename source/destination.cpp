@@ -295,14 +295,30 @@ Task arrangetask(int ptype)
     {
         if (Players[ptype].containerKind == ContainerKind::None)
         { // 去拿盘子 fix
-            for (int i = 0; i < entityCount; i++)
+            if (ptype == 0)
             {
-                if (checkdish(i, currentdish.cur - 1))
+                for (int i = 0; i < entityCount; i++)
                 {
-                    cerr << "test 7" << endl;
-                    task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
-                    task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
-                    return task;
+                    if (checkdish(i, currentdish.cur - 1))
+                    {
+                        cerr << "test 7" << endl;
+                        task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
+                        task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
+                        return task;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < entityCount; i++)
+                {
+                    if (Entity[i].containerKind == ContainerKind::Plate && Entity->entity.empty())
+                    {
+                        cerr << "test 7" << endl;
+                        task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
+                        task.op = 0, task.flag = taketask[ptype].flag, task.sum = taketask[ptype].sum;
+                        return task;
+                    }
                 }
             }
             cerr << "have no plates" << endl;

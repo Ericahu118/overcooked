@@ -265,7 +265,22 @@ int main()
                     case 6:
                         assert(ptype == 0);
                         currentdish.cur++;
-                        taketask[ptype].id = 7;
+                        if (currentdish.cur == 1)
+                        {
+                            if (taketask[(ptype + 1) % 2].id == -1)
+                            {
+                                taketask[ptype].id = -1;
+                                taketask[(ptype + 1) % 2].id = 7;
+                            }
+                            else
+                            {
+                                taketask[ptype].id = 7;
+                            }
+                        }
+                        else
+                        {
+                            taketask[ptype].id = 7;
+                        }
 
                     case 7:
                         if (Players[ptype].containerKind == ContainerKind::Plate)
