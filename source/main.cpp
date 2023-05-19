@@ -206,6 +206,8 @@ int main()
                             {
                                 taketask[ptype].id = -1;
                                 taketask[(ptype + 1) % 2].id = 3;
+                                taketask[(ptype + 1) % 2].x = taketask[ptype].x;
+                                taketask[(ptype + 1) % 2].y = taketask[ptype].y;
                             }
                             else
                             {
