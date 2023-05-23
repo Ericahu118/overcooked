@@ -34,7 +34,8 @@ int bfs(int ptype, int des_x, int des_y)
 {
     // 初始化
     cerr << "bfs:des_x:" << des_x << " des_y:" << des_y << endl;
-    int x = (Players[ptype].x - center) / block, y = (Players[ptype].y - center) / block;
+    int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
+    cerr << Players[ptype].x - radius << " " << Players[ptype].y - radius << endl;
     cerr << "bfs:x:" << x << " y:" << y << endl;
     Players[ptype].des_x = x;
     Players[ptype].des_y = y;
