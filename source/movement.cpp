@@ -33,7 +33,9 @@ int dy[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
 int bfs(int ptype, int des_x, int des_y)
 {
     // 初始化
+    cerr << "bfs:des_x:" << des_x << " des_y:" << des_y << endl;
     int x = (Players[ptype].x - center) / block, y = (Players[ptype].y - center) / block;
+    cerr << "bfs:x:" << x << " y:" << y << endl;
     Players[ptype].des_x = x;
     Players[ptype].des_y = y;
     // 清空
@@ -113,12 +115,22 @@ int bfs(int ptype, int des_x, int des_y)
             Player_Map[(int)Players[ptype].des_y][(int)Players[ptype].des_x] = ptype + '0'; // 打上标记
             st.pop();
         }
+        cerr << "bfs:pdesx:" << Players[ptype].des_x << " pdesy:" << Players[ptype].des_y << endl;
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                cerr << Player_Map[i][j];
+            }
+            cerr << endl;
+        }
     }
     return flag;
 }
 
 std::string frame_move(double des_x, double des_y, int ptype, int op)
 {
+    cerr << "frame_move:des_x:" << des_x << " des_y:" << des_y << endl;
     if (Players[ptype].X_Velocity == 0 && Players[ptype].Y_Velocity == 0)
     { // 当速度为0时
       // 首先判断东西是否可拿到
