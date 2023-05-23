@@ -34,8 +34,8 @@ int bfs(int ptype, int des_x, int des_y)
 {
     // 初始化
     cerr << ptype << ": bfs:des_x:" << des_x << " des_y:" << des_y << endl;
-    int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
-    cerr << ptype << ": " << Players[ptype].x - radius << " " << Players[ptype].y - radius << endl;
+    int x = Players[ptype].x / block, y = Players[ptype].y / block;
+    cerr << ptype << ": " << Players[ptype].x << " " << Players[ptype].y << endl;
     cerr << ptype << ": "
          << "bfs:x:" << x << " y:" << y << endl;
     Players[ptype].des_x = x;
@@ -148,7 +148,7 @@ std::string frame_move(double des_x, double des_y, int ptype, int op)
                     Player_Map[i][j] = '.';
             }
         }
-        int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
+        int x = Players[ptype].x / block, y = Players[ptype].y / block;
         cerr << "Now v is 0:" << ptype << ": " << x << " " << y << endl;
         Player_Map[y][x] = ptype + '0';
 
