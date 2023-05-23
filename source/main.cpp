@@ -43,6 +43,8 @@ extern pair<double, double> cutplate;
 
 extern char Player_Map[20 + 5][20 + 5];
 
+extern vector<string> dishinplate;
+
 void init()
 {
     for (int i = 0; i < height; i++)
@@ -252,6 +254,7 @@ int main()
                         break;
                     case 4:
                         // assert(whosent == ptype);
+                        dishinplate.clear();
                         curorder--;
                         cerr << "curorder" << curorder << endl;
                         assert(curorder >= -1);
@@ -277,20 +280,27 @@ int main()
                     case 6:
                         assert(ptype == 0);
                         currentdish.cur++;
-                        if (currentdish.cur == 1 && currentdish.dish.size() == 1)
-                        {
+                        // if (currentdish.cur == 1 && currentdish.dish.size() == 1)
+                        if (currentdish.cur == currentdish.dish.size())
+                        { // 最后一个
                             if (taketask[(ptype + 1) % 2].id == -1)
                             {
                                 taketask[ptype].id = -1;
                                 taketask[(ptype + 1) % 2].id = 7;
                                 taketask[(ptype + 1) % 2].flag = taketask[ptype].flag;
                                 taketask[(ptype + 1) % 2].sum = taketask[ptype].sum;
+                                dishinplate.clear();
+                                for (int k = 0; k < currentdish.cur - 1; k++)
+                                {
+                                    dishinplate.push_back(currentdish.dish[k]);
+                                }
                             }
                             else
                             {
                                 taketask[ptype].id = 7;
                             }
                         }
+
                         else
                         {
                             taketask[ptype].id = 7;
@@ -330,23 +340,6 @@ int main()
             }
             else
             {
-                /*if (fabs(Players[0].x - Players[1].x) <= 2 * radius + 0.5 && fabs(Players[0].y - Players[1].y) <= 2 * radius + 0.5)
-                {
-                    if (fabs(Players[0].y - Players[1].y) < fabs(Players[0].x - Players[1].x))
-                    {
-                        if (Players[ptype].y >= 2)
-                            playerAction[ptype] = "Move U";
-                        else
-                            playerAction[ptype] = "Move D";
-                    }
-                    else
-                    {
-                        if (Players[ptype].x >= 2)
-                            playerAction[ptype] = "Move L";
-                        else
-                            playerAction[ptype] = "Move R";
-                    }
-                }*/
                 // 清空
                 for (int i = 0; i < height; i++)
                 {

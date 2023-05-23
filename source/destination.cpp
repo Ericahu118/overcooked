@@ -22,6 +22,7 @@ Dishes currentdish;
 queue<pair<double, double>> topick;
 
 int cursent;
+vector<string> dishinplate;
 
 // 0 for wash
 
@@ -41,27 +42,52 @@ extern pair<double, double> cutplate;
 extern char Map[20 + 5][20 + 5];
 extern int width, height;
 
-bool checkdish(int i, int n)
+bool checkdish(int i, int n, int ptype)
 { // 当前在做第n个
-    if (Entity[i].containerKind == ContainerKind::Plate)
+    if (ptype == 0)
     {
-        int total = 0;
-        for (int j = 0; j < n; j++)
-        { // 前n-1个要在盘里
-            for (int k = 0; k < Entity[i].entity.size(); k++)
-            {
-                if (Entity[i].entity[k] == currentdish.dish[j])
-                    total++;
-            }
-        }
-        if (total == n)
+        if (Entity[i].containerKind == ContainerKind::Plate)
         {
-            return true;
+            int total = 0;
+            for (int j = 0; j < n; j++)
+            { // 前n-1个要在盘里
+                for (int k = 0; k < Entity[i].entity.size(); k++)
+                {
+                    if (Entity[i].entity[k] == currentdish.dish[j])
+                        total++;
+                }
+            }
+            if (total == n)
+            {
+                return true;
+            }
+            else
+                return false;
         }
-        else
-            return false;
+        return false;
     }
-    return false;
+    else
+    {
+        if (Entity[i].containerKind == ContainerKind::Plate)
+        {
+            int total = 0;
+            for (int j = 0; j < n; j++)
+            { // 前n-1个要在盘里
+                for (int k = 0; k < Entity[i].entity.size(); k++)
+                {
+                    if (Entity[i].entity[k] == dishinplate[j])
+                        total++;
+                }
+            }
+            if (total == n)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        return false;
+    }
 }
 
 Task arrangetask(int ptype)
@@ -157,7 +183,7 @@ Task arrangetask(int ptype)
         {
             for (int i = 0; i < entityCount; i++)
             {
-                if (checkdish(i, currentdish.cur))
+                if (checkdish(i, currentdish.cur, ptype))
                 {
 
                     task.id = 2;
@@ -299,7 +325,7 @@ Task arrangetask(int ptype)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (checkdish(i, currentdish.cur - 1))
+                    if (checkdish(i, currentdish.cur - 1, ptype))
                     {
                         cerr << "test 7" << endl;
                         task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
@@ -312,7 +338,8 @@ Task arrangetask(int ptype)
             {
                 for (int i = 0; i < entityCount; i++)
                 {
-                    if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                    // if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                    if (checkdish(i, dishinplate.size(), ptype))
                     {
                         cerr << "test 7" << endl;
                         task.id = 7, task.x = Entity[i].x, task.y = Entity[i].y,
@@ -382,8 +409,7 @@ Task arrangetask(int ptype)
 
         for (int j = 1; j < width - 1; j++)
         {
-            if (fabs(Players[1].x - j) <= block)
-                continue;
+
             if (Map[0][j] == '*')
             {
                 task.id = 8;
@@ -394,8 +420,6 @@ Task arrangetask(int ptype)
         }
         for (int j = 1; j < width - 1; j++)
         {
-            if (fabs(Players[1].x - j) <= block)
-                continue;
             if (Map[9][j] == '*')
             {
                 task.id = 8;
@@ -406,8 +430,7 @@ Task arrangetask(int ptype)
         }
         for (int i = 1; i < height - 1; i++)
         {
-            if (fabs(Players[1].y - i) <= block)
-                continue;
+
             if (Map[i][0] == '*')
             {
                 task.id = 8;
@@ -418,8 +441,7 @@ Task arrangetask(int ptype)
         }
         for (int i = 1; i < height - 1; i++)
         {
-            if (fabs(Players[1].y - i) <= block)
-                continue;
+
             if (Map[i][9] == '*')
             {
                 task.id = 8;
