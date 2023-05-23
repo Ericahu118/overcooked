@@ -63,11 +63,14 @@ int bfs(int ptype, int des_x, int des_y)
         {
             int tmpx = cur.first + dx[d];
             int tmpy = cur.second + dy[d];
-            if (tmpx == des_x && tmpy == des_y && Player_Map[cur.second][tmpx] == '.' && Player_Map[tmpy][cur.first] == '.')
+            if (tmpx == des_x && tmpy == des_y)
             { // 找到了
-                father[tmpy][tmpx] = d;
-                flag = 1;
-                break;
+                if (d < 4 || (d >= 4 && Player_Map[cur.second][tmpx] == '.' && Player_Map[tmpy][cur.first] == '.'))
+                {
+                    father[tmpy][tmpx] = d;
+                    flag = 1;
+                    break;
+                }
             }
             if (tmpx > 0 && tmpx < 9 && tmpy > 0 && tmpy < 9)
             { // 范围内
