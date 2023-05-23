@@ -139,7 +139,19 @@ std::string frame_move(double des_x, double des_y, int ptype, int op)
     cerr << "frame_move:des_x:" << des_x << " des_y:" << des_y << endl;
     if (Players[ptype].X_Velocity == 0 && Players[ptype].Y_Velocity == 0)
     { // 当速度为0时
-      // 首先判断东西是否可拿到
+        // 首先判断东西是否可拿到
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (Player_Map[i][j] == (ptype + '0'))
+                    Player_Map[i][j] = '.';
+            }
+        }
+        int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
+        cerr << "Now v is 0:" << ptype << ": " << x << " " << y << endl;
+        Player_Map[y][x] = ptype + '0';
+
         if (des_y == 0 && (Players[ptype].y - des_y <= block + center + 0.3) && (Players[ptype].x >= des_x && (Players[ptype].x - des_x) <= center + radius))
         { // 上
             switch (op)
