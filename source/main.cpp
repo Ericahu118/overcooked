@@ -41,8 +41,18 @@ extern pair<double, double> window;
 extern pair<double, double> sink;
 extern pair<double, double> cutplate;
 
+extern char Player_Map[20 + 5][20 + 5];
+
 void init()
 {
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            Player_Map[i][j] = Map[i][j];
+        }
+    }
+
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -320,7 +330,7 @@ int main()
             }
             else
             {
-                if (fabs(Players[0].x - Players[1].x) <= 2 * radius + 0.5 && fabs(Players[0].y - Players[1].y) <= 2 * radius + 0.5)
+                /*if (fabs(Players[0].x - Players[1].x) <= 2 * radius + 0.5 && fabs(Players[0].y - Players[1].y) <= 2 * radius + 0.5)
                 {
                     if (fabs(Players[0].y - Players[1].y) < fabs(Players[0].x - Players[1].x))
                     {
@@ -336,7 +346,18 @@ int main()
                         else
                             playerAction[ptype] = "Move R";
                     }
+                }*/
+                // 清空
+                for (int i = 0; i < height; i++)
+                {
+                    for (int j = 0; j < width; j++)
+                    {
+                        if (Player_Map[i][j] == (ptype + '0'))
+                            Player_Map[i][j] = '.';
+                    }
                 }
+                int x = (Players[ptype].x - center) / block, y = (Players[ptype].y - center) / block;
+                Player_Map[y][x] = ptype + '0';
             }
             //}
         }

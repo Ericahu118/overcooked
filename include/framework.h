@@ -39,6 +39,7 @@ struct Player
     int live;
     ContainerKind containerKind;
     std::vector<std::string> entity;
+    double des_x, des_y; // hjx add
 };
 
 struct Entity
