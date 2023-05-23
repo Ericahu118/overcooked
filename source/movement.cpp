@@ -63,7 +63,7 @@ int bfs(int ptype, int des_x, int des_y)
         {
             int tmpx = cur.first + dx[d];
             int tmpy = cur.second + dy[d];
-            if (tmpx == des_x && tmpy == des_y)
+            if (tmpx == des_x && tmpy == des_y && Player_Map[cur.second][tmpx] == '.' && Player_Map[tmpy][cur.first] == '.')
             { // 找到了
                 father[tmpy][tmpx] = d;
                 flag = 1;
