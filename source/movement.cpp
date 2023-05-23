@@ -206,11 +206,11 @@ std::string frame_move(double des_x, double des_y, int ptype, int op)
     // fix
     if (Players[ptype].x - center > Players[ptype].des_x + 0.3)
         ret += "L";
-    if (Players[ptype].x + center < Players[ptype].des_x - 0.3)
+    if (Players[ptype].x < Players[ptype].des_x)
         ret += "R";
     if (Players[ptype].y - center > Players[ptype].des_y + 0.3)
         ret += "U";
-    if (Players[ptype].y + center < Players[ptype].des_y - 0.3)
+    if (Players[ptype].y < Players[ptype].des_y)
         ret += "D";
     return ret;
 }
