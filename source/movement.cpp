@@ -33,10 +33,11 @@ int dy[8] = {-1, 1, 0, 0, -1, -1, 1, 1};
 int bfs(int ptype, int des_x, int des_y)
 {
     // 初始化
-    cerr << "bfs:des_x:" << des_x << " des_y:" << des_y << endl;
+    cerr << ptype << ": bfs:des_x:" << des_x << " des_y:" << des_y << endl;
     int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
-    cerr << Players[ptype].x - radius << " " << Players[ptype].y - radius << endl;
-    cerr << "bfs:x:" << x << " y:" << y << endl;
+    cerr << ptype << ": " << Players[ptype].x - radius << " " << Players[ptype].y - radius << endl;
+    cerr << ptype << ": "
+         << "bfs:x:" << x << " y:" << y << endl;
     Players[ptype].des_x = x;
     Players[ptype].des_y = y;
     // 清空
@@ -119,7 +120,8 @@ int bfs(int ptype, int des_x, int des_y)
             Player_Map[(int)Players[ptype].des_y][(int)Players[ptype].des_x] = ptype + '0'; // 打上标记
             st.pop();
         }
-        cerr << "bfs:pdesx:" << Players[ptype].des_x << " pdesy:" << Players[ptype].des_y << endl;
+        cerr << ptype << ": "
+             << "bfs:pdesx:" << Players[ptype].des_x << " pdesy:" << Players[ptype].des_y << endl;
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
