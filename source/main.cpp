@@ -349,9 +349,9 @@ int main()
                             Player_Map[i][j] = '.';
                     }
                 }
-                int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
+                /*int x = (Players[ptype].x - radius) / block, y = (Players[ptype].y - radius) / block;
                 cerr << "Now -1:" << ptype << ": " << x << " " << y << endl;
-                Player_Map[y][x] = ptype + '0';
+                Player_Map[y][x] = ptype + '0';*/
             }
             //}
         }
