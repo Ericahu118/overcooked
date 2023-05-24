@@ -12,6 +12,7 @@
 using namespace std;
 
 int curplates;
+int dirtycur;
 Task taketask[2 + 5];
 int curorder = -1;
 
@@ -146,7 +147,7 @@ Task arrangetask(int ptype)
         else
         {
 
-            if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
+            if ((dirtycur >= curplates - 1) && Players[ptype].containerKind == ContainerKind::None)
             {
                 for (int i = 0; i < entityCount; i++)
                 {

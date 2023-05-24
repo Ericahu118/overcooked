@@ -26,6 +26,7 @@ extern int recipeCount; // 菜谱种类,y
 extern struct Recipe Recipe[20 + 5];
 
 extern int curplates;
+extern int dirtycur;
 extern Task taketask[2 + 5];
 extern int curorder;
 
@@ -130,6 +131,15 @@ void init()
             break;
         }
     }
+
+    curplates = 0;
+    for (int i = 0; i < entityCount; i++)
+    {
+        if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+        {
+            curplates++;
+        }
+    }
 }
 
 int main()
@@ -166,12 +176,20 @@ int main()
         string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
-        curplates = 0;
+        /*curplates = 0;
         for (int i = 0; i < entityCount; i++)
         {
             if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
             {
                 curplates++;
+            }
+        }*/
+        dirtycur = 0;
+        for (int i = 0; i < entityCount; i++)
+        {
+            if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].entity.empty())
+            {
+                dirtycur++;
             }
         }
         for (int ptype = 0; ptype <= 1; ptype++)
