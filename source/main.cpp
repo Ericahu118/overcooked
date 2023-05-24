@@ -352,6 +352,14 @@ int main()
                 int x = Players[ptype].x / block, y = Players[ptype].y / block;
                 cerr << "Now -1:" << ptype << ": " << x << " " << y << endl;
                 Player_Map[y][x] = ptype + '0';
+                if (Player_Map[y][x + 1] == '$')
+                    playerAction[ptype] = "Move L";
+                else if (Player_Map[y][x - 1] == '$')
+                    playerAction[ptype] = "Move R";
+                else if (Player_Map[y - 1][x] == '$')
+                    playerAction[ptype] = "Move D";
+                else if (Player_Map[y + 1][x] == '$')
+                    playerAction[ptype] = "Move U";
             }
             //}
         }
