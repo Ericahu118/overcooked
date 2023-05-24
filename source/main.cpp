@@ -131,16 +131,6 @@ void init()
             break;
         }
     }
-
-    curplates = 0;
-    for (int i = 0; i < entityCount; i++)
-    {
-        if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
-        {
-            cerr << "cur" << endl;
-            curplates++;
-        }
-    }
 }
 
 int main()
@@ -162,7 +152,6 @@ int main()
     int totalFrame = 14400;
     cerr << "window: " << window.first << " " << window.second << endl;
     cerr << "sink: " << sink.first << " " << sink.second << endl;
-    cerr << "curplates" << curplates << endl;
     for (int i = 0; i < totalFrame; i++)
     {
         bool skip = frame_read(i);
@@ -177,14 +166,17 @@ int main()
         string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
-        /*curplates = 0;
-        for (int i = 0; i < entityCount; i++)
+        if (curplates == 0)
         {
-            if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+            for (int i = 0; i < entityCount; i++)
             {
-                curplates++;
+                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
+                {
+                    curplates++;
+                }
             }
-        }*/
+            cerr << "curplates" << curplates << endl;
+        }
         dirtycur = 0;
         for (int i = 0; i < entityCount; i++)
         {
