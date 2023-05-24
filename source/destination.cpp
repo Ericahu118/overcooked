@@ -147,7 +147,7 @@ Task arrangetask(int ptype)
         else
         {
 
-            if ((dirtycur >= curplates - 1) && Players[ptype].containerKind == ContainerKind::None)
+            if (curplates == 0 && Players[ptype].containerKind == ContainerKind::None)
             {
                 for (int i = 0; i < entityCount; i++)
                 {

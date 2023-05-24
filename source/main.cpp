@@ -166,18 +166,17 @@ int main()
         string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
-        if (curplates == 0)
+        curplates == 0;
+        for (int i = 0; i < entityCount; i++)
         {
-            for (int i = 0; i < entityCount; i++)
+            if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
             {
-                if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
-                {
-                    curplates++;
-                }
+                curplates += Entity[i].sum;
             }
-            cerr << "curplates" << curplates << endl;
         }
-        dirtycur = 0;
+        cerr << "curplates" << curplates << endl;
+
+        /*dirtycur = 0;
         for (int i = 0; i < entityCount; i++)
         {
             if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].entity.empty())
@@ -185,7 +184,7 @@ int main()
                 dirtycur += Entity[i].sum;
             }
         }
-        cerr << "dirplates" << dirtycur << endl;
+        cerr << "dirplates" << dirtycur << endl;*/
         for (int ptype = 0; ptype <= 1; ptype++)
         {
             taketask[ptype] = arrangetask(ptype);
