@@ -185,6 +185,7 @@ int main()
                 dirtycur++;
             }
         }
+        cerr << "dirplates" << dirtycur << endl;
         for (int ptype = 0; ptype <= 1; ptype++)
         {
             taketask[ptype] = arrangetask(ptype);
