@@ -182,7 +182,7 @@ int main()
         {
             if (Entity[i].containerKind == ContainerKind::DirtyPlates && Entity[i].entity.empty())
             {
-                dirtycur++;
+                dirtycur += Entity[i].sum;
             }
         }
         cerr << "dirplates" << dirtycur << endl;
