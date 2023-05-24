@@ -166,12 +166,12 @@ int main()
         string playerAction[2 + 5];
         playerAction[0] = "Move";
         playerAction[1] = "Move";
-        curplates == 0;
+        curplates = 0;
         for (int i = 0; i < entityCount; i++)
         {
             if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
             {
-                curplates += Entity[i].sum;
+                curplates++;
             }
         }
         cerr << "curplates" << curplates << endl;
