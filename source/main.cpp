@@ -137,6 +137,7 @@ void init()
     {
         if (Entity[i].containerKind == ContainerKind::Plate && Entity[i].entity.empty())
         {
+            cerr << "cur" << endl;
             curplates++;
         }
     }
@@ -194,8 +195,6 @@ int main()
         }
         for (int ptype = 0; ptype <= 1; ptype++)
         {
-            // if (!(taketask[ptype].id == 2 && curplates == 0))
-            //{
             taketask[ptype] = arrangetask(ptype);
             if (taketask[ptype].id != -1)
             {
